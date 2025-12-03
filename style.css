@@ -1,0 +1,4154 @@
+#modal-minimize-media .cross-box.bw-active {
+  border: none !important;
+}
+
+/* Lock the brand title color while any popup/modal is open so it doesn't
+   change to a brighter green or other accent when overlays appear. */
+body.modal-open .brand h1,
+body.popup-open .brand h1 {
+  color: var(--green-offline) !important; /* keep the offline/neutral title color */
+  position: relative !important;
+  z-index: 20001 !important;
+}
+
+/* In backlight mode, keep the brand title the strict backlight black-ish color
+   when popups/modals are open so it's not brightened by overlay interactions */
+body.backlight-mode.modal-open .brand h1,
+body.backlight-mode.popup-open .brand h1 {
+  color: #252525 !important;
+  position: relative !important;
+  z-index: 20001 !important;
+}
+
+/* Energy Tip modal: when hovering or focusing the Close (X) button,
+   make the Energy Tip title become the offline gray (#606060). */
+#modal-backlight-caution .modal-close:hover + #modal-backlight-caution-title,
+#modal-backlight-caution .modal-close:focus + #modal-backlight-caution-title,
+#modal-backlight-caution .modal-dialog.close-hover #modal-backlight-caution-title {
+  color: #606060 !important;
+}
+
+
+
+/* Backlight mode: moving -> black, idle -> gray (override earlier cursor rules) */
+body.backlight-mode.cursor-moving,
+body.backlight-mode.cursor-moving *,
+body.backlight-mode.cursor-moving *::before,
+body.backlight-mode.cursor-moving *::after {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="%232525"/></svg>') 8 8, auto !important;
+}
+
+body.backlight-mode:not(.cursor-moving),
+body.backlight-mode:not(.cursor-moving) *,
+body.backlight-mode:not(.cursor-moving) *::before,
+body.backlight-mode:not(.cursor-moving) *::after {
+  /* idle cursor in backlight mode should match our gray variable (#444) */
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="%236060"/></svg>') 8 8, auto !important;
+}
+
+/* Preserve native cursors for form controls */
+input, textarea, select, button, a, label, [role="button"] {
+  cursor: auto !important;
+}
+body.backlight-mode #modal-minimize-media .cross-box.bw-active,
+body.backlight-mode #modal-minimize-media .cross-box.color-active {
+  border: none !important;
+}
+#modal-minimize-media .cross-box.color-active {
+  border: none !important;
+}
+body:not(.backlight-mode) #modal-minimize-media .cross-box img[src*="Color.jpg"] {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+body:not(.backlight-mode) #modal-minimize-media .cross-box.color-active {
+  border: none !important;
+}
+/* Remove border, box-shadow, and outline from Color image in cross-box */
+#modal-minimize-media .cross-box img[src*="Color.jpg"] {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+#modal-minimize-media .cross-box.color-active {
+  border: none !important;
+}
+body.backlight-mode #modal-minimize-media .cross-box.dithered-active,
+body.backlight-mode #modal-minimize-media .cross-box.dithered-active img#crossbox-image,
+body.backlight-mode #modal-minimize-media .cross-box.dithered-active img[src*="B&W.jpg"],
+body.backlight-mode #modal-minimize-media .cross-box.dithered-active img[src*="Color.jpg"] {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+body.backlight-mode #modal-minimize-media .cross-box.dithered-active,
+body.backlight-mode #modal-minimize-media .cross-box.dithered-active img#crossbox-image,
+body.backlight-mode #modal-minimize-media .cross-box.dithered-active img[src*="B&W.jpg"] {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.crossbox-menu-item:hover {
+  color: var(--green-active, #00C853) !important;
+  cursor: pointer;
+}
+body:not(.backlight-mode) #modal-minimize-media #crossbox-size {
+  background: #000 !important; /* force pure black in green mode */
+  color: var(--green-active, #00C853) !important;
+}
+body.backlight-mode #modal-minimize-media #crossbox-size {
+  background: #fff !important; /* pure white background in backlight mode */
+  color: #444 !important;
+}
+body.backlight-mode #modal-minimize-media .cross-box.dithered-active {
+  border: none !important;
+  border-color: transparent !important;
+  border-width: 0 !important;
+}
+body.backlight-mode .cross-box.dithered-active img#crossbox-image {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+body.backlight-mode .cross-box.dithered-active {
+  border: none !important;
+  border-color: transparent !important;
+  border-width: 0 !important;
+}
+/* Remove border from dithered image in both modes */
+.cross-box.dithered-active img#crossbox-image {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+body.backlight-mode .cross-box.dithered-active img#crossbox-image {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+/* Remove border from image in cross-box when dithered-active is set */
+.cross-box.dithered-active img {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+/* Hide border of cross-box when Dithered is active */
+.cross-box.dithered-active {
+  border: none !important;
+}
+/* Prevent hover/focus effect on lowimapc.design in backlight mode */
+body.backlight-mode a[href*="lowimapc.design"]:hover,
+body.backlight-mode a[href*="lowimapc.design"]:focus {
+  color: inherit !important;
+  text-decoration: none !important;
+  cursor: default !important;
+}
+footer::before {
+  content: "";
+  position: absolute;
+  height: var(--line-thickness);
+  background: var(--line-color);
+  transition: background var(--transition-speed) ease;
+  display: block;
+  pointer-events: none;
+  left: var(--line-left);
+  right: var(--line-right);
+  top: 0;
+}
+
+/* Backlight-mode: keep footer child sections transparent so tightened
+   spacing (negative margins) doesn't produce overlapping white boxes. Text
+   color remains the backlight gray. This overrides broader rules that set
+   footer children to white backgrounds. */
+body.backlight-mode footer section,
+body.backlight-mode footer section * {
+  background: transparent !important;
+  color: #444 !important;
+}
+body.backlight-mode footer::before {
+  background: #000 !important;
+}
+body.backlight-mode nav ul.menu > li:not(:last-child)::after {
+  background: #000 !important;
+}
+body.backlight-mode .modal-close:focus,
+body.backlight-mode .modal-close:hover {
+  background: transparent !important;
+  outline: none !important;
+}
+body.backlight-mode footer,
+body.backlight-mode footer * {
+  background: #fff !important;
+  color: #444 !important;
+}
+/* Green mode: mode toggle button hover/focus uses green-active */
+#mode-toggle:hover,
+#mode-toggle:focus {
+  color: var(--green-active) !important;
+  border-color: var(--green-active) !important;
+}
+/* Center all modal-dialog popups on the page */
+.modal[aria-hidden="true"] {
+  display: none;
+}
+.modal[aria-hidden="false"] {
+  display: block;
+  pointer-events: auto;
+  user-select: none !important;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  background: rgba(0,0,0,0.18);
+}
+/* Default modal dialog centering */
+.modal-dialog {
+  margin: auto;
+}
+
+/* Constrain modal size and make inner body scrollable when content overflows.
+   This ensures long modal content (text, references) can be scrolled on small
+   viewports or when content is taller than the viewport. */
+.modal-dialog {
+  max-width: 900px;
+  width: calc(100% - 48px);
+  max-height: 90vh;
+  box-sizing: border-box;
+  position: relative; /* ensure absolutely positioned children (close button) stay fixed relative to dialog */
+  overflow: hidden; /* keep header/footer visible, scroll inside .modal-body */
+  background: inherit; /* keep existing background rules */
+}
+.modal-dialog {
+  display: flex;
+  flex-direction: column;
+}
+.modal-dialog .modal-body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  flex: 1 1 auto;
+  min-height: 0; /* allow proper flexbox overflow on WebKit/Blink */
+  padding: 0.5rem 0 0.5rem 0;
+  /* Hide visible scrollbars but keep scrolling functional */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.modal-dialog .modal-body::-webkit-scrollbar {
+  width: 0; /* hide webkit scrollbar */
+  height: 0;
+}
+
+/* Make backlight caution modal smaller from left and right */
+#modal-backlight-caution .modal-dialog {
+  max-width: calc(100vw - 800px);
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Energy tip (backlight caution) Done button styling
+   Default: gray (#606060). Hover/focus: black-ish (#252525).
+   Use !important to override the inline styles present in `index.html`. */
+#modal-backlight-caution-done,
+#modal-backlight-caution .modal-done {
+  background: #606060 !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 0.5em 1.2em !important;
+  font-size: 1em !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: background 120ms ease !important;
+}
+#modal-backlight-caution-done:hover,
+#modal-backlight-caution-done:focus,
+#modal-backlight-caution .modal-done:hover,
+#modal-backlight-caution .modal-done:focus {
+  background: #252525 !important;
+  color: #ffffff !important;
+  outline: none !important;
+}
+body.backlight-mode html {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%232525" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+body.backlight-mode html,
+body.backlight-mode body,
+body.backlight-mode *,
+body.backlight-mode *::before,
+body.backlight-mode *::after {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%232525" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+body.backlight-mode *,
+body.backlight-mode *::before,
+body.backlight-mode *::after {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%232525" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+body.backlight-mode .energy-tooltip {
+  box-shadow: none !important;
+}
+body.backlight-mode .modal-close {
+  border: none !important;
+}
+
+body.backlight-mode .modal-close,
+body.backlight-mode .modal-dialog .modal-close {
+  border: none !important;
+  box-shadow: none !important;
+  color: #444 !important;
+}
+body.backlight-mode footer,
+body.backlight-mode footer * {
+  color: #444 !important;
+  background: #fff !important;
+}
+hr {
+  border: none;
+  border-top: 2px solid red !important;
+  background: none !important;
+}
+body.backlight-mode .submenu {
+  background: #fff !important;
+}
+body.backlight-mode .dropdown-content,
+body.backlight-mode .modal-dialog {
+  background: #fff !important;
+  border: 1px solid #fff !important;
+  box-shadow: none !important;
+}
+body.backlight-mode {
+  --green-active: #252525; /* black-ish as requested */
+  --green-offline: #606060; /* gray as requested */
+}
+body.backlight-mode .dropdown-content,
+body.backlight-mode .cross-box,
+body.backlight-mode .energy-tooltip {
+  background: #fff !important;
+}
+/* Green Mode (default) */
+body {
+  background: #000;
+  color: #007600;
+}
+nav, header, footer, .contact, .contact-name, .email, .contact-link {
+  background: #000;
+  color: #007600;
+}
+nav ul.menu,
+nav ul.menu > li,
+nav ul.menu > li > a,
+nav ul.menu > li > a .link-label,
+.dropdown-content a,
+.dropdown-content .link-label,
+.contact,
+.contact-name,
+.email,
+.contact-link {
+  color: #007600;
+  background: #000;
+}
+
+/* Backlight Mode */
+body.backlight-mode {
+  background: #fff;
+  color: #444;
+}
+body.backlight-mode nav,
+body.backlight-mode header,
+body.backlight-mode footer,
+body.backlight-mode .contact,
+body.backlight-mode .contact-name,
+body.backlight-mode .email,
+body.backlight-mode .contact-link {
+  background: #fff;
+  color: #444;
+}
+body.backlight-mode nav ul.menu,
+body.backlight-mode nav ul.menu > li,
+body.backlight-mode nav ul.menu > li > a,
+body.backlight-mode nav ul.menu > li > a .link-label,
+body.backlight-mode .dropdown-content a,
+body.backlight-mode .dropdown-content .link-label,
+body.backlight-mode .contact,
+body.backlight-mode .contact-name,
+body.backlight-mode .email,
+body.backlight-mode .contact-link {
+  color: #444;
+  background: #fff;
+  border-color: #444;
+}
+body.backlight-mode #mode-toggle {
+  /* Use strict black/white/gray palette in backlight mode */
+  background: #606060 !important; /* gray by default */
+  color: #ffffff !important; /* white text (allowed in backlight palette) */
+  border: 1px solid #ffffff !important;
+}
+body.backlight-mode #mode-toggle:hover,
+body.backlight-mode #mode-toggle:focus {
+  background: #252525 !important; /* become black-ish on hover */
+  color: #ffffff !important;
+}
+#backlight-tip {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  z-index: 2000;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  background: #000;
+  /* Use the active variable so this adapts in backlight mode to black/gray */
+  color: var(--green-active);
+  border: 1px solid var(--green-active);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+#backlight-tip:hover, #backlight-tip:focus {
+  color: var(--green-active);
+  border-color: var(--green-active);
+}
+.energy-usage-heading {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-top: 0; /* ensure heading sits flush with footer spacing */
+}
+.energy-tooltip {
+  display: none;
+  position: absolute;
+  left: -1px;
+  top: -68px;
+  background: #111;
+  color: var(--green-active);
+  border: 1px solid var(--green-active);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.95em;
+  z-index: 1002;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px #0006;
+  transition: top 140ms ease, transform 140ms ease, opacity 120ms ease;
+}
+.energy-usage-heading:hover + .energy-tooltip,
+.energy-usage-heading:focus + .energy-tooltip {
+  display: block;
+  /* nudge the popup 2px higher when visible */
+  transform: translateY(2px);
+}
+#modal-minimize-media .modal-dialog {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 400px;
+  max-height: 80vh;
+  padding-top: 0;
+  padding-bottom: 1.25rem;
+  position: relative;
+}
+#modal-minimize-media .modal-body {
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1 1 auto;
+  max-height: 100%;
+  -webkit-overflow-scrolling: touch;
+  padding-top: 0;
+  position: relative;
+}
+#modal-minimize-media .modal-body h2 {
+  margin-top: 24px;
+}
+#modal-minimize-media .modal-body { scrollbar-width: none; }
+#modal-minimize-media .modal-body::-webkit-scrollbar { width: 0; height: 0; }
+/* Cross box in Minimize Heavy Image/Video Content popup */
+.cross-box {
+  width: 700px;
+  max-width: 100%;
+  height: 200px;
+  margin: 0.4rem auto 0.4rem auto;
+  position: relative;
+  background: #000;
+  border: 1px solid var(--line-color) !important;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+.cross-box:hover,
+.cross-box:focus {
+  border-color: var(--green-active) !important;
+
+/* When Dithered is active, keep cross-box border offline green */
+#crossbox-dithered.active ~ .cross-box,
+#modal-minimize-media .crossbox-menu #crossbox-dithered.active ~ .cross-box {
+  border-color: var(--green-offline) !important;
+}
+}
+/* Separator in the cross-box menu (the '|' between options) should use offline green */
+.crossbox-sep {
+  color: var(--green-offline);
+  margin: 0 6px;
+  font-weight: 400;
+}
+
+/* Crossbox menu items: only active is bold */
+.crossbox-menu-item {
+  color: var(--green-offline);
+  cursor: pointer;
+  font-size: 1.08em;
+  font-weight: 400;
+  transition: color 0.2s, font-weight 0.2s;
+}
+.crossbox-menu-item.active {
+  color: var(--green-active);
+  font-weight: 400;
+}
+.crossbox-menu-item.inactive {
+  color: var(--green-offline) !important;
+  font-weight: 400;
+}
+
+/* Always show active green when a menu item is hovered or focused, even if marked inactive */
+.crossbox-menu-item.inactive:hover,
+.crossbox-menu-item:hover,
+.crossbox-menu-item.inactive:focus,
+.crossbox-menu-item:focus {
+  color: var(--green-active) !important;
+  cursor: pointer;
+}
+/* Forecast: heading + first item on the same line; others on new lines */
+footer .forecast h3 {
+  display: inline;
+  margin: 0;
+  margin-right: 0.25rem;
+}
+footer .forecast dl {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  white-space: normal;
+}
+footer .forecast dl > div {
+  display: block; /* stack day items */
+}
+footer .forecast dl > div:first-child {
+  display: inline; /* first item stays on the same line as heading */
+}
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --green-active: #00d200; /* active (bright) green */
+  --green-offline: #007600; /* offline (default) green */
+  --line-color: var(--green-offline); /* default line color (offline) */
+  --line-thickness: 1px;
+  --line-left: 40px; /* matches the container left padding */
+  --line-right: 40px; /* Updated to match the left margin */
+  /* Use a robust system font stack for all UI text */
+  --ui-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --transition-speed: 200ms; /* smooth color transition duration */
+}
+
+/* Enforce the system font everywhere to ensure consistent typography */
+html, body, h1, h2, h3, h4, h5, h6, p, a, li, dt, dd, button, input, textarea, select, .left-cta-text, .site-description, .brand {
+  font-family: var(--ui-font) !important;
+}
+
+/* Cursor handling
+   - Default (idle) state: show offline green cursor across the page (except in backlight-mode).
+   - Active (pointer moving): JS adds `body.cursor-moving` to switch to bright green.
+   - Preserve native cursors for form controls and interactive elements at all times. */
+
+/* Default offline green cursor when NOT in backlight mode */
+body:not(.backlight-mode) *,
+body:not(.backlight-mode) *::before,
+body:not(.backlight-mode) *::after {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23007600" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Active bright green cursor while pointer is moving (JS toggles `body.cursor-moving`) */
+body.cursor-moving *, body.cursor-moving *::before, body.cursor-moving *::after {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Preserve native cursors for form controls and interactive elements even when the
+   green cursor (offline or active) is applied so inputs remain usable and recognizable. */
+input, textarea, select, button, a, [role="button"], label {
+  cursor: auto !important;
+}
+
+/* Force the green circular cursor inside the footer for all body cursor states.
+   This targets the same body-level states used earlier so specificity matches
+   and the rule will override other declarations with equal specificity.
+*/
+/* Keep the green circular cursor in most footer areas, but explicitly
+   exclude the System Usage column so it never shows the green/pointer
+   cursor. System Usage is handled separately to ensure it uses a neutral
+   cursor (or inherits the platform default). */
+body.cursor-moving footer,
+body.cursor-moving footer *,
+body:not(.cursor-moving) footer,
+body:not(.cursor-moving) footer *,
+body.backlight-mode.cursor-moving footer,
+body.backlight-mode.cursor-moving footer *,
+body.backlight-mode:not(.cursor-moving) footer,
+body.backlight-mode:not(.cursor-moving) footer * {
+  /* apply green cursor to footer except System Usage (handled separately) */
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Strong overrides for specific footer columns to beat existing default/pointer rules
+   that target deep selectors (e.g. `footer .system-usage dl > div { cursor: default !important; }`).
+   We combine the body-state classes with the full column selectors so specificity
+   is higher than the conflicting rules and the green-circle cursor wins everywhere
+   inside these footer columns.
+*/
+/* Apply green cursor to footer columns except `.system-usage`. The
+   System Usage column must not show the pointer/hand cursor. */
+body.cursor-moving footer .website-energy,
+body.cursor-moving footer .website-energy *,
+body:not(.cursor-moving) footer .website-energy,
+body:not(.cursor-moving) footer .website-energy *,
+body.cursor-moving footer .server-stats,
+body.cursor-moving footer .server-stats *,
+body:not(.cursor-moving) footer .server-stats,
+body:not(.cursor-moving) footer .server-stats *,
+body.cursor-moving footer .forecast,
+body.cursor-moving footer .forecast *,
+body:not(.cursor-moving) footer .forecast,
+body:not(.cursor-moving) footer .forecast * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Also override very specific row selectors used by System Usage to ensure the
+   green cursor appears even on those dt/dd rows. */
+/* Do not force green cursor on System Usage rows. Keep the platform
+   default or a neutral cursor so the hand/pointer never appears there. */
+body.cursor-moving footer .system-usage dl > div,
+body.cursor-moving footer .system-usage dl > div *,
+body:not(.cursor-moving) footer .system-usage dl > div,
+body:not(.cursor-moving) footer .system-usage dl > div * {
+  cursor: inherit !important;
+}
+
+body {
+  background: #000;
+  color: var(--line-color); /* use green */
+  font-family: var(--ui-font);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  user-select: none; /* Disable text selection on the entire website */
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+header {
+  position: relative; /* needed for the pseudo-element */
+  background: #000;
+  padding: 1.5rem 1rem 0 1rem; /* reduced bottom padding so the bottom line sits closer to the menu */
+  /* border-bottom removed in favor of an inset pseudo-element */
+  color: var(--line-color); /* use green */
+  text-align: left; /* Ensure left alignment for all header elements */
+  padding-left: 0; /* Align with the left side */
+}
+h1 {
+  margin: 10px 0 0 0; /* add 10px space above the title */
+  display: inline-block; /* limit hover area to the text width */
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+  color: var(--green-offline); /* title uses offline green by default */
+  text-align: left; /* Explicitly align header text to the left */
+  transition: color var(--transition-speed) ease;
+  position: relative;
+  z-index: 10010; /* keep the site title above popup modals (modals use z-index:9999) */
+}
+/* Title becomes active green only when muse is on and the title/description is hovered or focused */
+body.muse-on header.title-hover h1 {
+  color: var(--green-active);
+}
+/* Title becomes active green when hovered or keyboard-focused */
+h1:hover,
+h1:focus,
+h1:focus-visible {
+  color: var(--green-active);
+}
+nav {
+  position: relative;
+  z-index: 50;
+  /* border-top removed in favor of an inset pseudo-element */
+  margin-top: 4px; /* reduced space between title and menu */
+  padding-top: 0; /* reduce spacing so top line sits 5px from the menu */
+  padding-bottom: 0; /* ensure bottom line sits 5px from the menu */
+  margin-bottom: 0; /* remove previous bottom margin */
+}
+nav ul.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* default gap between the About left edge and the decorative vertical line
+    negative value moves the separator left of the About <li>; 15px gap -> -15px */
+  /* make the gap between the separator and the About left edge 15px
+    gap = -(--about-sep-left) - separator_thickness
+    with separator thickness 1px, set --about-sep-left = -16px */
+  --about-sep-left: -16px;
+  /* position the menu so its left edge sits 10px from the page left
+     regardless of container padding. We subtract the container/line inset
+     (var(--line-left)) so this works even if that value changes. */
+  margin-left: calc(55px - var(--line-left, 40px));
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap; /* Prevent wrapping to the next line */
+  justify-content: flex-start; /* Align items to the left */
+  overflow-x: visible; /* Allow items to render fully */
+  overflow-y: visible; /* Ensure dropdowns can extend downward */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  white-space: nowrap; /* Prevent wrapping of menu items */
+}
+
+nav ul.menu > li {
+  position: relative;
+  /* evenly distribute available space so all top-level items remain visible */
+  flex: 0 0 auto; /* Prevent flexible growth */
+  margin-right: 10px; /* Increased spacing between menu items by 5px */
+}
+
+/* Small left margin so the nav menu doesn't sit flush against the container edge */
+nav > ul.menu {
+  margin-left: 16px;
+}
+
+/* Draw a decorative vertical separator immediately between "About" and
+  "Foundations" by placing a ::before pseudo-element on the following
+  <li>. JS will add the `sep-before-foundations` class to the Foundations
+  <li> so the separator sits exactly in the midpoint between the two
+  items. This avoids changing HTML markup and keeps the visual separator
+  consistent with the other ::after separators. */
+nav ul.menu > li.sep-before-foundations::before {
+  content: "";
+  position: absolute;
+  /* top and left are driven by JS-calculated CSS variables for pixel-perfect placement
+     --about-sep-top: percentage (e.g. "50%") relative to the about <li> height
+     --about-sep-left: pixel offset (e.g. "-12px") from the about <li> left edge
+     Fallback values keep the previous behavior if JS isn't available. */
+  top: var(--about-sep-top, 50%);
+  transform: translateY(-50%);
+  left: var(--about-sep-left, -12px); /* place slightly left so it sits between previous item and About */
+  width: var(--line-thickness);
+  height: 1rem;
+  background: var(--line-color);
+  display: block;
+  pointer-events: none;
+}
+/* Backlight mode: make the separator black so it matches other elements */
+body.backlight-mode nav ul.menu > li.sep-before-foundations::before {
+  background: #000;
+}
+
+/* Restore the original decorative vertical separator immediately before the
+   About menu item (this preserves the previously-requested line that sits
+   to the left of About). JS will still compute and place the separator
+   between About and Foundations on the `sep-before-foundations` element,
+   but keeping this rule ensures the left-of-About line is not removed. */
+nav ul.menu > li.is-about-first::before {
+  content: "";
+  position: absolute;
+  top: var(--about-left-sep-top, 50%);
+  transform: translateY(-50%);
+  left: var(--about-left-sep-left, -16px);
+  width: var(--line-thickness);
+  height: 1rem;
+  background: var(--line-color);
+  display: block;
+  pointer-events: none;
+}
+body.backlight-mode nav ul.menu > li.is-about-first::before {
+  background: #000;
+}
+
+/* NOTE: we intentionally keep the automatic ::after separators to preserve
+  the familiar vertical rule after top-level items like About. The JS-driven
+  `sep-before-foundations` element draws an additional positioned separator
+  (the exact midpoint) but we avoid hiding the original ::after so the
+  default visual rhythm remains unchanged. */
+
+nav ul.menu > li:last-child {
+  margin-right: 0; /* Remove margin for the last item */
+}
+
+nav ul.menu > li:not(:last-child)::after {
+  /* vertical separator using the shared line thickness */
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -6px;
+  width: var(--line-thickness);
+  height: 1rem; /* approximate separator height */
+  background: var(--line-color);
+  display: block;
+}
+
+/* If a specific top-level item (e.g. "Hardware & Devices") needs a separator
+   even when it's the last-child, add the `has-after` class to that <li> and
+   this rule will draw the identical vertical separator. */
+nav ul.menu > li.has-after::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -6px;
+  width: var(--line-thickness);
+  height: 1rem;
+  background: var(--line-color);
+  display: block;
+}
+
+body.backlight-mode nav ul.menu > li.has-after::after {
+  background: #000 !important;
+}
+
+/* Utility: hide the automatic ::after separator for specific items
+   JS will add the `no-after` class to any <li> that should not show
+   the default trailing separator (we use this to avoid duplicate lines). */
+nav ul.menu > li.no-after::after {
+  content: none !important;
+}
+
+nav ul.menu > li:first-child a {
+  padding-left: 0; /* remove left padding so text lines up with h1 */
+  text-align: left;
+}
+  nav a {
+  color: var(--line-color); /* use default line color */
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 12px 8px; /* reduced horizontal padding for tighter spacing */
+  display: block; /* make the whole menu item clickable and fill the li */
+  width: 100%;
+  text-align: left; /* left-align link text */
+  /* Keep top-level labels on one line on large viewports, show ellipsis if they're too long */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer; /* make interactive items obvious */
+  -webkit-tap-highlight-color: transparent;
+  font-size: 0.9rem; /* slightly smaller label to help long text fit */
+  transition: color var(--transition-speed) ease;
+}
+
+/* Highlight the hovered menu item and dim the rest */
+nav ul.menu > li > a {
+  transition: color var(--transition-speed) ease;
+}
+
+/* When the user hovers or focuses the menu as a whole, dim all items */
+/* no dimming of other menu items on hover */
+
+/* Make the hovered (or keyboard-focused) item full green */
+nav ul.menu > li:hover > a,
+nav ul.menu > li:focus-within > a {
+  color: var(--green-active);
+}
+
+/* Make hovered items appear bright */
+/* Prefer highlighting only the label text inside anchors */
+nav ul.menu > li:hover > a .link-label,
+nav ul.menu > li:focus-within > a .link-label,
+.dropdown-content a:hover .link-label,
+.dropdown-content a:focus .link-label {
+  color: var(--green-active);
+}
+
+/* Fallback: make the anchor color change as well so keyboard focus remains visible */
+nav ul.menu > li:hover > a,
+nav ul.menu > li:focus-within > a,
+.dropdown-content a:hover,
+.dropdown-content a:focus {
+  color: var(--green-active);
+}
+
+/* Dim the separators when the menu is hovered, but make the hovered item's separator bright */
+/* separators remain unchanged on general hover */
+nav ul.menu > li:hover:not(:last-child)::after,
+nav ul.menu > li:focus-within:not(:last-child)::after {
+  color: var(--green-active);
+}
+
+/* On hover, separators should appear bright */
+nav ul.menu > li:hover:not(:last-child)::after,
+nav ul.menu > li:focus-within:not(:last-child)::after {
+  color: var(--green-active);
+}
+
+/* Force the `.is-about-first` separator to also be dim when that About item is hovered/focused */
+nav ul.menu > li.is-about-first:hover:not(:last-child)::after,
+nav ul.menu > li.is-about-first:focus-within:not(:last-child)::after {
+  color: var(--green-active);
+}
+
+/* When hovering over dropdown content, dim separators and other items as well */
+/* no dimming of other menu items when dropdown hovered */
+/* separators remain unchanged when dropdown hovered */
+
+/* Make sure top-level menu labels can wrap but drop-down links keep their padding */
+nav > ul.menu > li > a { 
+  line-height: 1.15;
+}
+
+/* Dropdowns use black background + green border */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  left: 0; /* left align dropdown by default */
+  background: #000;
+  width: auto; /* Adjust width dynamically */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  margin: 0;
+  border: var(--line-thickness) solid var(--line-color); /* restore box border */
+  border-radius: 0; /* no carving/rounded corners */
+  overflow: hidden;
+  z-index: 100;
+  color: var(--line-color);
+  top: calc(100% + 6px);
+  left: -5px;
+}
+
+/* Unify dropdown-content padding and alignment for all dropdowns */
+.dropdown > .dropdown-content {
+  /* Grow the dropdown box by 1px on all sides */
+  padding-right: calc(15px);
+  padding-left: calc(15px);
+  padding-bottom: 8px;
+  padding-top: 5px;
+  margin-top: 4px;
+  width: auto;
+}
+.dropdown.left-anchor > .dropdown-content {
+  left: 0;
+}
+.dropdown .dropdown-content a {
+  padding-left: 0;
+}
+.dropdown-content li {
+  /* remove divider between dropdown items */
+  border-bottom: none;
+}
+.dropdown-content li:last-child {
+  border-bottom: none;
+}
+.dropdown-content a {
+  padding: .4rem 1rem;
+  width: 100%;
+  display: block;
+  color: var(--line-color);
+  text-align: center;
+  padding-left: 0px; /* reduced side padding to 20px */
+  padding-right: 0px; /* reduced side padding to 20px */
+  font-weight: normal; /* make dropdown items non-bold */
+  transition: color var(--transition-speed) ease;
+}
+
+/* Nested submenu styling */
+.submenu {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: #000;
+  border-top: none;
+}
+.has-submenu > .submenu-toggle { display: block; }
+.has-submenu.open > .submenu { display: block; }
+/* Keep the submenu toggle (e.g., "Foundational Practices") active green when expanded */
+.has-submenu.open > .submenu-toggle,
+.has-submenu.open > .submenu-toggle .link-label {
+  color: var(--green-active);
+}
+.submenu li { border-bottom: none; }
+.submenu a { padding: .4rem 1.25rem; display: block; font-style: italic; }
+/* Indent submenu items slightly to match requested 10px left margin */
+.submenu a { margin-left: 10px; }
+
+/* Remove default bullets and ensure dropdown lists have no indentation */
+.dropdown-content, nav ul.menu {
+  list-style: none;
+}
+
+/* Modal styles */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.6);
+  padding: 0;
+  z-index: 1000;
+  color: var(--line-color);
+  pointer-events: auto;
+}
+.modal.open { display: flex; }
+.modal-dialog {
+  background: #000;
+  color: var(--green-offline);
+  max-width: 720px;
+  width: 100%;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 8px 36px rgba(0,0,0,0.75);
+  outline: none;
+  position: relative; /* contain the close button */
+  border: var(--line-thickness) solid var(--line-color); /* 1px box around popup */
+  transition: border-color var(--transition-speed) ease, color var(--transition-speed) ease;
+  max-height: 400px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  scrollbar-gutter: stable;
+  margin: auto;
+}
+
+/* Smooth color transitions for modal text elements */
+.modal h2,
+.modal p,
+.modal dd,
+.modal dt,
+.modal li,
+.modal span {
+  transition: color var(--transition-speed) ease;
+}
+
+/* Mission & Vision: fixed close button, inner scrollable body */
+#modal-mission .modal-dialog {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* prevent the dialog itself from scrolling */
+  /* Let the dialog size to its content so short modals don't show excess space */
+  height: auto;
+  max-height: 80vh; /* keep it responsive up to the viewport height */
+  padding-top: 0; /* no visible top margin */
+  padding-bottom: 1.25rem;
+  position: relative; /* anchor masking strip */
+}
+body.backlight-mode #modal-mission .modal-dialog {
+  background: #fff !important;
+  color: #2b2b2b !important;
+}
+body.backlight-mode #modal-mission .modal-dialog::before {
+  background: #fff !important;
+}
+
+/* Masking strip to hide top 24px of scrolling content without adding visible margin */
+#modal-mission .modal-dialog::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px; /* hidden "safe" zone height */
+  background: #000; /* same as modal background */
+  pointer-events: none;
+  z-index: 2; /* above content, below title */
+}
+#modal-mission .modal-body {
+  overflow-y: auto; /* scroll inside only */
+  min-height: 0;    /* allow flex child to shrink and scroll */
+  flex: 1 1 auto;   /* take available space so overflow can engage */
+  max-height: 100%;
+  -webkit-overflow-scrolling: touch; /* improve momentum scrolling */
+  padding-top: 0; /* content starts at top */
+  position: relative;
+}
+
+/* Open Access & Preservation: keep X fixed while content scrolls
+   Do not change the overall modal box size; only make inner content scroll. */
+#modal-open-access .modal-dialog {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* dialog itself does not scroll */
+  height: auto;
+  max-height: 80vh; /* keep responsive to viewport */
+  padding-top: 0;
+  padding-bottom: 1.25rem;
+  position: relative; /* anchor fixed elements like the close button */
+}
+#modal-open-access .modal-body {
+  overflow-y: auto; /* only the body scrolls */
+  min-height: 0;
+  flex: 1 1 auto;
+  max-height: 300px;
+  -webkit-overflow-scrolling: touch;
+  padding-top: 0;
+  position: relative;
+}
+/* Hide scrollbars visually to match other modal styles (keeps layout tidy) */
+#modal-open-access .modal-body { scrollbar-width: none; }
+#modal-open-access .modal-body::-webkit-scrollbar { width: 0; height: 0; }
+/* Keep the same top mask and title spacing as Mission & Vision so
+   the Open Access popup's top margin matches other popups. */
+#modal-open-access .modal-dialog::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px; /* hidden safe zone height */
+  background: #000; /* same as modal background */
+  pointer-events: none;
+  z-index: 2; /* above content, below title */
+}
+#modal-open-access .modal-body h2 {
+  margin-top: 24px; /* push title below hidden strip to match other modals */
+}
+
+/* Slight left offset for reference list items inside modals */
+.modal-references ol li {
+  margin-left: 6px;
+}
+
+/* Title will sit just below the 24px mask */
+#modal-mission .modal-body h2 {
+  margin-top: 24px; /* push title below hidden strip */
+}
+/* Hide scrollbar but keep scroll functionality */
+#modal-mission .modal-body { scrollbar-width: none; }
+#modal-mission .modal-body::-webkit-scrollbar { width: 0; height: 0; }
+
+/* Hover effect for Mission & Vision description list items */
+#modal-mission .modal-body dt:hover,
+#modal-mission .modal-body dd:hover {
+  color: var(--green-active);
+}
+
+/* (Removed Solar-specific inner scroll so only Mission & Vision scrolls) */
+
+/* Scrollbar styling for modal dialog - hide scrollbar but keep scrolling */
+.modal-dialog::-webkit-scrollbar {
+  width: 0px;
+  display: none;
+}
+.modal-dialog::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 8px 0;
+}
+.modal-dialog::-webkit-scrollbar-thumb {
+  background: var(--green-offline);
+  border-radius: 2px;
+  transition: background 140ms ease;
+}
+
+/* When modal dialog is hovered (active green), scrollbar becomes active green */
+.modal-dialog:hover::-webkit-scrollbar-thumb {
+  background: var(--green-active);
+}
+
+/* When close button is hovered (box is offline), scrollbar stays offline */
+.modal-dialog.close-hover::-webkit-scrollbar-thumb,
+.modal-dialog.close-hover:hover::-webkit-scrollbar-thumb {
+  background: var(--green-offline);
+}
+
+.modal-close {
+  position: absolute;
+  top: 0px; /* was 2px, now 2px closer to top */
+  right: 5px; /* was 7px, now 2px closer to right */
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  margin: 0;
+  color: var(--green-offline);
+  padding: 0px;
+  border-radius: 4px;
+  transition: color var(--transition-speed) ease;
+}
+.modal-close:hover {
+  color: var(--green-active);
+}
+.modal-close:focus {
+  outline: 2px solid rgba(0,0,0,0.25);
+  background: rgba(0,0,0,0.06);
+}
+.modal:not(#modal-green-tip):not(#modal-backlight-caution) .modal-dialog p {
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  text-align: justify;
+  text-justify: inter-word;
+  /* indent the first line of modal paragraphs to visually separate the lead line
+     but exclude Display Mode Tip (#modal-green-tip) and Energy Tip (#modal-backlight-caution) */
+  text-indent: 30px;
+  margin: 0 0 0.5rem;
+  line-height: 1.45;
+}
+
+/* Spacing for the Mission & Vision modal */
+.modal-vision { 
+  margin-top: 0.62rem !important;
+}
+
+/* When hovering the modal dialog, dim all paragraphs by default */
+.modal-dialog:hover p {
+  color: var(--green-offline);
+}
+
+/* When hovering Mission label, highlight both Mission label and its description */
+.modal-dialog p:has(strong):not(.modal-vision):hover,
+.modal-dialog p:has(strong):not(.modal-vision):hover + p:not(.modal-vision) {
+  color: var(--green-active) !important;
+  cursor: pointer;
+}
+
+/* When hovering Mission description, highlight both Mission label and description */
+.modal-dialog p:not(:has(strong)):not(.modal-vision):hover,
+.modal-dialog p:has(+ p:not(.modal-vision):hover):not(.modal-vision) {
+  color: var(--green-active) !important;
+  cursor: pointer;
+}
+
+/* When hovering Vision label, highlight both Vision label and its description */
+.modal-dialog p.modal-vision:hover,
+.modal-dialog p.modal-vision:hover + p {
+  color: var(--green-active) !important;
+  cursor: pointer;
+}
+
+/* When hovering Vision description, highlight both Vision label and description */
+.modal-dialog p.modal-vision + p:hover,
+.modal-dialog p.modal-vision:has(+ p:hover) {
+  color: var(--green-active) !important;
+  cursor: pointer;
+}
+
+/* Reduce spacing between Mission/Vision labels and their text */
+.modal-dialog p strong:only-child {
+  display: block;
+  margin-bottom: -0.37rem;
+}
+
+/* Reduce top spacing for all modal titles to match About popup */
+.modal-dialog h2 { 
+  margin-top: 0.25rem;
+  margin-bottom: 0.62rem;
+}
+
+/* Dialog active state on hover or keyboard focus */
+.modal-dialog:hover {
+  border-color: var(--green-active);
+  color: var(--green-active);
+}
+
+/* Removed overlay-hover rules to ensure the box reacts strictly to its own hover state */
+
+/* JS-driven override: when the dialog has .close-hover (X hovered/focused), force offline green */
+.modal.open .modal-dialog.close-hover,
+.modal .modal-dialog.close-hover {
+  border-color: var(--line-color) !important;
+  color: var(--green-offline) !important;
+}
+/* Keep offline even while hovered if close-hover is set */
+.modal .modal-dialog.close-hover:hover {
+  border-color: var(--line-color) !important;
+  color: var(--green-offline) !important;
+}
+
+/* When hovering X, make the title offline green too */
+.modal-dialog.close-hover h2 {
+  color: var(--green-offline) !important;
+}
+
+/* Allow the X to remain active-green on hover while the box is offline */
+
+/* When hovering the X button, keep the dialog in offline green (handled primarily via .close-hover class) */
+
+/* Close button becomes active only when hovered itself */
+
+/* Justify paragraphs site-wide and disable hyphenation */
+main p,
+footer p,
+.modal-dialog p,
+.site-description {
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  text-align: justify;
+  text-justify: inter-word;
+}
+.mock-figure {
+  margin: 1rem 0;
+  background: #000;
+  height: 180px;
+  border-radius: 6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color: var(--line-color);
+  font-weight:bold;
+}
+
+/* Solar modal: when there is no image, collapse the placeholder to remove large empty space */
+#modal-solar .mock-figure {
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+/* Left-align dropdown and submenu text */
+.dropdown-content a {
+  text-align: left;
+}
+
+/* Fine green rectangular outline around the Welcome section */
+main section {
+  border: 1px solid var(--line-color);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+}
+li.dropdown.show > .dropdown-content,
+li.dropdown:hover > .dropdown-content {
+  display: block;
+}
+li.dropdown.force-hide > .dropdown-content {
+  display: none !important;
+}
+/* When force-hide is active, prevent hover colors on menu items */
+li.dropdown.force-hide a .link-label,
+li.dropdown.force-hide a {
+  color: var(--green-offline) !important;
+}
+/* Same for standalone menu items with force-hide */
+li.force-hide a .link-label,
+li.force-hide a {
+  color: var(--green-offline) !important;
+}
+
+/* Responsive dropdown behaviour */
+@media (max-width: 700px) {
+  nav ul.menu {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  nav ul.menu > li {
+    width: 100%;
+  }
+
+  nav a {
+    padding: 0.75rem 1rem;
+    display: block;
+    white-space: normal; /* allow wrapping on small screens */
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  /* Make dropdowns expand in-flow on small screens */
+  .dropdown-content {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    border: none;
+    background: #000;
+    margin-top: 0;
+  }
+
+  .dropdown-content a {
+  color: var(--line-color);
+  text-align: left;
+  }
+
+  /* ensure dropdown items are visible when toggled */
+  li.dropdown.show > .dropdown-content {
+    display: block;
+  }
+
+  :root {
+    --line-left: 1rem;
+    --line-right: 1rem;
+  }
+
+  nav ul.menu > li { margin-right: 0; }
+  nav ul.menu > li:not(:last-child)::after { content: none; }
+
+  /* Remove right border on small screens */
+  footer .server-stats {
+    border-right: none;
+    padding-right: 0;
+  }
+
+  /* Adjusting the font for narrow screens to use system font */
+  /* nav links inherit system font from body */
+}
+
+main {
+  flex: 1;
+  padding: 2rem 1rem;
+  max-width: 720px;
+  margin: 0 auto;
+  padding-left: 1rem; /* Align with the left margin */
+}
+footer {
+  position: relative; /* needed for the pseudo-element */
+  background: #000;
+  text-align: center;
+  padding: 0.625rem 1rem; /* 10px top/bottom */
+  margin-bottom: 10px; /* ensure exact 10px gap below footer */
+  /* border-top removed in favor of an inset pseudo-element */
+  font-size: 0.95rem;
+  color: var(--line-color);
+}
+
+/* Layout for footer columns - keep Contact at the end */
+footer .container {
+  display: flex;
+  gap: 0; /* controlled by divider margins */
+  align-items: flex-start; /* align headings to the top so all sections look consistent */
+  justify-content: flex-start; /* we'll push contact with auto margin */
+  position: relative;
+  flex-wrap: wrap;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: var(--line-right);
+}
+
+/* Each footer section gets a flexible column */
+footer section {
+  flex: 0 0 auto; /* size to content */
+  min-width: 0; /* allow sections to shrink to fit content */
+  padding: 0 0.75rem; /* tighter horizontal padding so sections look similar */
+}
+
+/* Ensure contact aligns at the end on wide screens */
+footer .contact {
+  margin-left: auto; /* push to the right */
+  margin-right: 0; /* remove extra right spacing */
+  text-align: right;
+  margin-top: 0; /* must be 10px from the horizontal line (no extra top margin) */
+  font-size: 0.9rem;
+  color: var(--line-color);
+  margin-right: -30px;
+}
+
+/* Ensure all paragraphs in Contact inherit right alignment */
+footer .contact p {
+  text-align: right;
+}
+
+/* Ensure forecast and contact sit flush with the left line like Server Stats */
+footer .forecast,
+footer .contact {
+  padding-left: 0.75rem; /* restore default so only Server Stats aligns with the title */
+}
+
+footer .forecast dl {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start; /* align items under the Forecast heading */
+  flex-wrap: nowrap; /* keep items on a single row */
+  white-space: nowrap;
+  overflow-x: visible; /* avoid horizontal scrolling */
+  -webkit-overflow-scrolling: auto;
+}
+
+/* Final overrides: ensure cursor rules apply everywhere.
+   These come at the end of the file so they override earlier cursor declarations
+   (use !important where necessary). We still preserve native cursors for
+   form controls and interactive elements so UX remains standard. */
+
+/* Backlight mode cursors
+   - Idle (not moving): gray (#606060)
+   - Active (pointer moving -> body.cursor-moving + body.backlight-mode): black-ish (#252525)
+   These rules intentionally override earlier cursor declarations using !important. */
+/* Idle backlight-mode cursor: gray #606060 */
+body.backlight-mode:not(.cursor-moving),
+body.backlight-mode:not(.cursor-moving) *,
+body.backlight-mode:not(.cursor-moving) *::before,
+body.backlight-mode:not(.cursor-moving) *::after,
+body.backlight-mode:not(.cursor-moving) svg,
+body.backlight-mode:not(.cursor-moving) svg * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23606060" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Active backlight-mode cursor when pointer is moving: black-ish #252525 */
+body.backlight-mode.cursor-moving,
+body.backlight-mode.cursor-moving *,
+body.backlight-mode.cursor-moving *::before,
+body.backlight-mode.cursor-moving *::after,
+body.backlight-mode.cursor-moving svg,
+body.backlight-mode.cursor-moving svg * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23252525" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Active (pointer moving): bright green cursor everywhere except native controls */
+body.cursor-moving, body.cursor-moving *, body.cursor-moving *::before, body.cursor-moving *::after,
+body.cursor-moving svg, body.cursor-moving svg * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Idle (not moving) — offline dark green cursor across page (unless backlight-mode) */
+body:not(.backlight-mode):not(.cursor-moving), body:not(.backlight-mode):not(.cursor-moving) *,
+body:not(.backlight-mode):not(.cursor-moving) *::before, body:not(.backlight-mode):not(.cursor-moving) *::after,
+body:not(.backlight-mode):not(.cursor-moving) svg, body:not(.backlight-mode):not(.cursor-moving) svg * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23007600" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Preserve native cursors for form controls and common interactive elements at all times */
+input, textarea, select, button, a, label, [role="button"], input::placeholder {
+  cursor: auto !important;
+}
+
+/* Some browser-native controls inside SVG can inherit cursor; ensure links keep pointer */
+svg a, svg a * { cursor: pointer !important; }
+
+/* Restore the green circular cursor globally so rules that forced the
+   platform-default arrow do not win. This sets the custom green cursor
+   (external SVG asset preferred) with a data-URI fallback and keeps
+   native cursors for form controls via earlier rules. */
+html, body, html * , body * , *::before, *::after, svg, svg * {
+  cursor: url('/assets/green-cursor.svg') 8 8, url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, default !important;
+}
+/* Final safety: ensure Green (OLED) mode always shows the custom green
+   cursor inside the System Usage column. This is appended at EOF so it
+   wins over any earlier `cursor: default !important` selectors that
+   might still exist in the stylesheet. */
+/* Prevent forcing green cursor in System Usage — prefer to inherit/neutral
+   cursor so the CPU/RAM/Storage rows never show the hand/pointer. */
+body:not(.backlight-mode) footer .system-usage,
+body:not(.backlight-mode) footer .system-usage * {
+  cursor: inherit !important;
+}
+
+/* FINAL OVERRIDE: place at EOF so it wins over any earlier rules that
+   tried to force the platform default. This ensures the green circular
+   cursor appears site-wide. If you prefer not to force it for form
+   controls, we already preserved native cursors above. */
+html, body, * , *::before, *::after, svg, svg * {
+  cursor: url('/assets/green-cursor.svg') 8 8, url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, default !important;
+}
+
+/* Ensure hover/interactable states in System Usage use the custom green
+   cursor in Green (OLED) mode instead of the platform pointer/hand.
+   This override is deliberately specific and placed late so it wins
+   over earlier `cursor: pointer` rules while leaving backlight-mode
+   selectors untouched. */
+/* Do not change cursor to green when hovering elements inside System Usage. */
+body:not(.backlight-mode) footer .system-usage:hover,
+body:not(.backlight-mode) footer .system-usage:focus,
+body:not(.backlight-mode) footer .system-usage *:hover,
+body:not(.backlight-mode) footer .system-usage *:focus,
+body:not(.backlight-mode) footer .system-usage #system-cpu:hover,
+body:not(.backlight-mode) footer .system-usage #system-cpu:focus,
+body:not(.backlight-mode) footer .system-usage #system-ram:hover,
+body:not(.backlight-mode) footer .system-usage #system-ram:focus,
+body:not(.backlight-mode) footer .system-usage #system-mem:hover,
+body:not(.backlight-mode) footer .system-usage #system-mem:focus {
+  cursor: inherit !important;
+}
+
+/* Ensure footer uses the backlight (black/gray) cursor when in backlight-mode.
+   This rule is intentionally placed after the global green override so it wins
+   for `footer` when `body.backlight-mode` is active. */
+body.backlight-mode footer,
+body.backlight-mode footer *,
+body.backlight-mode footer *::before,
+body.backlight-mode footer *::after {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23252525" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Prevent pointer/hand cursor specifically on the System Usage rows WHEN
+   IN BACKLIGHT MODE so hovering CPU/CPU Temp/RAM/Storage doesn't show the
+   clickable hand in backlight-mode. In green (default) mode these rows
+   will behave normally (show pointer/hand where appropriate). */
+body.backlight-mode footer .system-usage,
+body.backlight-mode footer .system-usage *,
+body.backlight-mode footer .system-usage dt,
+body.backlight-mode footer .system-usage dd,
+body.backlight-mode footer .system-usage dl > div {
+  cursor: inherit !important;
+}
+
+/* Backlight mode: prevent System Usage column hover/focus from changing text color
+   The site has many hover rules that turn items green; in backlight mode we
+   want the System Usage column to remain visually static (no color change).
+   Use !important and a body.backlight-mode prefix so this wins over prior rules. */
+body.backlight-mode footer .system-usage:hover,
+body.backlight-mode footer .system-usage:focus-within,
+body.backlight-mode footer .system-usage:hover *,
+body.backlight-mode footer .system-usage:focus-within * {
+  color: #444 !important; /* match backlight text color */
+  transition: none !important; /* avoid any transition to green */
+}
+
+
+/* Use system emoji for weather icons: keep them aligned with text */
+.forecast .icon {
+  font-size: 1.1rem;
+  display: inline-block;
+  width: 1.6rem;
+  text-align: center;
+  margin-right: 0.35rem;
+}
+
+.weather-symbol { display:inline-block; width:1.6rem; text-align:center; margin-right:0.35rem; }
+
+/* removed: .forecast-updated */
+.sr-only { position: absolute !important; left: -10000px !important; top: auto !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
+.server-inline { color: var(--line-color); font-size: 0.95rem; }
+
+footer .forecast dl div {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem; /* Match spacing style with Server Stats */
+}
+
+@media (max-width: 700px) {
+  footer .forecast dl {
+    flex-wrap: wrap;
+    white-space: normal;
+    overflow-x: visible;
+    gap: 0.5rem;
+  }
+}
+
+footer .forecast dl div {
+  display: inline-flex; /* keep label and value together */
+  align-items: center;
+  gap: 0.5rem;
+  flex-direction: row-reverse;
+}
+
+/* Responsive: stack footer sections on small screens */
+@media (max-width: 700px) {
+  footer .container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  footer .contact { text-align: left; }
+}
+
+@media (max-width: 800px) {
+  footer .container::before { display: none; }
+  footer .container { display: block; }
+  footer .container > section { padding: 0.4rem 0; }
+}
+
+footer .server-stats dl {
+  display: flex;
+  flex-wrap: nowrap; /* keep items on a single row */
+gap: calc(0.6rem + 5px);
+  align-items: center;
+  overflow-x: visible; /* prevent horizontal scrolling */
+  -webkit-overflow-scrolling: auto;
+  white-space: nowrap;
+  font-size: 0.95rem;
+  margin: 0; /* ensure same spacing as other footer sections */
+  padding: 0; /* remove default dl padding */
+}
+
+footer .server-stats dl div {
+  display: inline-flex; /* keep label and value together */
+  align-items: center;
+  gap: 0.0rem; /* Reduce spacing between label and value pairs */
+  white-space: nowrap;
+  padding-top: 0px; /* Reduce padding to 5px */
+  padding-bottom: 0px; /* Ensure consistent spacing */
+  /* no positioning needed (no separators) */
+}
+
+/* Give the Location row (first entry) in Server Stats a small top offset
+   so the 'Location' label and its value sit slightly lower for visual balance. */
+footer .server-stats dl > div:first-child dt {
+  display: inline-block; /* allow vertical margin to take effect */
+  margin-top: 2px;
+}
+footer .server-stats dl > div:first-child {
+  padding-top: 2px;
+}
+footer .server-stats dl > div:first-child dd,
+#server-location {
+  display: inline-block; /* allow vertical offsets */
+  margin-top: 2px;
+}
+
+/* Put a colon after each label (dt) for Server Stats */
+footer .server-stats dt::after { content: ":"; margin-right: 0.15rem; }
+
+footer .server-stats dt,
+footer .server-stats dd {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+/* Removed vertical separators for server stats */
+
+/* Description label becomes active-green when hovered or focused */
+.site-description {
+  display: inline-block; /* limit hover area to visible text */
+  transition: color var(--transition-speed) ease;
+}
+/* Make description fade to active green like the title on hover/focus */
+.site-description:hover,
+.site-description:focus,
+.site-description:focus-visible,
+.site-description:focus-within {
+  color: var(--green-active);
+}
+
+/* Brand layout: description to the left of title */
+.brand {
+  display: flex;
+  flex-direction: column; /* description sits under the title */
+  align-items: flex-start; /* align title and description to the left */
+  gap: 0.25rem;
+}
+.brand .site-description {
+  display: block;
+  margin: 10px 0 0 0; /* small top margin under the title */
+  max-width: none;
+  margin-bottom: 5px;
+}
+.brand h1 { margin: 10px 0 0 0; }
+
+@media (max-width: 700px) {
+  .brand { flex-direction: column; align-items: flex-start; }
+}
+
+/* Site description hover no longer triggers global color changes */
+
+.container {
+  max-width: 100%; /* allow full width so the menu doesn't compress */
+  margin: 0;
+  padding-left: 40px; /* Add 40px left padding to prevent content from touching the viewport edge */
+  padding-right: 1rem;
+}
+
+/* Ensure the entire container aligns to the left */
+.container {
+  margin-left: 0; /* Align container to the left */
+  margin-right: auto; /* Keep right margin auto for centering */
+}
+
+header .container {
+  max-width: 100%; /* allow the header to span the full viewport so the menu items have room */
+  width: 100%;
+  padding-left: 40px;
+  padding-right: 1rem;
+}
+
+header .container, footer .container {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+main .container {
+  padding-top: 1rem;
+}
+
+/* Ensure all text under <h1> is aligned to the left */
+h1 + div {
+  text-align: left; /* Align text to the left */
+}
+
+/* Ensure the entire container is aligned to the left */
+.container {
+  margin: 0;
+  padding-left: 25px; /* Add 40px left padding to prevent content from touching the viewport edge */
+}
+
+/* Draw the inset green lines using pseudo-elements so left/right margins match the container */
+header::after {
+  content: "";
+  position: absolute;
+  height: var(--line-thickness);
+  background: var(--line-color);
+  transition: background var(--transition-speed) ease;
+  display: block;
+  pointer-events: none;
+  left: var(--line-left);
+  right: var(--line-right);
+  bottom: 0;
+}
+body.backlight-mode header::after {
+  background: #000 !important;
+}
+footer::before {
+  content: "";
+  position: absolute;
+  height: var(--line-thickness);
+  background: var(--line-color);
+  transition: background var(--transition-speed) ease;
+  display: block;
+  pointer-events: none;
+  left: var(--line-left);
+  right: var(--line-right);
+  top: 0;
+}
+
+/* header/footer lines are offset from the viewport to match the container padding */
+header::after { left: var(--line-left); right: var(--line-right); bottom: 0; }
+
+footer::before { left: var(--line-left); right: var(--line-right); top: 0; }
+
+/* When the header is hovered (title/description), brighten the horizontal lines */
+/* When user hovers/focuses the title, make the whole page use the active green */
+/* Remove global title-hover color behavior — only the title toggles on hover */
+
+/* Ensure Server Stats section is left-aligned within the footer */
+footer .server-stats {
+  text-align: left;
+  /* let the section shrink to its content so all stats can sit on one line */
+  width: auto;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0; /* ensure same spacing as other footer sections */
+  position: relative;
+  padding-right: 2rem;
+}
+
+/* put stats on a single line */
+footer .server-stats dl {
+  display: flex;
+  flex-wrap: nowrap; /* keep items on a single row */
+  gap: 0.9rem;
+  align-items: center;
+  overflow-x: visible; /* avoid an inner scroll bar */
+  white-space: nowrap;
+  margin: 0; /* ensure same spacing as other footer sections */
+  padding: 0; /* remove default dl padding */
+}
+
+@media (max-width: 700px) {
+  /* allow wrapping on small screens so nothing gets clipped */
+  footer .server-stats dl {
+    flex-wrap: wrap;
+    white-space: normal;
+    font-size: 0.9rem;
+  }
+
+  /* Remove vertical divider on small screens */
+  footer .server-stats { padding-right: 0; }
+}
+
+footer .forecast {
+  padding-left: 0.75rem; /* keep forecast padded so Server Stats is the only section aligned with the title */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 0 0 auto; /* shrink to fit content like server-stats */
+}
+
+footer .forecast dl {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-start;
+  white-space: nowrap;
+  overflow-x: visible;
+}
+
+@media (max-width: 700px) {
+  footer .forecast dl {
+    flex-wrap: wrap;
+    white-space: normal;
+    gap: 0.5rem;
+  }
+}
+
+footer .forecast dl div {
+  margin-left: 0;
+  padding-left: 0;
+  flex-direction: row; /* ensure label then value */
+  display: inline-flex;
+  gap: 0.15rem;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* (h1 styles defined earlier; no duplicate here) */
+/* Ensure email links are always green */
+/* Contact and email are dim by default and become active on hover/focus */
+.contact,
+.contact .contact-name,
+.contact a.email,
+.contact a.email:link,
+.contact a.email:visited,
+.contact a.contact-link,
+.contact a.contact-link:link,
+.contact a.contact-link:visited {
+  color: var(--line-color);
+  transition: color var(--transition-speed) ease;
+}
+
+/* Contact heading hover activates everything */
+
+/* When hovering or focusing Contact heading, make all contact info green-active */
+.contact h3:hover,
+.contact h3:focus {
+  color: var(--green-active);
+}
+.contact h3:hover ~ div .contact-name,
+.contact h3:hover ~ div a.email,
+.contact h3:hover ~ div a.contact-link,
+.contact h3:focus ~ div .contact-name,
+.contact h3:focus ~ div a.email,
+.contact h3:focus ~ div a.contact-link,
+
+/* Only make all green-active when hovering Contact heading, not the whole .contact */
+.contact h3:hover ~ div .contact-name,
+.contact h3:hover ~ div a.email,
+.contact h3:hover ~ div a.contact-link,
+.contact h3:focus ~ div .contact-name,
+.contact h3:focus ~ div a.email,
+.contact h3:focus ~ div a.contact-link {
+  color: var(--green-active) !important;
+}
+
+/* When hovering a single contact link, only that link is green-active, others stay green-offline */
+.contact a,
+.contact .contact-link,
+.contact .email {
+  color: var(--green-offline);
+  transition: color var(--transition-speed) ease;
+}
+.contact a:hover,
+.contact a:focus,
+.contact-link:hover,
+.contact-link:focus,
+.email:hover,
+.email:focus {
+  color: var(--green-active) !important;
+}
+
+/* Hovering name: activates heading + name */
+.contact div:nth-of-type(1):hover ~ h3,
+.contact:has(div:nth-of-type(1):hover) h3,
+.contact div:nth-of-type(1):hover .contact-name {
+  color: var(--green-active);
+}
+
+/* Hovering email: activates heading + name + email */
+.contact:has(div:nth-of-type(2):hover) h3,
+.contact div:nth-of-type(2):hover ~ div:nth-of-type(1) .contact-name,
+.contact:has(div:nth-of-type(2):hover) div:nth-of-type(1) .contact-name,
+.contact div:nth-of-type(2):hover a.email {
+  color: var(--green-active);
+}
+
+/* Hovering website: activates heading + name + website */
+.contact:has(div:nth-of-type(3):hover) h3,
+.contact:has(div:nth-of-type(3):hover) div:nth-of-type(1) .contact-name,
+.contact div:nth-of-type(3):hover a.contact-link {
+  color: var(--green-active);
+}
+
+/* Hovering phone: activates heading + name + phone */
+.contact:has(div:nth-of-type(4):hover) h3,
+.contact:has(div:nth-of-type(4):hover) div:nth-of-type(1) .contact-name,
+.contact div:nth-of-type(4):hover a.contact-link {
+  color: var(--green-active);
+}
+
+.contact a.email,
+.contact a.contact-link { 
+  text-decoration: none; 
+}
+
+/* Contact column hover: green active */
+
+.contact a:hover,
+.contact a:focus,
+.contact-link:hover,
+.contact-link:focus,
+.email:hover,
+.email:focus {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease;
+}
+
+/* When any contact link is hovered/focused, also make the contact name green-active */
+.contact a:hover ~ .contact-name,
+.contact a:focus ~ .contact-name,
+.contact-link:hover ~ .contact-name,
+.contact-link:focus ~ .contact-name,
+.email:hover ~ .contact-name,
+.email:focus ~ .contact-name {
+  color: var(--green-active) !important;
+}
+
+/* For flex/column order, also use parent hover: if any link in .contact is hovered, .contact-name is green-active */
+.contact:hover .contact-name,
+.contact:focus-within .contact-name {
+  color: var(--green-active) !important;
+}
+
+/* Contact name styling to align with email size */
+.contact .contact-name {
+  font-size: 0.95rem;
+  margin: 0; /* keep consistent compact spacing */
+  display: inline-block; /* allow margin-top to take effect */
+  margin-top: 6px; /* add top space so the name sits lower */
+}
+/* Make email and contact links match Server Stats size (0.95rem) */
+footer .contact a.email,
+footer .contact a.contact-link {
+  font-size: 0.95rem;
+}
+
+/* Give the email link a little top space so it sits visually lower in the Contact column */
+footer .contact a.email {
+  display: inline-block; /* allow margin-top to take effect */
+  margin-top: 3px;
+}
+
+/* Give the website link a little top space so it sits visually lower in the Contact column */
+footer .contact a.contact-link {
+  display: inline-block; /* allow margin-top to take effect */
+  margin-top: 3px;
+}
+
+/* Footer headings color */
+footer h3 {
+  color: var(--line-color);
+  margin: 0 0 0.12rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: color var(--transition-speed) ease;
+}
+
+/* Small gap under each footer heading so subcontent sits 1px below the title */
+footer section h3 + * {
+  margin-top: 1px;
+}
+
+/* System Usage: remove extra gap after label colon and keep CPU value unbroken
+   so the number and '%' remain attached. */
+footer .system-usage dt::after { margin-right: 0; }
+footer .system-usage dd { white-space: nowrap; }
+
+/* Ensure each stat row in System Usage stays on a single line: label and value
+   must sit in the same row. Use flex on the row container and prevent the value
+   from wrapping or forcing a new line. Place at the end to guarantee specificity. */
+footer .system-usage dl > div {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  justify-content: flex-start !important;
+}
+footer .system-usage dl > div dt,
+footer .system-usage dl > div dd {
+  display: inline-block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+}
+/* allow the dd to shrink properly inside flex containers on narrow layouts */
+footer .system-usage dl > div dd {
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+/* ensure the storage value specifically stays inline with its label */
+#system-mem, #system-ram, #system-cpu {
+  display: inline-block !important;
+}
+
+/* Give the System Usage CPU Temp label a small top offset so it lines up visually */
+footer .system-usage dl > div:nth-child(2) dt {
+  display: inline-block; /* allow vertical margin to take effect */
+  
+}
+
+/* Also add top padding to the CPU row so both label and value move together */
+footer .system-usage dl > div:nth-child(2) {
+  padding-top: 2px;
+}
+
+/* Give the System Usage RAM label a small top offset so it lines up visually */
+footer .system-usage dl > div:nth-child(3) dt {
+  display: inline-block; /* allow vertical margin to take effect */
+  margin-top: 2px;
+}
+
+/* Move the whole RAM row down so label and value stay aligned */
+footer .system-usage dl > div:nth-child(3) {
+  padding-top: 2px;
+}
+
+/* Give the System Usage Storage label a small top offset so it lines up visually */
+footer .system-usage dl > div:last-child dt {
+  display: inline-block; /* allow vertical margin to take effect */
+  margin-top: 3px;
+}
+
+/* Move the whole Storage row down so label and value stay aligned */
+footer .system-usage dl > div:last-child {
+  padding-top: 3px;
+}
+
+/* CPU row (first child) - add top spacing so the 'CPU:' label and value sit lower */
+footer .system-usage dl > div:first-child dt {
+  display: inline-block; /* allow vertical margin to take effect */
+  margin-top: 6px;
+}
+footer .system-usage dl > div:first-child {
+  padding-top: 6px;
+}
+footer .system-usage dl > div:first-child dd,
+#system-cpu {
+  display: inline-block; /* allow margin-top to move the value */
+  margin-top: 6px;
+}
+
+/* Ensure forecast values appear before labels and align cleanly */
+footer .forecast dl div dt,
+footer .forecast dl div dd {
+  margin: 0;
+}
+
+/* Ensure contact aligns at the end on wide screens */
+@media (min-width: 701px) {
+  footer .contact { text-align: right; }
+}
+
+/* hide the center pseudo vertical rule (we use server-stats border-right instead) */
+footer .container::before { display: none; }
+
+/* Put forecast values inline: label then value, all on one line */
+footer .forecast dl {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start; /* align items under the Forecast heading */
+  flex-wrap: nowrap; /* keep items on a single row */
+  white-space: nowrap;
+  overflow-x: visible; /* avoid horizontal scrolling */
+  -webkit-overflow-scrolling: auto;
+}
+
+footer .forecast dl div {
+  display: inline-flex; /* keep label and value together */
+  align-items: center;
+  gap: 0.5rem;
+  flex-direction: row; /* label first, value second */
+  transition: color var(--transition-speed) ease;
+}
+
+/* Put a colon after each label (dt) for Forecast */
+footer .forecast dt::after {
+  content: ":";
+  margin-right: 0.15rem; /* small gap after the colon */
+}
+
+/* Ensure forecast dt/dd render inline so items remain on one line */
+footer .forecast dt,
+footer .forecast dd {
+  display: inline;
+  margin: 0;
+  gap: calc(0.6rem + 10px);
+}
+
+@media (min-width: 701px) {
+  /* Keep all footer columns on a single row on wide screens */
+  footer .container {
+    flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow-x: visible; /* avoid horizontal scrolling */
+  -webkit-overflow-scrolling: auto;
+}
+
+footer .forecast dl div {
+  display: inline-flex; /* keep label and value together */
+  align-items: center;
+  gap: 0.5rem;
+  flex-direction: row; /* label first, value second */
+  transition: color var(--transition-speed) ease;
+}
+
+/* Put a colon after each label (dt) for Forecast */
+footer .forecast dt::after {
+  content: ":";
+  margin-right: 0.15rem; /* small gap after the colon */
+}
+
+/* Ensure forecast dt/dd render inline so items remain on one line */
+footer .forecast dt,
+footer .forecast dd {
+  display: inline;
+  margin: 0;
+  gap: calc(0.6rem + 10px);
+}
+
+@media (min-width: 701px) {
+  /* Keep all footer columns on a single row on wide screens */
+  footer .container {
+    flex-wrap: nowrap;
+    align-items: flex-start; /* top-align sections to avoid large perceived top gaps */
+    justify-content: flex-start;
+  }
+
+  /* Let the server-stats take available space but be allowed to shrink */
+  footer .server-stats {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  /* Make forecast and contact only as wide as their content */
+  footer .forecast,
+  footer .contact {
+    flex: 0 0 auto;
+  }
+
+  /* Fix widths so columns don't shift when numbers change */
+  footer .server-stats.website-energy { flex: 0 0 360px; position: relative; z-index: 0; }
+
+  /* Move the Display Energy column content 20px closer to the left edge
+     without changing the global container padding. This only affects the
+     `.website-energy` column so other footer columns stay in place. */
+  footer .server-stats.website-energy {
+    /* reduce the internal left padding so content sits 20px closer */
+    padding-left: 0px !important;
+    /* ensure no accidental left margin pushes it right */
+    margin-left: 0 !important;
+    /* pull this column up so the heading aligns with the horizontal line */
+    margin-top: calc(-0.2rem); /* matches footer padding-top (0.625rem) */
+  }
+  /* When any popup/modal is open in green mode, visually raise the Display Energy column
+     above modals so it remains visible (only applies when NOT in backlight-mode). */
+  body:not(.backlight-mode).popup-open footer .server-stats.website-energy {
+    position: relative;
+    z-index: 10001; /* higher than modal z-index (9999) so it appears above popups */
+    pointer-events: auto; /* allow interactions if necessary */
+  }
+  footer .server-stats.website-energy + .server-stats { flex: 0 0 260px; margin-left: -20px; padding-left: 0; }
+  
+  /* Gap before Forecast: 30px between Server Stats and Weather Forecast */
+  footer .forecast { margin-left: 40px; }
+  body.backlight-mode footer .forecast { margin-left: 40px; }
+
+  /* Reduce the horizontal gap between the main Server Stats column and the
+    System Usage column by 20px on wide screens as requested. Keeps mobile
+    stacking unchanged. */
+  footer .server-stats + .system-usage { margin-left: -20px; }
+
+/* Give the Page Weight row in the Display Energy column a small top offset
+   so the label and value sit slightly lower and align visually with other rows. */
+footer .website-energy dl > div:nth-child(4) dt {
+  display: inline-block; /* allow vertical margin to take effect */
+  margin-top: 6px;
+}
+footer .website-energy dl > div:nth-child(4) {
+  /* add a bit of internal spacing to move the whole row down */
+  padding-top: 6px;
+}
+
+/* Ensure the page weight value itself can accept vertical offsets so specific
+   numbers like "547.33kb" sit slightly lower for visual alignment. */
+footer .website-energy dl > div:nth-child(4) dd,
+#page-weight {
+  display: inline-block; /* allow margin-top to move the value */
+  margin-top: 3px;
+}
+
+/* Active Dark Green (first row in Display Energy) - give label and value
+   a small top offset so it sits a little lower for visual spacing. */
+footer .website-energy dl > div:first-child dt {
+  display: inline-block; /* allow vertical margin to take effect */
+  margin-top: 2px;
+}
+footer .website-energy dl > div:first-child {
+  padding-top: 2px;
+}
+footer .website-energy dl > div:first-child dd,
+#green-dark-count {
+  display: inline-block; /* allow margin-top to move the value */
+  margin-top: 2px;
+}
+
+  /* Tighten spacing so all server stats fit on a single line */
+  footer .server-stats dl {
+    gap: calc(0.5rem);
+    font-size: 0.95rem;
+    white-space: nowrap;
+    margin-right: 20px;
+  }
+}
+
+/* Ensure Forecast heading aligns with the first forecast item (Today) */
+footer .forecast {
+  padding-left: 0; /* remove any extra left padding */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* left-align heading and list */
+}
+footer .forecast h3 {
+  margin-left: 0;
+}
+footer .forecast dl {
+  margin: 0;
+  padding: 0;
+}
+footer .forecast dl > div {
+  margin-left: 0;
+  padding-left: 0;
+  flex-direction: row; /* ensure label then value */
+}
+/* Give the first forecast label ("Today:") a small top offset so it lines up visually */
+footer .forecast dl > div:first-child dt {
+  display: inline-block; /* allow vertical margin to take effect */
+  margin-top: 6px;
+}
+
+/* Give the second forecast label ("Tomorrow") a small top offset */
+footer .forecast dl > div:nth-child(2) dt {
+  display: inline-block; /* allow vertical margin to take effect */
+  margin-top: 2px;
+}
+/* Move the whole Tomorrow row down so label and value stay aligned */
+footer .forecast dl > div:nth-child(2) {
+  padding-top: 2px;
+}
+
+/* Move the Today row down so both label and value shift together */
+footer .forecast dl > div:first-child {
+  padding-top: 6px;
+}
+
+/* Allow the Today value (#forecast-today) to accept vertical offset */
+footer .forecast dl > div:first-child dd,
+#forecast-today {
+  display: inline-block;
+  margin-top: 6px;
+}
+/* removed duplicate: .forecast-updated */
+.sr-only { position: absolute !important; left: -10000px !important; top: auto !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
+.server-inline { color: var(--line-color); font-size: 0.95rem; }
+footer .server-stats,
+footer .forecast,
+footer .contact {
+  padding-top: 0; /* sit exactly 10px below the horizontal line (footer padding controls the exact distance) */
+  margin-top: 0;
+  flex: 0 0 auto; /* shrink-to-fit like the Server Stats */
+}
+
+/* Smooth color transitions for column labels (including Theoretical Framework) */
+.column-box {
+  transition: color var(--transition-speed) ease;
+}
+
+/* Explicit size for the Venn explanatory paragraph so it renders at 400×110px
+   If you prefer only a wider box (no fixed height), replace `height` with
+   `min-height` or remove it to allow natural wrapping. Reload the page after
+   making changes to see the result. */
+.venn-right-text p {
+  /* Prefer a responsive, wrapping paragraph so text is never clipped.
+     Use a max-width instead of a forced fixed height/overflow so the
+     content can expand vertically and wrap naturally. */
+  display: block;
+  width: 100%;
+  max-width: 500px; /* visual target width */
+  box-sizing: border-box;
+  margin-top: 15px; /* user requested top margin for the paragraph */
+  height: auto;       /* allow natural height */
+  overflow: visible;  /* don't clip children */
+  white-space: normal; /* allow wrapping */
+  overflow-wrap: break-word; /* break long words if needed */
+}
+
+/* Right-side explanatory paragraph for the Venn diagram */
+.venn-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.venn-graphic {
+  flex: 0 0 260px;
+}
+
+.venn-right-text {
+  width: 500px;
+  color: var(--green-offline);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  font-weight: 400 !important; /* ensure it is not bold even when parent sets bold */
+  margin-top: 50px; /* push paragraph down from top as requested */
+  text-align: left;
+}
+
+/* Ensure the left CTA subtext is not bold (overrides any parent boldness) */
+.left-cta-subtext {
+  font-weight: 400 !important;
+}
+
+/* Make the right-side paragraph become active green when hovered or focused
+   (only in non-backlight / OLED green mode). Keep a smooth color transition. */
+.venn-right-text p {
+  transition: color var(--transition-speed) ease;
+  /* Explicitly force left alignment so this paragraph is not justified
+     (overrides global `main p` / `modal p` justify rules). */
+  text-align: left !important;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+body:not(.backlight-mode) .venn-right-text:hover,
+body:not(.backlight-mode) .venn-right-text:focus,
+body:not(.backlight-mode) .venn-right-text:focus-within,
+body:not(.backlight-mode) .venn-right-text p:hover,
+body:not(.backlight-mode) .venn-right-text p:focus {
+  color: var(--green-active) !important;
+}
+
+/* When the Venn core is active (script toggles .venn-row.core-active),
+   make the right explanatory paragraph active-green as well. */
+body:not(.backlight-mode) .venn-row.core-active .venn-right-text p {
+  color: var(--green-active) !important;
+}
+
+/* Responsive: stack the paragraph below the diagram on small screens */
+@media (max-width: 700px) {
+  .venn-row {
+    display: block;
+  }
+  .venn-graphic {
+    width: 100%;
+    margin-left: 0;
+  }
+  .venn-right-text {
+    width: 100%;
+    margin-top: 12px;
+    padding-right: 10px;
+  }
+}
+
+/* Theoretical Framework title: become active green when hovered or focused
+   Keep keyboard accessibility by making it focusable (tabindex on element). */
+.column-box .theoretical-title {
+  color: var(--green-offline);
+  transition: color var(--transition-speed) ease;
+  cursor: default;
+}
+/* Brighten to active green when pointer is over the title or when it receives keyboard focus */
+body:not(.backlight-mode) .column-box .theoretical-title:hover,
+body:not(.backlight-mode) .column-box .theoretical-title:focus,
+body:not(.backlight-mode) .column-box .theoretical-title:focus-visible {
+  color: var(--green-active) !important;
+}
+/* In backlight mode keep the title muted (uses variable overrides already present) */
+body.backlight-mode .column-box .theoretical-title {
+  color: var(--green-offline);
+}
+
+/* Headings should match across sections */
+footer .server-stats dt {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  font-weight: normal; /* use regular weight for labels (Location, Time, etc.) */
+}
+footer .server-stats dd {
+  display: inline;
+  margin: 0 0.6rem 0 0; /* gutter between stats */
+  padding: 0;
+}
+
+/* Footer server-stats default dim and bright on hover/focus */
+footer .server-stats,
+footer .server-stats h3,
+footer .server-stats dl,
+footer .server-stats dl > div dt,
+footer .server-stats dl > div dd {
+  color: var(--line-color);
+  transition: color var(--transition-speed) ease;
+}
+/* Make the Server Stats heading only react when the pointer is exactly on the text
+   and show pointer to indicate it's interactive. It remains keyboard-accessible. */
+footer .server-stats h3 {
+  display: inline-block; /* shrink hover area to text only */
+  cursor: pointer;       /* indicate interactivity */
+}
+
+/* Only hovering/focusing the Server Stats heading activates the whole column */
+footer .server-stats h3:hover,
+footer .server-stats h3:focus {
+  color: var(--green-active);
+}
+footer .server-stats h3:hover ~ dl dt,
+footer .server-stats h3:hover ~ dl dd,
+footer .server-stats h3:focus ~ dl dt,
+footer .server-stats h3:focus ~ dl dd {
+  color: var(--green-active);
+}
+
+/* Exception: Page Weight (with <strong>) stays offline when Display Energy heading is hovered */
+footer .server-stats.website-energy h3:hover ~ dl div:has(strong) dt,
+footer .server-stats.website-energy h3:hover ~ dl div:has(strong) dd,
+footer .server-stats.website-energy h3:focus ~ dl div:has(strong) dt,
+footer .server-stats.website-energy h3:focus ~ dl div:has(strong) dd {
+  color: var(--line-color);
+}
+
+/* Exception: Display Energy heading stays offline when Page Weight is hovered */
+footer .server-stats.website-energy:has(dl div:has(strong):hover) h3,
+footer .server-stats.website-energy:has(dl div:has(strong):focus-within) h3 {
+  color: var(--line-color) !important;
+}
+
+/* When a stat is hovered/focused, keep other stats dim */
+.server-stats.child-hover dl > div:not(:hover):not(:focus-within) dt,
+.server-stats.child-hover dl > div:not(:hover):not(:focus-within) dd {
+  color: var(--line-color);
+}
+
+/* Highlight dt+dd when hovered/focused */
+.server-stats dl > div:hover dt,
+.server-stats dl > div:hover dd,
+.server-stats dl > div:focus-within dt,
+.server-stats dl > div:focus-within dd,
+.server-stats dt.is-active,
+.server-stats dt.is-active + dd {
+  color: var(--green-active);
+}
+
+/* Visual divider between footer columns */
+footer section { padding: 0 1rem; }
+
+/* Show more vivid green on hover for footer headings and interactive items */
+footer .server-stats h3:hover,
+footer .forecast h3:hover,
+footer .contact h3:hover,
+footer .server-stats a:hover,
+footer .server-stats dl div:hover {
+  color: var(--green-active);
+}
+
+/* Make the System Usage column respond to keyboard focus only (not a broad
+   mouse hover on the container). Mouse hover on the container previously
+   caused empty gaps between labels/values to activate the section; instead
+   rely on child-targeted :has() selectors and JS fallback classes for mouse
+   interactions. Keep :focus-within for keyboard accessibility. */
+footer .system-usage:focus-within h3,
+footer .system-usage:focus-within dl dt,
+footer .system-usage:focus-within dl dd {
+  color: var(--green-active);
+}
+
+/* Additionally: when hovering the System Usage column, make the
+   section heading indicate hover (active green). We intentionally avoid
+   turning the numeric values green on a broad section hover so only
+   precise label/value interactions control the value styling. */
+footer .system-usage:hover h3 {
+  color: var(--green-active);
+  cursor: default !important;
+}
+
+/* Backlight-mode: when hovering the section, use dark color instead of green */
+body.backlight-mode footer .system-usage:hover h3,
+body.backlight-mode footer .system-usage:hover dl dt,
+body.backlight-mode footer .system-usage:hover dl dd {
+  color: #252525 !important;
+}
+
+/* Green mode (not backlight): when pointer is idle (not moving) and inside
+   the System Usage column, use the offline (darker) green cursor so it
+   appears appropriately 'offline' instead of the bright active green. */
+body:not(.backlight-mode):not(.cursor-moving) footer .system-usage,
+body:not(.backlight-mode):not(.cursor-moving) footer .system-usage *,
+body:not(.backlight-mode):not(.cursor-moving) footer .system-usage *::before,
+body:not(.backlight-mode):not(.cursor-moving) footer .system-usage *::after,
+body:not(.backlight-mode):not(.cursor-moving) footer .system-usage svg,
+body:not(.backlight-mode):not(.cursor-moving) footer .system-usage svg * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23007600" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Also ensure very specific rows inside System Usage get the offline cursor when idle */
+body:not(.backlight-mode):not(.cursor-moving) footer .system-usage dl > div,
+body:not(.backlight-mode):not(.cursor-moving) footer .system-usage dl > div * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23007600" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Backlight-mode: keep focus-within color readable (near-black) instead of green */
+body.backlight-mode footer .system-usage:focus-within h3,
+body.backlight-mode footer .system-usage:focus-within dl dt,
+body.backlight-mode footer .system-usage:focus-within dl dd {
+  color: #252525 !important;
+}
+
+/* When the CPU value itself is hovered or focused, highlight the CPU and
+   also make the whole System Usage column active. Uses :has() to detect
+   the child hover/focus so we can style the parent column heading/values. */
+footer .system-usage:has(#system-cpu:hover) h3,
+footer .system-usage:has(#system-cpu:focus) h3,
+footer .system-usage:has(#system-cpu:hover) dl dt,
+footer .system-usage:has(#system-cpu:focus) dl dt,
+footer .system-usage:has(#system-cpu:hover) dl dd,
+footer .system-usage:has(#system-cpu:focus) dl dd,
+footer .system-usage #system-cpu:hover,
+footer .system-usage #system-cpu:focus {
+  color: var(--green-active);
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23007600" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Backlight-mode: when hovering/focusing the CPU value, use dark color for contrast */
+body.backlight-mode footer .system-usage:has(#system-cpu:hover) h3,
+body.backlight-mode footer .system-usage:has(#system-cpu:focus) h3,
+body.backlight-mode footer .system-usage:has(#system-cpu:hover) dl dt,
+body.backlight-mode footer .system-usage:has(#system-cpu:focus) dl dt,
+body.backlight-mode footer .system-usage:has(#system-cpu:hover) dl dd,
+body.backlight-mode footer .system-usage:has(#system-cpu:focus) dl dd,
+body.backlight-mode footer .system-usage #system-cpu:hover,
+body.backlight-mode footer .system-usage #system-cpu:focus {
+  color: #252525 !important;
+}
+
+/* When hovering or focusing any of the stat values (CPU, RAM, Storage),
+   highlight the entire System Usage column using the offline green token
+   (the less-bright green). This intentionally overrides the active-green
+   rule for these specific interactions so the column appears 'offline green'.
+   Also apply keyboard focus behavior. */
+  footer .system-usage:has(#system-cpu:hover) h3,
+  footer .system-usage:has(#system-cpu:focus) h3,
+  footer .system-usage:has(#system-cpu:hover) dl dt,
+  footer .system-usage:has(#system-cpu:focus) dl dt,
+  footer .system-usage:has(#system-cpu:hover) dl dd,
+  footer .system-usage:has(#system-cpu:focus) dl dd,
+  footer .system-usage #system-cpu:hover,
+  footer .system-usage #system-cpu:focus,
+  footer .system-usage:has(#system-ram:hover) h3,
+  footer .system-usage:has(#system-ram:focus) h3,
+  footer .system-usage:has(#system-ram:hover) dl dt,
+  footer .system-usage:has(#system-ram:focus) dl dt,
+  footer .system-usage:has(#system-ram:hover) dl dd,
+  footer .system-usage:has(#system-ram:focus) dl dd,
+  footer .system-usage #system-ram:hover,
+  footer .system-usage #system-ram:focus,
+  footer .system-usage:has(#system-mem:hover) h3,
+  footer .system-usage:has(#system-mem:focus) h3,
+  footer .system-usage:has(#system-mem:hover) dl dt,
+  footer .system-usage:has(#system-mem:focus) dl dt,
+  footer .system-usage:has(#system-mem:hover) dl dd,
+  footer .system-usage:has(#system-mem:focus) dl dd,
+  footer .system-usage #system-mem:hover,
+  footer .system-usage #system-mem:focus {
+  /* When hovering any stat value, use the active (bright) green for the column */
+  color: var(--green-active) !important;
+  cursor: default;
+}
+
+/* Backlight-mode fallback: use dark color when hovering/focusing any stat */
+body.backlight-mode footer .system-usage:has(#system-cpu:hover) h3,
+body.backlight-mode footer .system-usage:has(#system-cpu:focus) h3,
+body.backlight-mode footer .system-usage:has(#system-cpu:hover) dl dt,
+body.backlight-mode footer .system-usage:has(#system-cpu:focus) dl dt,
+body.backlight-mode footer .system-usage:has(#system-cpu:hover) dl dd,
+body.backlight-mode footer .system-usage:has(#system-cpu:focus) dl dd,
+body.backlight-mode footer .system-usage #system-cpu:hover,
+body.backlight-mode footer .system-usage #system-cpu:focus,
+body.backlight-mode footer .system-usage:has(#system-ram:hover) h3,
+body.backlight-mode footer .system-usage:has(#system-ram:focus) h3,
+body.backlight-mode footer .system-usage:has(#system-ram:hover) dl dt,
+body.backlight-mode footer .system-usage:has(#system-ram:focus) dl dt,
+body.backlight-mode footer .system-usage:has(#system-ram:hover) dl dd,
+body.backlight-mode footer .system-usage:has(#system-ram:focus) dl dd,
+body.backlight-mode footer .system-usage #system-ram:hover,
+body.backlight-mode footer .system-usage #system-ram:focus,
+body.backlight-mode footer .system-usage:has(#system-mem:hover) h3,
+body.backlight-mode footer .system-usage:has(#system-mem:hover) dl > div:not(:last-child) dt,
+body.backlight-mode footer .system-usage:has(#system-mem:hover) dl > div:not(:last-child) dd,
+body.backlight-mode footer .system-usage.mem-hover dl > div:not(:last-child) dt,
+body.backlight-mode footer .system-usage.mem-hover dl > div:not(:last-child) dd {
+  color: #252525 !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+body.backlight-mode footer .system-usage:has(#system-mem:hover) dl > div:last-child dt,
+body.backlight-mode footer .system-usage:has(#system-mem:hover) dl > div:last-child dd,
+body.backlight-mode footer .system-usage.mem-hover dl > div:last-child dt,
+body.backlight-mode footer .system-usage.mem-hover dl > div:last-child dd,
+body.backlight-mode footer .system-usage:has(#system-mem:hover) h3,
+body.backlight-mode footer .system-usage.mem-hover h3,
+body.backlight-mode footer .system-usage #system-mem:hover,
+body.backlight-mode footer .system-usage #system-mem:focus,
+body.backlight-mode footer .system-usage.mem-hover #system-mem {
+  color: #252525 !important;
+  transition: color var(--transition-speed) ease !important;
+  cursor: default !important;
+}
+footer .forecast h3:focus {
+  color: var(--green-active);
+}
+
+/* If heading is hovered/focused, highlight entire forecast column */
+footer .forecast h3:hover ~ dl dt,
+footer .forecast h3:hover ~ dl dd,
+footer .forecast h3:focus ~ dl dt,
+footer .forecast h3:focus ~ dl dd {
+  color: var(--green-active);
+}
+
+/* When a child day is hovered/focused, keep non-active days offline */
+.forecast.child-hover dl > div:not(:hover):not(:focus-within) dt,
+.forecast.child-hover dl > div:not(:hover):not(:focus-within) dd {
+  color: var(--line-color);
+}
+
+/* Only highlight the Forecast heading and the active dt */
+/* Default dim color + smooth fading for Forecast like Server Stats */
+footer .forecast,
+footer .forecast h3,
+footer .forecast dl,
+footer .forecast dl > div dt,
+footer .forecast dl > div dd {
+  color: var(--line-color);
+  transition: color var(--transition-speed) ease;
+}
+
+.forecast.is-active-dt h3,
+.forecast dt.is-active,
+.forecast dt.is-active + dd {
+  color: var(--green-active);
+}
+
+/* Mirror Forecast behavior: when a server stat is active, make the heading active-green */
+footer .server-stats.is-active-dt h3,
+.server-stats dt.is-active,
+.server-stats dt.is-active + dd {
+  color: var(--green-active);
+}
+
+/* Highlight both the label and value when hovering/focusing the day container */
+.forecast dl > div:hover dt,
+.forecast dl > div:hover dd,
+.forecast dl > div:focus-within dt,
+.forecast dl > div:focus-within dd {
+  color: var(--green-active);
+}
+
+/* Make the whole footer more vivid when hovered or focused */
+/* remove footer hover brightening */
+
+/* CPU priority: ensure the CPU label and numeric value become active-green
+   when the CPU value is hovered/focused, or when JS toggles `.cpu-hover`.
+   This rule is intentionally very specific and placed near the end so it
+   overrides the column-level offline-green rules. */
+footer .system-usage:has(#system-cpu:hover) dl > div:first-child dt,
+footer .system-usage:has(#system-cpu:hover) dd#system-cpu,
+footer .system-usage.cpu-hover dl > div:first-child dt,
+footer .system-usage.cpu-hover dd#system-cpu,
+footer .system-usage #system-cpu:hover,
+footer .system-usage #system-cpu:focus {
+  color: var(--green-active) !important;
+  cursor: url('/assets/green-cursor.svg') 8 8, url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Backlight-mode variant: use dark color for contrast */
+body.backlight-mode footer .system-usage:has(#system-cpu:hover) dl > div:first-child dt,
+body.backlight-mode footer .system-usage:has(#system-cpu:hover) dd#system-cpu,
+body.backlight-mode footer .system-usage.cpu-hover dl > div:first-child dt,
+body.backlight-mode footer .system-usage.cpu-hover dd#system-cpu,
+body.backlight-mode footer .system-usage #system-cpu:hover,
+body.backlight-mode footer .system-usage #system-cpu:focus {
+  color: #252525 !important;
+  cursor: url('/assets/green-cursor.svg') 8 8, url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23000" stroke-width="2"/></svg>') 8 8, default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* When CPU is hovered/focused (or .cpu-hover is set), ensure the OTHER
+   stat rows (RAM and Storage) use the offline/dim green so they appear
+   visually de-emphasized. This applies to both :has() capable browsers
+   and the JS fallback ('.cpu-hover'). */
+footer .system-usage:has(#system-cpu:hover) dl > div:not(:first-child) dt,
+footer .system-usage:has(#system-cpu:hover) dl > div:not(:first-child) dd,
+footer .system-usage.cpu-hover dl > div:not(:first-child) dt,
+footer .system-usage.cpu-hover dl > div:not(:first-child) dd {
+  color: var(--green-offline) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Backlight-mode variant */
+body.backlight-mode footer .system-usage:has(#system-cpu:hover) dl > div:not(:first-child) dt,
+body.backlight-mode footer .system-usage:has(#system-cpu:hover) dl > div:not(:first-child) dd,
+body.backlight-mode footer .system-usage.cpu-hover dl > div:not(:first-child) dt,
+body.backlight-mode footer .system-usage.cpu-hover dl > div:not(:first-child) dd {
+  color: #252525 !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* CPU Temp-specific rules: when the CPU Temp value is hovered/focused
+   (or when JS toggles `.cpu-temp-hover`), highlight the CPU Temp row
+   (second row) as active-green and de-emphasize the other rows. */
+footer .system-usage:has(#system-cpu-temp:hover) dl > div:nth-child(2) dt,
+footer .system-usage:has(#system-cpu-temp:hover) dl > div:nth-child(2) dd#system-cpu-temp,
+footer .system-usage.cpu-temp-hover dl > div:nth-child(2) dt,
+footer .system-usage.cpu-temp-hover dl > div:nth-child(2) dd#system-cpu-temp,
+footer .system-usage #system-cpu-temp:hover,
+footer .system-usage #system-cpu-temp:focus,
+footer .system-usage.cpu-temp-hover #system-cpu-temp {
+  color: var(--green-active) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* De-emphasize other rows when CPU Temp is active */
+footer .system-usage:has(#system-cpu-temp:hover) dl > div:not(:nth-child(2)) dt,
+footer .system-usage:has(#system-cpu-temp:hover) dl > div:not(:nth-child(2)) dd,
+footer .system-usage.cpu-temp-hover dl > div:not(:nth-child(2)) dt,
+footer .system-usage.cpu-temp-hover dl > div:not(:nth-child(2)) dd {
+  color: var(--green-offline) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Backlight-mode variants for CPU Temp rules (use near-black for contrast) */
+body.backlight-mode footer .system-usage:has(#system-cpu-temp:hover) dl > div:nth-child(2) dt,
+body.backlight-mode footer .system-usage:has(#system-cpu-temp:hover) dl > div:nth-child(2) dd#system-cpu-temp,
+body.backlight-mode footer .system-usage.cpu-temp-hover dl > div:nth-child(2) dt,
+body.backlight-mode footer .system-usage.cpu-temp-hover dl > div:nth-child(2) dd#system-cpu-temp,
+body.backlight-mode footer .system-usage #system-cpu-temp:hover,
+body.backlight-mode footer .system-usage #system-cpu-temp:focus,
+body.backlight-mode footer .system-usage.cpu-temp-hover #system-cpu-temp {
+  color: #252525 !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+body.backlight-mode footer .system-usage:has(#system-cpu-temp:hover) dl > div:not(:nth-child(2)) dt,
+body.backlight-mode footer .system-usage:has(#system-cpu-temp:hover) dl > div:not(:nth-child(2)) dd,
+body.backlight-mode footer .system-usage.cpu-temp-hover dl > div:not(:nth-child(2)) dt,
+body.backlight-mode footer .system-usage.cpu-temp-hover dl > div:not(:nth-child(2)) dd {
+  color: #252525 !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Power-specific rules: when the Power value is hovered/focused (or when
+   JS toggles `.power-hover`), highlight the Power row (last child) as
+   active-green and de-emphasize the other rows. */
+footer .system-usage:has(#server-power-used:hover) dl > div:nth-child(5) dt,
+footer .system-usage:has(#server-power-used:hover) dl > div:nth-child(5) dd#server-power-used,
+footer .system-usage.power-hover dl > div:nth-child(5) dt,
+footer .system-usage.power-hover dl > div:nth-child(5) dd#server-power-used,
+footer .system-usage #server-power-used:hover,
+footer .system-usage #server-power-used:focus,
+footer .system-usage.power-hover #server-power-used {
+  color: var(--green-active) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* De-emphasize other rows when Power is active */
+footer .system-usage:has(#server-power-used:hover) dl > div:not(:nth-child(5)) dt,
+footer .system-usage:has(#server-power-used:hover) dl > div:not(:nth-child(5)) dd,
+footer .system-usage.power-hover dl > div:not(:nth-child(5)) dt,
+footer .system-usage.power-hover dl > div:not(:nth-child(5)) dd {
+  color: var(--green-offline) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Backlight-mode variants for Power rules (use near-black for contrast) */
+body.backlight-mode footer .system-usage:has(#server-power-used:hover) dl > div:nth-child(5) dt,
+body.backlight-mode footer .system-usage:has(#server-power-used:hover) dl > div:nth-child(5) dd#server-power-used,
+body.backlight-mode footer .system-usage.power-hover dl > div:nth-child(5) dt,
+body.backlight-mode footer .system-usage.power-hover dl > div:nth-child(5) dd#server-power-used,
+body.backlight-mode footer .system-usage #server-power-used:hover,
+body.backlight-mode footer .system-usage #server-power-used:focus,
+body.backlight-mode footer .system-usage.power-hover #server-power-used {
+  color: #252525 !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+body.backlight-mode footer .system-usage:has(#server-power-used:hover) dl > div:not(:nth-child(5)) dt,
+body.backlight-mode footer .system-usage:has(#server-power-used:hover) dl > div:not(:nth-child(5)) dd,
+body.backlight-mode footer .system-usage.power-hover dl > div:not(:nth-child(5)) dt,
+body.backlight-mode footer .system-usage.power-hover dl > div:not(:nth-child(5)) dd {
+  color: #252525 !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Make the System Usage heading active when Power row is hovered/targeted */
+footer .system-usage:has(#server-power-used:hover) h3,
+footer .system-usage.power-hover h3 {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+body.backlight-mode footer .system-usage:has(#server-power-used:hover) h3,
+body.backlight-mode footer .system-usage.power-hover h3 {
+  color: #252525 !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Mirror: when Storage is hovered/focused (or .mem-hover is set), de-emphasize
+   all other rows and highlight only the Storage row. Use explicit targeting
+   by id so the rule stays correct if the Storage row is not the last child. */
+footer .system-usage:has(#system-mem:hover) dl dt,
+footer .system-usage:has(#system-mem:hover) dl dd,
+footer .system-usage.mem-hover dl dt,
+footer .system-usage.mem-hover dl dd {
+  color: var(--green-offline) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Make the Storage label and value active when the Storage value is hovered/targeted */
+footer .system-usage:has(#system-mem:hover) dl dt:has(+ dd#system-mem),
+footer .system-usage:has(#system-mem:hover) dl dd#system-mem,
+footer .system-usage.mem-hover dl dt:has(+ dd#system-mem),
+footer .system-usage.mem-hover dl dd#system-mem,
+footer .system-usage #system-mem:hover,
+footer .system-usage #system-mem:focus {
+  color: var(--green-active) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Safety: ensure that when Storage is hovered/targeted the Power row
+   (`#server-power-used`) is explicitly de-emphasized so it cannot
+   become active at the same time. This prevents accidental activation
+   of the below Power row when Storage is interacted with. */
+footer .system-usage:has(#system-mem:hover) #server-power-used,
+footer .system-usage.mem-hover #server-power-used,
+footer .system-usage:has(#system-mem:hover) dl > div:has(dd#server-power-used) dt,
+footer .system-usage.mem-hover dl > div:has(dd#server-power-used) dt {
+  color: var(--green-offline) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Backlight-mode variants for the same safety rule */
+body.backlight-mode footer .system-usage:has(#system-mem:hover) #server-power-used,
+body.backlight-mode footer .system-usage.mem-hover #server-power-used,
+body.backlight-mode footer .system-usage:has(#system-mem:hover) dl > div:has(dd#server-power-used) dt,
+body.backlight-mode footer .system-usage.mem-hover dl > div:has(dd#server-power-used) dt {
+  color: #252525 !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Make the System Usage heading active when Storage row is hovered/targeted */
+footer .system-usage:has(#system-mem:hover) h3,
+footer .system-usage.mem-hover h3 {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+body.backlight-mode footer .system-usage:has(#system-mem:hover) h3,
+body.backlight-mode footer .system-usage.mem-hover h3 {
+  color: #252525 !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Backlight-mode variants for the Storage-specific rules */
+body.backlight-mode footer .system-usage:has(#system-mem:hover) dl dt,
+body.backlight-mode footer .system-usage:has(#system-mem:hover) dl dd,
+body.backlight-mode footer .system-usage.mem-hover dl dt,
+body.backlight-mode footer .system-usage.mem-hover dl dd {
+  color: #252525 !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+body.backlight-mode footer .system-usage:has(#system-mem:hover) dl dt:has(+ dd#system-mem),
+body.backlight-mode footer .system-usage:has(#system-mem:hover) dl dd#system-mem,
+body.backlight-mode footer .system-usage.mem-hover dl dt:has(+ dd#system-mem),
+body.backlight-mode footer .system-usage.mem-hover dl dd#system-mem,
+body.backlight-mode footer .system-usage #system-mem:hover,
+body.backlight-mode footer .system-usage #system-mem:focus {
+  color: #252525 !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* RAM-specific rules: when RAM is hovered/focused (or .ram-hover is set),
+   make the RAM row active-green and force the other rows (CPU & Storage)
+   to the offline/dim green so they're de-emphasized. Includes backlight
+   variants and transitions. */
+footer .system-usage:has(#system-ram:hover) dl > div:nth-child(3) dt,
+footer .system-usage:has(#system-ram:hover) dl > div:nth-child(3) dd#system-ram,
+footer .system-usage.ram-hover dl > div:nth-child(3) dt,
+footer .system-usage.ram-hover dl > div:nth-child(3) dd#system-ram,
+footer .system-usage #system-ram:hover,
+footer .system-usage #system-ram:focus {
+  color: var(--green-active) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* De-emphasize other rows when RAM is active */
+footer .system-usage:has(#system-ram:hover) dl > div:not(:nth-child(3)) dt,
+footer .system-usage:has(#system-ram:hover) dl > div:not(:nth-child(3)) dd,
+footer .system-usage.ram-hover dl > div:not(:nth-child(3)) dt,
+footer .system-usage.ram-hover dl > div:not(:nth-child(3)) dd {
+  color: var(--green-offline) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Backlight-mode variants for RAM */
+body.backlight-mode footer .system-usage:has(#system-ram:hover) dl > div:nth-child(3) dt,
+body.backlight-mode footer .system-usage:has(#system-ram:hover) dl > div:nth-child(3) dd#system-ram,
+body.backlight-mode footer .system-usage.ram-hover dl > div:nth-child(3) dt,
+body.backlight-mode footer .system-usage.ram-hover dl > div:nth-child(3) dd#system-ram,
+body.backlight-mode footer .system-usage #system-ram:hover,
+body.backlight-mode footer .system-usage #system-ram:focus {
+  color: #252525 !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+body.backlight-mode footer .system-usage:has(#system-ram:hover) dl > div:not(:nth-child(3)) dt,
+body.backlight-mode footer .system-usage:has(#system-ram:hover) dl > div:not(:nth-child(3)) dd,
+body.backlight-mode footer .system-usage.ram-hover dl > div:not(:nth-child(3)) dt,
+body.backlight-mode footer .system-usage.ram-hover dl > div:not(:nth-child(3)) dd {
+  color: #252525 !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Strong final override for Storage hover/fallback:
+   - When Storage (#system-mem) is hovered (or .mem-hover is present),
+     make the entire System Usage column show the active-green color
+     (so the section reads as "online").
+   - This explicitly makes heading, labels and values active-green and
+     is placed near the end to ensure it wins over other rules. */
+footer .system-usage:has(#system-mem:hover) h3,
+footer .system-usage.mem-hover h3,
+footer .system-usage:has(#system-mem:hover) dl dt,
+footer .system-usage.mem-hover dl dt,
+footer .system-usage:has(#system-mem:hover) dl dd,
+footer .system-usage.mem-hover dl dd,
+footer .system-usage #system-mem:hover,
+footer .system-usage #system-mem:focus,
+footer .system-usage.mem-hover #system-mem {
+  color: var(--green-active) !important;
+  cursor: url('/assets/green-cursor.svg') 8 8, url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Backlight-mode variant for Storage hover -> active section */
+body.backlight-mode footer .system-usage:has(#system-mem:hover) h3,
+body.backlight-mode footer .system-usage.mem-hover h3,
+body.backlight-mode footer .system-usage:has(#system-mem:hover) dl dt,
+body.backlight-mode footer .system-usage.mem-hover dl dt,
+body.backlight-mode footer .system-usage:has(#system-mem:hover) dl dd,
+body.backlight-mode footer .system-usage.mem-hover dl dd,
+body.backlight-mode footer .system-usage #system-mem:hover,
+body.backlight-mode footer .system-usage #system-mem:focus,
+body.backlight-mode footer .system-usage.mem-hover #system-mem {
+  color: #252525 !important;
+  cursor: url('/assets/green-cursor.svg') 8 8, default !important;
+}
+
+/* Ensure the System Usage heading becomes active-green when CPU is hovered
+   (or when JS toggles `.cpu-hover`). Placed late so it overrides the
+   column-level offline rules. */
+footer .system-usage:has(#system-cpu:hover) h3,
+footer .system-usage.cpu-hover h3 {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+body.backlight-mode footer .system-usage:has(#system-cpu:hover) h3,
+body.backlight-mode footer .system-usage.cpu-hover h3 {
+  color: #252525 !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* When the System Usage section receives keyboard focus, make the
+   heading and the first sub-item active-green. We intentionally do NOT
+   respond to a broad mouse hover of the container; mouse interactions
+   are handled by :has() and JS fallback classes on the labels. */
+footer .system-usage:focus-within h3,
+footer .system-usage.stat-hover h3,
+footer .system-usage.cpu-hover h3,
+footer .system-usage:focus-within dl > div:first-child dd,
+footer .system-usage.stat-hover dl > div:first-child dd,
+footer .system-usage.cpu-hover dl > div:first-child dd {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Backlight-mode variant (use near-black instead of green) */
+body.backlight-mode footer .system-usage:focus-within h3,
+body.backlight-mode footer .system-usage.stat-hover h3,
+body.backlight-mode footer .system-usage.cpu-hover h3,
+body.backlight-mode footer .system-usage:focus-within dl > div:first-child dd,
+body.backlight-mode footer .system-usage.stat-hover dl > div:first-child dd,
+body.backlight-mode footer .system-usage.cpu-hover dl > div:first-child dd {
+  color: #252525 !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Ensure all System Usage heading, labels (dt) and values (dd) use the
+   same transition timing so their color changes animate in lockstep. */
+footer .system-usage h3,
+footer .system-usage dl dt,
+footer .system-usage dl dd {
+  transition: color var(--transition-speed) ease !important;
+}
+body.backlight-mode footer .system-usage h3,
+body.backlight-mode footer .system-usage dl dt,
+body.backlight-mode footer .system-usage dl dd {
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* CPU-specific override: when the CPU label or value is hovered/focused
+   (or when JS toggles `.cpu-hover`), force the whole System Usage
+   section to show the active-green color and ensure it wins over the
+   column-level offline rules. This rule is intentionally very specific
+   and placed at the end of the stylesheet. */
+/* When CPU is targeted, only the heading and the CPU row should go active.
+   Do NOT force the entire section active (so RAM/Storage remain offline). */
+footer .system-usage:has(#system-cpu:hover) h3,
+footer .system-usage:has(#system-cpu:focus) h3,
+footer .system-usage.cpu-hover h3,
+footer .system-usage:has(#system-cpu:hover) dl > div:first-child dt,
+footer .system-usage:has(#system-cpu:focus) dl > div:first-child dt,
+footer .system-usage.cpu-hover dl > div:first-child dt,
+footer .system-usage:has(#system-cpu:hover) dl > div:first-child dd,
+footer .system-usage:has(#system-cpu:focus) dl > div:first-child dd,
+footer .system-usage.cpu-hover dl > div:first-child dd,
+footer .system-usage #system-cpu:hover,
+footer .system-usage #system-cpu:focus,
+footer .system-usage.cpu-hover #system-cpu {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+  cursor: default !important;
+}
+
+/* Backlight-mode variant (near-black instead of green) */
+body.backlight-mode footer .system-usage:has(#system-cpu:hover) h3,
+body.backlight-mode footer .system-usage:has(#system-cpu:focus) h3,
+body.backlight-mode footer .system-usage.cpu-hover h3,
+body.backlight-mode footer .system-usage:has(#system-cpu:hover) dl dt,
+body.backlight-mode footer .system-usage:has(#system-cpu:focus) dl dt,
+body.backlight-mode footer .system-usage.cpu-hover dl dt,
+body.backlight-mode footer .system-usage:has(#system-cpu:hover) dl dd,
+body.backlight-mode footer .system-usage:has(#system-cpu:focus) dl dd,
+body.backlight-mode footer .system-usage.cpu-hover dl dd,
+body.backlight-mode footer .system-usage #system-cpu:hover,
+body.backlight-mode footer .system-usage #system-cpu:focus,
+body.backlight-mode footer .system-usage.cpu-hover #system-cpu {
+  color: #252525 !important;
+  transition: color var(--transition-speed) ease !important;
+  cursor: default !important;
+}
+
+/* Make cpu-hover only affect the heading + CPU row (first child). Do not
+   color all labels/values active — that would make RAM/Storage green. */
+footer .system-usage.cpu-hover h3,
+footer .system-usage.cpu-hover dl > div:first-child dt,
+footer .system-usage.cpu-hover dl > div:first-child dd,
+footer .system-usage.cpu-hover #system-cpu {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+body.backlight-mode footer .system-usage.cpu-hover h3,
+body.backlight-mode footer .system-usage.cpu-hover dl > div:first-child dt,
+body.backlight-mode footer .system-usage.cpu-hover dl > div:first-child dd,
+body.backlight-mode footer .system-usage.cpu-hover #system-cpu {
+  color: #252525 !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Extra safety: when CPU label is targeted, explicitly mark the CPU value
+   element so older browsers or unexpected cascade rules still show it
+   active-green. JS also toggles `.cpu-targeted` on the dd as a fallback. */
+footer .system-usage dl > div:first-child dd#system-cpu.cpu-targeted,
+footer .system-usage:has(dl > div:first-child dt:hover) #system-cpu,
+footer .system-usage.cpu-hover #system-cpu {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+body.backlight-mode footer .system-usage dl > div:first-child dd#system-cpu.cpu-targeted,
+body.backlight-mode footer .system-usage:has(dl > div:first-child dt:hover) #system-cpu,
+body.backlight-mode footer .system-usage.cpu-hover #system-cpu {
+  color: #252525 !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* RAM-specific override: when the RAM value or label is hovered/focused
+   (or when JS toggles `.ram-hover`), force the whole System Usage
+   section to show the active-green color. Placed after the generic
+   stat-hover/offline-green rules so it wins. */
+footer .system-usage:has(#system-ram:hover) h3,
+footer .system-usage:has(#system-ram:focus) h3,
+footer .system-usage.ram-hover h3,
+footer .system-usage:has(#system-ram:hover) dl dt,
+footer .system-usage:has(#system-ram:focus) dl dt,
+footer .system-usage.ram-hover dl dt,
+footer .system-usage:has(#system-ram:hover) dl dd,
+footer .system-usage:has(#system-ram:focus) dl dd,
+footer .system-usage.ram-hover dl dd,
+footer .system-usage #system-ram:hover,
+footer .system-usage #system-ram:focus,
+footer .system-usage.ram-hover #system-ram {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+  cursor: default !important;
+}
+
+/* Backlight-mode variant for RAM hover */
+body.backlight-mode footer .system-usage:has(#system-ram:hover) h3,
+body.backlight-mode footer .system-usage:has(#system-ram:focus) h3,
+body.backlight-mode footer .system-usage.ram-hover h3,
+body.backlight-mode footer .system-usage:has(#system-ram:hover) dl dt,
+body.backlight-mode footer .system-usage:has(#system-ram:focus) dl dt,
+body.backlight-mode footer .system-usage.ram-hover dl dt,
+body.backlight-mode footer .system-usage:has(#system-ram:hover) dl dd,
+body.backlight-mode footer .system-usage:has(#system-ram:focus) dl dd,
+body.backlight-mode footer .system-usage.ram-hover dl dd,
+body.backlight-mode footer .system-usage #system-ram:hover,
+body.backlight-mode footer .system-usage #system-ram:focus,
+body.backlight-mode footer .system-usage.ram-hover #system-ram {
+  color: #252525 !important;
+  transition: color var(--transition-speed) ease !important;
+  cursor: default !important;
+}
+
+/* Storage (mem) hover: only activate the Storage row and the System Usage heading.
+   De-emphasize (offline color) all other rows so only Storage + heading appear active.
+   This works with :has() and with the JS fallback `.mem-hover`. */
+footer .system-usage:has(#system-mem:hover) dl > div:not(:last-child) dt,
+footer .system-usage:has(#system-mem:hover) dl > div:not(:last-child) dd,
+footer .system-usage.mem-hover dl > div:not(:last-child) dt,
+footer .system-usage.mem-hover dl > div:not(:last-child) dd {
+  color: var(--green-offline) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+footer .system-usage:has(#system-mem:hover) dl > div:last-child dt,
+footer .system-usage:has(#system-mem:hover) dl > div:last-child dd,
+footer .system-usage.mem-hover dl > div:last-child dt,
+footer .system-usage.mem-hover dl > div:last-child dd,
+footer .system-usage:has(#system-mem:hover) h3,
+footer .system-usage.mem-hover h3,
+footer .system-usage #system-mem:hover,
+footer .system-usage #system-mem:focus,
+footer .system-usage.mem-hover #system-mem {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+  cursor: pointer !important;
+}
+
+/* Backlight-mode variant for Storage hover */
+body.backlight-mode footer .system-usage:has(#system-mem:hover) dl > div:not(:last-child) dt,
+body.backlight-mode footer .system-usage:has(#system-mem:focus) h3,
+body.backlight-mode footer .system-usage.mem-hover h3,
+body.backlight-mode footer .system-usage:has(#system-mem:hover) dl dt,
+body.backlight-mode footer .system-usage:has(#system-mem:focus) dl dt,
+body.backlight-mode footer .system-usage.mem-hover dl dt,
+body.backlight-mode footer .system-usage:has(#system-mem:hover) dl dd,
+body.backlight-mode footer .system-usage:has(#system-mem:focus) dl dd,
+body.backlight-mode footer .system-usage.mem-hover dl dd,
+body.backlight-mode footer .system-usage #system-mem:hover,
+body.backlight-mode footer .system-usage #system-mem:focus,
+body.backlight-mode footer .system-usage.mem-hover #system-mem {
+  color: #252525 !important;
+  transition: color var(--transition-speed) ease !important;
+  cursor: pointer !important;
+}
+
+/* --- absolute-last rule: previously forced default cursor in System Usage ---
+   Replaced to ensure the custom green cursor is used inside System Usage.
+   Kept as a single authoritative rule so it cannot be defeated by earlier
+   deeply-specific selectors. */
+body.cursor-moving footer .system-usage,
+body.cursor-moving footer .system-usage *,
+body.backlight-mode.cursor-moving footer .system-usage,
+body.backlight-mode.cursor-moving footer .system-usage *,
+footer .system-usage,
+footer .system-usage *,
+footer .system-usage dt:hover,
+footer .system-usage dt:hover *,
+footer .system-usage.mem-hover,
+footer .system-usage.mem-hover *,
+footer .system-usage.ram-hover,
+footer .system-usage.ram-hover *,
+footer .system-usage.cpu-hover,
+footer .system-usage.cpu-hover *,
+footer .system-usage.stat-hover,
+footer .system-usage.stat-hover * {
+  cursor: url('/assets/green-cursor.svg') 8 8, url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, default !important;
+}
+
+/* Final absolute safety net (originally forced default cursor). Updated
+   to use the custom green cursor so System Usage respects the global
+   cursor preference while preserving existing hover color semantics. */
+body.cursor-moving footer .system-usage,
+body.cursor-moving footer .system-usage *,
+body.backlight-mode.cursor-moving footer .system-usage,
+body.backlight-mode.cursor-moving footer .system-usage *,
+footer .system-usage,
+footer .system-usage *,
+footer .system-usage dt:hover,
+footer .system-usage dt:hover *,
+footer .system-usage.mem-hover,
+footer .system-usage.mem-hover *,
+footer .system-usage.ram-hover,
+footer .system-usage.ram-hover *,
+footer .system-usage.cpu-hover,
+footer .system-usage.cpu-hover *,
+footer .system-usage.stat-hover,
+footer .system-usage.stat-hover * {
+  cursor: url('/assets/green-cursor.svg') 8 8, url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, default !important;
+}
+
+/* Absolute, final override: replaced default cursor with custom green
+   cursor to honor site-wide cursor preference in System Usage. */
+body.cursor-moving footer .system-usage,
+body.cursor-moving footer .system-usage *,
+body.backlight-mode.cursor-moving footer .system-usage,
+body.backlight-mode.cursor-moving footer .system-usage *,
+footer .system-usage,
+footer .system-usage *,
+footer .system-usage dt:hover,
+footer .system-usage dt:hover *,
+footer .system-usage:has(dl > div dt:hover),
+footer .system-usage:has(dl > div dt:hover) *,
+footer .system-usage.mem-hover,
+footer .system-usage.mem-hover *,
+footer .system-usage.ram-hover,
+footer .system-usage.ram-hover *,
+footer .system-usage.cpu-hover,
+footer .system-usage.cpu-hover *,
+footer .system-usage.stat-hover,
+footer .system-usage.stat-hover * {
+  cursor: url('/assets/green-cursor.svg') 8 8, url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, default !important;
+}
+
+/* Force default cursor in the System Usage column WHEN IN BACKLIGHT MODE.
+   Previously this rule applied unconditionally and prevented the custom
+   green cursor from appearing in Green (OLED) mode. Scope it to
+   `body.backlight-mode` so Green mode can use the site's custom cursor. */
+body.backlight-mode footer .system-usage,
+body.backlight-mode footer .system-usage * {
+  cursor: default !important;
+}
+
+/* Only block the dynamic green/hand cursor when in backlight-mode.
+   Green mode should be allowed to show the custom cursor (including
+   the active/idle green variants controlled by JS). */
+body.backlight-mode.cursor-moving footer .system-usage,
+body.backlight-mode.cursor-moving footer .system-usage * {
+  cursor: default !important;
+}
+
+/* Support hovering the label text (dt) in browsers that implement :has()
+   so hovering the word itself (not the numeric value) triggers the same
+   visual rules as hovering the value. JS fallbacks (.cpu-hover, .ram-hover,
+   .mem-hover) already cover browsers without :has(). */
+
+/* CPU label hover -> active CPU, de-emphasize other rows */
+footer .system-usage:has(dl > div:first-child dt:hover) h3,
+footer .system-usage:has(dl > div:first-child dt:hover) dl > div:first-child dt,
+footer .system-usage:has(dl > div:first-child dt:hover) dl > div:first-child dd,
+footer .system-usage dl > div:first-child dt:hover {
+  color: var(--green-active) !important;
+  cursor: default !important;
+}
+footer .system-usage:has(dl > div:first-child dt:hover) dl > div:not(:first-child) dt,
+footer .system-usage:has(dl > div:first-child dt:hover) dl > div:not(:first-child) dd {
+  color: var(--green-offline) !important;
+  cursor: default !important;
+}
+body.backlight-mode footer .system-usage:has(dl > div:first-child dt:hover) h3,
+body.backlight-mode footer .system-usage:has(dl > div:first-child dt:hover) dl > div:first-child dt,
+body.backlight-mode footer .system-usage:has(dl > div:first-child dt:hover) dl > div:first-child dd,
+body.backlight-mode footer .system-usage dl > div:first-child dt:hover {
+  color: #252525 !important;
+}
+body.backlight-mode footer .system-usage:has(dl > div:first-child dt:hover) dl > div:not(:first-child) dt,
+body.backlight-mode footer .system-usage:has(dl > div:first-child dt:hover) dl > div:not(:first-child) dd {
+  color: #252525 !important;
+}
+
+/* RAM label hover -> active RAM, de-emphasize other rows */
+footer .system-usage:has(dl > div:nth-child(3) dt:hover) h3,
+footer .system-usage:has(dl > div:nth-child(3) dt:hover) dl > div:nth-child(3) dt,
+footer .system-usage:has(dl > div:nth-child(3) dt:hover) dl > div:nth-child(3) dd,
+footer .system-usage dl > div:nth-child(3) dt:hover {
+  color: var(--green-active) !important;
+  cursor: pointer !important;
+}
+footer .system-usage:has(dl > div:nth-child(3) dt:hover) dl > div:not(:nth-child(3)) dt,
+footer .system-usage:has(dl > div:nth-child(3) dt:hover) dl > div:not(:nth-child(3)) dd {
+  color: var(--green-offline) !important;
+  cursor: default !important;
+}
+body.backlight-mode footer .system-usage:has(dl > div:nth-child(3) dt:hover) h3,
+body.backlight-mode footer .system-usage:has(dl > div:nth-child(3) dt:hover) dl > div:nth-child(3) dt,
+body.backlight-mode footer .system-usage:has(dl > div:nth-child(3) dt:hover) dl > div:nth-child(3) dd,
+body.backlight-mode footer .system-usage dl > div:nth-child(3) dt:hover {
+  color: #252525 !important;
+}
+body.backlight-mode footer .system-usage:has(dl > div:nth-child(3) dt:hover) dl > div:not(:nth-child(3)) dt,
+body.backlight-mode footer .system-usage:has(dl > div:nth-child(3) dt:hover) dl > div:not(:nth-child(3)) dd {
+  color: #252525 !important;
+}
+
+/* Storage label hover -> active Storage, de-emphasize other rows */
+footer .system-usage:has(dl > div:last-child dt:hover) h3,
+footer .system-usage:has(dl > div:last-child dt:hover) dl > div:last-child dt,
+footer .system-usage:has(dl > div:last-child dt:hover) dl > div:last-child dd,
+footer .system-usage dl > div:last-child dt:hover {
+  color: var(--green-active) !important;
+  cursor: pointer !important;
+}
+footer .system-usage:has(dl > div:last-child dt:hover) dl > div:not(:last-child) dt,
+footer .system-usage:has(dl > div:last-child dt:hover) dl > div:not(:last-child) dd {
+  color: var(--green-offline) !important;
+  cursor: default !important;
+}
+body.backlight-mode footer .system-usage:has(dl > div:last-child dt:hover) h3,
+body.backlight-mode footer .system-usage:has(dl > div:last-child dt:hover) dl > div:last-child dt,
+body.backlight-mode footer .system-usage:has(dl > div:last-child dt:hover) dl > div:last-child dd,
+body.backlight-mode footer .system-usage dl > div:last-child dt:hover {
+  color: #252525 !important;
+}
+body.backlight-mode footer .system-usage:has(dl > div:last-child dt:hover) dl > div:not(:last-child) dt,
+body.backlight-mode footer .system-usage:has(dl > div:last-child dt:hover) dl > div:not(:last-child) dd {
+  color: #252525 !important;
+}
+
+/* Use the same inline layout and spacing for forecast and server-stats */
+footer .server-stats dl,
+footer .forecast dl {
+  display: flex;
+  gap: 0.5rem; /* spacing between items */
+  align-items: center;
+  white-space: nowrap;
+  overflow-x: visible;
+}
+
+/* Stack server stats below heading: one group per line while keeping label: value inline */
+footer .server-stats dl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  white-space: normal;
+  align-items: flex-start;
+}
+footer .server-stats dl > div {
+  display: flex; /* each stat on its own line */
+  margin: 0;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+footer .server-stats dl div,
+footer .forecast dl > div {
+  display: inline-flex; /* keep label+value together */
+  gap: 0.15rem;         /* small spacing to match server-stats */
+  align-items: center;
+  white-space: nowrap;
+  flex-direction: row;  /* label then value */
+}
+
+/* Make contact text use the same green color */
+footer .contact {
+  color: var(--line-color);
+}
+footer .contact { text-align: right; }
+footer .contact p { margin: 0; }
+
+/* Responsive: allow wrapping on small screens */
+@media (max-width: 700px) {
+  footer .server-stats dl,
+  footer .forecast dl {
+    flex-wrap: wrap;
+    white-space: normal;
+    gap: 0.5rem;
+  }
+}
+
+footer .location {
+  margin-top: 10px; /* Adjusted value for better alignment */
+}
+
+/* Diagram styling */
+figure.diagram { 
+  margin: 1rem 0; 
+  font-size: 1rem; /* match server stats font size */
+}
+
+.diagram-svg {
+  display: block;
+  width: 100%;
+  max-width: 1010px; /* match the SVG viewBox width */
+  height: auto;
+  font-size: 40px; /* set diagram text size to 40px */
+}
+
+/* Ensure each server-stats item gets an extra 10px spacing before the next item */
+footer .server-stats dl > div:not(:last-child) {
+  margin-right: 10px !important;
+}
+
+/* On small screens where items wrap, don't add the extra margin to avoid awkward spacing */
+@media (max-width: 700px) {
+  footer .server-stats dl > div:not(:last-child) {
+    margin-right: 0 !important;
+  }
+}
+
+/* Mirror the same extra spacing for Forecast items */
+footer .forecast dl > div:not(:last-child) {
+  margin-right: 10px !important;
+}
+
+@media (max-width: 700px) {
+  footer .forecast dl > div:not(:last-child) {
+    margin-right: 0 !important;
+  }
+}
+
+/* Stack forecast below heading: one group per line while keeping label: value inline */
+footer .forecast dl {
+  display: block;           /* stack items vertically */
+  white-space: normal;      /* allow wrapping if needed */
+}
+footer .forecast dl > div {
+  display: block;           /* one entry per line */
+  margin: 0 0 0.15rem 0;    /* small vertical spacing between lines */
+  text-align: left;         /* ensure left alignment */
+}
+/* Ensure label and value render inline like "Label: Value" */
+footer .forecast dt,
+footer .forecast dd {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+/* Force Forecast text to be left-aligned regardless of footer default */
+footer .forecast,
+footer .forecast dl {
+  text-align: left;
+}
+
+/* (removed: energy-usage specific spacing rule) */
+
+/* Only links in contact column get green-active on hover, not the name */
+.contact-name {
+  color: var(--green-offline) !important;
+  transition: color var(--transition-speed) ease;
+}
+
+/* Restore dropdown menu border to black and keep modal dialog border white in backlight mode */
+body.backlight-mode .dropdown-content {
+  border: 1px solid #000 !important;
+}
+body.backlight-mode .modal-dialog {
+  border: none !important;
+}
+body.backlight-mode #modal-minimize-media .modal-dialog {
+  background: #fff !important;
+  color: #0b0b0b !important;
+}
+body.backlight-mode #modal-minimize-media .cross-box {
+  border: 1px solid #0b0b0b !important;
+}
+body.backlight-mode #modal-minimize-media .cross-box,
+#modal-minimize-media .cross-box {
+  height: 200px !important;
+}
+/* Helper class: force an element to display the offline green color
+   Used by JS when one help paragraph should remain visually offline
+   while another is hovered. */
+#modal-minimize-media .modal-body .forced-offline {
+  color: var(--green-offline) !important;
+}
+/* Remove border from B&W image in cross-box */
+#modal-minimize-media .cross-box img[src*="B&W.jpg"] {
+  border: none !important;
+}
+#modal-minimize-media .cross-box.bw-active img[src*="B&W.jpg"] {
+  border: none !important;
+}
+/* Remove border from B&W image in cross-box, all modes and states */
+#modal-minimize-media .cross-box img[src*="B&W.jpg"],
+#modal-minimize-media .cross-box img[src*="B&W.jpg"]:hover,
+#modal-minimize-media .cross-box img[src*="B&W.jpg"]:focus,
+body.backlight-mode #modal-minimize-media .cross-box img[src*="B&W.jpg"] {
+  border: none !important;
+}
+#crossbox-size {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: #000 !important; /* pure black background */
+  color: #444;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.98em;
+  display: none;
+  z-index: 2;
+}
+
+/* In Green (OLED) mode, keep the Display Energy / Server Stats panel visually
+   above modal overlays so it remains readable and not obscured by popups. This
+   raises only the website-energy server-stats block above modals (modal
+   overlays use z-index:1000) without changing modal behavior elsewhere. */
+body:not(.backlight-mode) footer .server-stats.website-energy {
+  position: relative;
+  z-index: 0; /* lower stacking so it doesn't visually overlap neighboring stats */
+  pointer-events: auto; /* allow interaction if needed */
+  background: transparent; /* make the box transparent in dark mode as requested */
+  padding: 0.25rem 0.75rem; /* small padding to match footer spacing */
+  border-radius: 4px;
+}
+
+}
+
+/* JS-fallback hook: when .system-usage gains .stat-hover (toggled by JS),
+   highlight the heading and all stat labels/values using the offline green token. */
+footer .system-usage.stat-hover h3,
+footer .system-usage.stat-hover dl dt,
+footer .system-usage.stat-hover dl dd,
+footer .system-usage.stat-hover #system-cpu,
+footer .system-usage.stat-hover #system-ram,
+footer .system-usage.stat-hover #system-mem {
+  color: var(--green-offline) !important;
+}
+
+/* Backlight-mode: use dark color for the same JS-driven interaction */
+body.backlight-mode footer .system-usage.stat-hover h3,
+body.backlight-mode footer .system-usage.stat-hover dl dt,
+body.backlight-mode footer .system-usage.stat-hover dl dd,
+body.backlight-mode footer .system-usage.stat-hover #system-cpu,
+body.backlight-mode footer .system-usage.stat-hover #system-ram,
+body.backlight-mode footer .system-usage.stat-hover #system-mem {
+  color: #252525 !important;
+}
+
+/* Strong override: when JS sets .cpu-force-active we must make the
+   entire System Usage section show the active green color. This is
+   used as a deterministic fallback when label hover doesn't trigger
+   :has() based rules in older browsers. */
+/* cpu-force-active: only force the heading + CPU row active (do not
+   color RAM or Storage). This avoids turning unrelated stats bright.
+*/
+footer .system-usage.cpu-force-active h3,
+footer .system-usage.cpu-force-active dl > div:first-child dt,
+footer .system-usage.cpu-force-active dl > div:first-child dd,
+footer .system-usage.cpu-force-active #system-cpu {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Backlight-mode variant: use near-black for contrast */
+body.backlight-mode footer .system-usage.cpu-force-active h3,
+body.backlight-mode footer .system-usage.cpu-force-active dl > div:first-child dt,
+body.backlight-mode footer .system-usage.cpu-force-active dl > div:first-child dd,
+body.backlight-mode footer .system-usage.cpu-force-active #system-cpu {
+  color: #252525 !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Strong final override for RAM hover/fallback:
+   - When RAM is hovered (or .ram-hover is present), make the System Usage
+     heading active-green so the section reads as "online".
+   - Keep CPU and Storage visually de-emphasized (offline/dim green).
+   This sits at the end of the stylesheet to ensure it wins over earlier
+   generic hover rules in older browsers. */
+footer .system-usage:has(#system-ram:hover) h3,
+footer .system-usage.ram-hover h3 {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* When the dedicated CPU-temp label is hovered (cpu-temp-hover), ensure
+   the main CPU value is NOT shown as active/online green. This prevents
+   hovering the temperature label from making the CPU percentage bright. */
+footer .system-usage.cpu-temp-hover #system-cpu,
+footer .system-usage.cpu-temp-hover.cpu-force-active #system-cpu {
+  color: var(--green-offline) !important;
+  font-weight: 400 !important;
+}
+
+/* Default/offline state for the CPU Temp value: when the CPU Temp row is
+   NOT targeted (no `.cpu-temp-hover` class and label not hovered), keep
+   the temperature value in the offline color. This ensures it becomes
+   offline when the mouse cursor is not on "CPU Temp:". */
+footer .system-usage:not(.cpu-temp-hover) #system-cpu-temp {
+  color: var(--green-offline) !important;
+  font-weight: 400 !important;
+  transition: color var(--transition-speed) ease !important;
+}
+body.backlight-mode footer .system-usage:not(.cpu-temp-hover) #system-cpu-temp {
+  color: #252525 !important;
+  font-weight: 400 !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Prevent RAM or generic stat hover from making the CPU Temp value appear
+   as active/online green. The temperature row should remain dim/offline
+   unless it is directly targeted (or you explicitly want it to highlight).
+   This ensures hovering RAM doesn't accidentally highlight CPU Temp. */
+footer .system-usage.ram-hover #system-cpu-temp,
+footer .system-usage.stat-hover #system-cpu-temp,
+footer .system-usage.mem-hover #system-cpu-temp {
+  color: var(--green-offline) !important;
+  font-weight: 400 !important;
+}
+
+/* Ensure all non-RAM rows remain offline/dim when RAM is targeted */
+footer .system-usage:has(#system-ram:hover) dl > div:not(:nth-child(3)) dt,
+footer .system-usage:has(#system-ram:hover) dl > div:not(:nth-child(3)) dd,
+footer .system-usage.ram-hover dl > div:not(:nth-child(3)) dt,
+footer .system-usage.ram-hover dl > div:not(:nth-child(3)) dd {
+  color: var(--green-offline) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* CPU Temp hover -> only the heading and the CPU Temp row become active-green.
+   De-emphasize CPU and other rows. This covers both modern :has() hover and
+   the JS fallback `.cpu-temp-hover` class. Placed after other rules so it wins. */
+footer .system-usage:has(dl > div:nth-child(2) dt:hover) h3,
+footer .system-usage:has(dl > div:nth-child(2) dt:hover) dl > div:nth-child(2) dt,
+footer .system-usage:has(dl > div:nth-child(2) dt:hover) dl > div:nth-child(2) dd,
+footer .system-usage dl > div:nth-child(2) dt:hover,
+footer .system-usage.cpu-temp-hover h3,
+footer .system-usage.cpu-temp-hover dl > div:nth-child(2) dt,
+footer .system-usage.cpu-temp-hover dl > div:nth-child(2) dd {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Explicit safety: if JS marks the CPU Temp value node with
+   `cpu-temp-targeted`, ensure it becomes active-green when the
+   section has the cpu-temp-hover class. This avoids a conflict
+   with generic dd:hover suppression and keeps behavior consistent. */
+footer .system-usage.cpu-temp-hover dd.cpu-temp-targeted {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+}
+body.backlight-mode footer .system-usage.cpu-temp-hover dd.cpu-temp-targeted {
+  color: #252525 !important;
+}
+
+/* Explicit, high-specificity rule: ensure the CPU Temp value (by ID)
+   becomes active when the cpu-temp-hover class is present. This wins
+   over other competing rules and guarantees the '-' or numeric temp
+   is colored correctly while the label is targeted. */
+footer .system-usage.cpu-temp-hover #system-cpu-temp {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+}
+body.backlight-mode footer .system-usage.cpu-temp-hover #system-cpu-temp {
+  color: #252525 !important;
+}
+
+/* De-emphasize everything else when CPU Temp is active */
+footer .system-usage:has(dl > div:nth-child(2) dt:hover) dl > div:not(:nth-child(2)) dt,
+footer .system-usage:has(dl > div:nth-child(2) dt:hover) dl > div:not(:nth-child(2)) dd,
+footer .system-usage.cpu-temp-hover dl > div:not(:nth-child(2)) dt,
+footer .system-usage.cpu-temp-hover dl > div:not(:nth-child(2)) dd,
+footer .system-usage:has(dl > div:nth-child(2) dt:hover) #system-cpu,
+footer .system-usage.cpu-temp-hover #system-cpu {
+  color: var(--green-offline) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Backlight-mode variants for CPU Temp */
+body.backlight-mode footer .system-usage:has(dl > div:nth-child(2) dt:hover) h3,
+body.backlight-mode footer .system-usage.cpu-temp-hover h3,
+body.backlight-mode footer .system-usage:has(dl > div:nth-child(2) dt:hover) dl > div:nth-child(2) dt,
+body.backlight-mode footer .system-usage.cpu-temp-hover dl > div:nth-child(2) dt,
+body.backlight-mode footer .system-usage:has(dl > div:nth-child(2) dt:hover) dl > div:nth-child(2) dd,
+body.backlight-mode footer .system-usage.cpu-temp-hover dl > div:nth-child(2) dd {
+  color: #252525 !important;
+}
+body.backlight-mode footer .system-usage:has(dl > div:nth-child(2) dt:hover) dl > div:not(:nth-child(2)) dt,
+body.backlight-mode footer .system-usage:has(dl > div:nth-child(2) dt:hover) dl > div:not(:nth-child(2)) dd,
+body.backlight-mode footer .system-usage.cpu-temp-hover dl > div:not(:nth-child(2)) dt,
+body.backlight-mode footer .system-usage.cpu-temp-hover dl > div:not(:nth-child(2)) dd,
+body.backlight-mode footer .system-usage:has(dl > div:nth-child(2) dt:hover) #system-cpu,
+body.backlight-mode footer .system-usage.cpu-temp-hover #system-cpu {
+  color: #252525 !important;
+}
+
+/* Backlight-mode variants for the same behavior */
+body.backlight-mode footer .system-usage:has(#system-ram:hover) h3,
+body.backlight-mode footer .system-usage.ram-hover h3 {
+  color: #252525 !important;
+}
+body.backlight-mode footer .system-usage:has(#system-ram:hover) dl > div:not(:nth-child(3)) dt,
+body.backlight-mode footer .system-usage:has(#system-ram:hover) dl > div:not(:nth-child(3)) dd,
+body.backlight-mode footer .system-usage.ram-hover dl > div:not(:nth-child(3)) dt,
+body.backlight-mode footer .system-usage.ram-hover dl > div:not(:nth-child(3)) dd {
+  color: #252525 !important;
+  cursor: default !important;
+}
+/* Final strong override: ensure Storage (.mem-hover) forces the whole
+   System Usage section into the active (online) green state. This block
+   comes after the generic `.stat-hover` rules so it takes precedence
+   when JS has added `.mem-hover` (or when :has() isn't supported).
+*/
+footer .system-usage.mem-hover h3,
+footer .system-usage.mem-hover dl > div:last-child dt,
+footer .system-usage.mem-hover dl > div:last-child dd,
+footer .system-usage.mem-hover #system-mem {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+  cursor: pointer !important;
+}
+
+/* Backlight-mode variant for the same behavior */
+body.backlight-mode footer .system-usage.mem-hover h3,
+body.backlight-mode footer .system-usage.mem-hover dl > div:last-child dt,
+body.backlight-mode footer .system-usage.mem-hover dl > div:last-child dd,
+body.backlight-mode footer .system-usage.mem-hover #system-mem {
+  color: #252525 !important;
+  transition: color var(--transition-speed) ease !important;
+  cursor: default !important;
+}
+
+/* === Heading-triggered full-column activation ===
+   When the user places the mouse exactly on the "System Usage" heading
+   (the <h3> text), the entire .system-usage column should show the
+   active (online) green. We provide both modern (:has) and classic
+   sibling selectors so this works across browsers. Also support keyboard
+   focus (h3:focus). */
+
+/* Modern browsers with :has() */
+footer .system-usage:has(h3:hover) h3,
+footer .system-usage:has(h3:hover) dl dt,
+footer .system-usage:has(h3:hover) dl dd,
+footer .system-usage:has(h3:focus) h3,
+footer .system-usage:has(h3:focus) dl dt,
+footer .system-usage:has(h3:focus) dl dd {
+  color: var(--green-active) !important;
+}
+body.backlight-mode footer .system-usage:has(h3:hover) h3,
+body.backlight-mode footer .system-usage:has(h3:focus) h3,
+body.backlight-mode footer .system-usage:has(h3:hover) dl dt,
+body.backlight-mode footer .system-usage:has(h3:focus) dl dt,
+body.backlight-mode footer .system-usage:has(h3:hover) dl dd,
+body.backlight-mode footer .system-usage:has(h3:focus) dl dd {
+  color: #252525 !important;
+}
+
+/* Fallback for browsers without :has() using sibling combinator */
+footer .system-usage h3:hover,
+footer .system-usage h3:hover ~ dl dt,
+footer .system-usage h3:hover ~ dl dd,
+footer .system-usage h3:focus,
+footer .system-usage h3:focus ~ dl dt,
+footer .system-usage h3:focus ~ dl dd {
+  color: var(--green-active) !important;
+}
+body.backlight-mode footer .system-usage h3:hover,
+body.backlight-mode footer .system-usage h3:focus,
+body.backlight-mode footer .system-usage h3:hover ~ dl dt,
+body.backlight-mode footer .system-usage h3:focus ~ dl dt,
+body.backlight-mode footer .system-usage h3:hover ~ dl dd,
+body.backlight-mode footer .system-usage h3:focus ~ dl dd {
+  color: #252525 !important;
+}
+
+
+/* === Restrict System Usage 'online' state to label (dt) only ===
+   The user requested that the System Usage column becomes "online"
+   (green) only when the pointer is exactly over the words/labels
+   (the <dt> elements). The following rules disable any whole-section
+   or value-element (dd) hover activation and ensure dt:hover / dt:focus
+   (and JS fallback classes set by dt handlers) are the only triggers. */
+
+/* 1) Disable section-level hover activation (gaps, container hover, etc.) */
+footer .system-usage:hover h3,
+footer .system-usage:hover dl dt,
+footer .system-usage:hover dl dd,
+body.backlight-mode footer .system-usage:hover h3,
+body.backlight-mode footer .system-usage:hover dl dt,
+body.backlight-mode footer .system-usage:hover dl dd {
+  color: var(--line-color) !important; /* keep offline color when hovering the container */
+}
+
+/* 2) Prevent value (dd) hover from triggering the active state */
+footer .system-usage dl dd:hover,
+footer .system-usage dl dd:focus,
+body.backlight-mode footer .system-usage dl dd:hover,
+body.backlight-mode footer .system-usage dl dd:focus {
+  color: var(--line-color) !important;
+  cursor: default !important;
+}
+
+/* Exception: allow the CPU Temp value itself to activate the System Usage
+   column. Place after the generic dd:hover rule so it overrides the
+   global suppression. This makes the heading and the CPU Temp row
+   active-green while de-emphasizing the other rows. */
+footer .system-usage #system-cpu-temp:hover,
+footer .system-usage #system-cpu-temp:focus,
+footer .system-usage:has(#system-cpu-temp:hover) h3,
+footer .system-usage.cpu-temp-hover h3,
+footer .system-usage:has(#system-cpu-temp:hover) dl > div:has(dd#system-cpu-temp) dt,
+footer .system-usage:has(#system-cpu-temp:hover) dl > div:has(dd#system-cpu-temp) dd,
+footer .system-usage.cpu-temp-hover dl > div:has(dd#system-cpu-temp) dt,
+footer .system-usage.cpu-temp-hover dl > div:has(dd#system-cpu-temp) dd,
+footer .system-usage.cpu-temp-hover #system-cpu-temp {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+  cursor: default !important;
+}
+
+/* De-emphasize other rows when CPU Temp is active */
+footer .system-usage:has(#system-cpu-temp:hover) dl > div:not(:has(dd#system-cpu-temp)) dt,
+footer .system-usage:has(#system-cpu-temp:hover) dl > div:not(:has(dd#system-cpu-temp)) dd,
+footer .system-usage.cpu-temp-hover dl > div:not(:has(dd#system-cpu-temp)) dt,
+footer .system-usage.cpu-temp-hover dl > div:not(:has(dd#system-cpu-temp)) dd {
+  color: var(--green-offline) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* Backlight-mode variants for CPU Temp exception */
+body.backlight-mode footer .system-usage #system-cpu-temp:hover,
+body.backlight-mode footer .system-usage #system-cpu-temp:focus,
+body.backlight-mode footer .system-usage:has(#system-cpu-temp:hover) h3,
+body.backlight-mode footer .system-usage.cpu-temp-hover h3,
+body.backlight-mode footer .system-usage:has(#system-cpu-temp:hover) dl > div:has(dd#system-cpu-temp) dt,
+body.backlight-mode footer .system-usage:has(#system-cpu-temp:hover) dl > div:has(dd#system-cpu-temp) dd,
+body.backlight-mode footer .system-usage.cpu-temp-hover dl > div:has(dd#system-cpu-temp) dt,
+body.backlight-mode footer .system-usage.cpu-temp-hover dl > div:has(dd#system-cpu-temp) dd,
+body.backlight-mode footer .system-usage.cpu-temp-hover #system-cpu-temp {
+  color: #252525 !important;
+  transition: color var(--transition-speed) ease !important;
+  cursor: default !important;
+}
+
+body.backlight-mode footer .system-usage:has(#system-cpu-temp:hover) dl > div:not(:has(dd#system-cpu-temp)) dt,
+body.backlight-mode footer .system-usage:has(#system-cpu-temp:hover) dl > div:not(:has(dd#system-cpu-temp)) dd,
+body.backlight-mode footer .system-usage.cpu-temp-hover dl > div:not(:has(dd#system-cpu-temp)) dt,
+body.backlight-mode footer .system-usage.cpu-temp-hover dl > div:not(:has(dd#system-cpu-temp)) dd {
+  color: #252525 !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* 3) Enable exact-label hover/focus to activate the column using :has() when available */
+footer .system-usage:has(dl > div dt:hover) h3,
+footer .system-usage:has(dl > div dt:hover) dl dt,
+footer .system-usage:has(dl > div dt:hover) dl dd,
+footer .system-usage dl > div dt:hover {
+  color: var(--green-active) !important;
+  cursor: default !important;
+}
+body.backlight-mode footer .system-usage:has(dl > div dt:hover) h3,
+body.backlight-mode footer .system-usage:has(dl > div dt:hover) dl dt,
+body.backlight-mode footer .system-usage:has(dl > div dt:hover) dl dd {
+  color: #252525 !important;
+}
+
+/* 4) JS fallback: when the dt handlers add .stat-hover / .*-hover classes,
+      respect those classes only if they were added by dt interactions.
+      (Existing JS already sets these classes on dt mouseenter/leave.) */
+footer .system-usage.stat-hover h3,
+footer .system-usage.stat-hover dl dt,
+footer .system-usage.stat-hover dl dd,
+footer .system-usage.cpu-hover h3,
+footer .system-usage.cpu-hover dl dt,
+footer .system-usage.cpu-hover dl dd,
+footer .system-usage.ram-hover h3,
+footer .system-usage.ram-hover dl dt,
+footer .system-usage.ram-hover dl dd {
+  color: var(--green-active) !important;
+}
+
+/* For Storage (.mem-hover) only activate heading + storage row; other rows stay dim */
+footer .system-usage.mem-hover h3,
+footer .system-usage.mem-hover dl > div:last-child dt,
+footer .system-usage.mem-hover dl > div:last-child dd,
+footer .system-usage.mem-hover #system-mem {
+  color: var(--green-active) !important;
+}
+body.backlight-mode footer .system-usage.stat-hover h3,
+body.backlight-mode footer .system-usage.cpu-hover h3,
+body.backlight-mode footer .system-usage.ram-hover h3,
+body.backlight-mode footer .system-usage.mem-hover h3 {
+  color: #252525 !important;
+}
+
+/* 5) Ensure dt elements are the only keyboard targets that activate the styling */
+footer .system-usage dl > div dt[tabindex] {
+  outline: none; /* visual focus handled elsewhere */
+}
+
+/* 6) Extra safety: remove any accidental pointer cursor on rows/gaps */
+footer .system-usage dl > div { cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, auto !important; }
+
+/* Footer-specific cursor override
+   The user requested the footer mouse cursor to be the default arrow everywhere
+   in the footer (including links). This rule is high-specificity and uses
+   !important so it overrides other cursor styles in the footer area.
+*/
+footer,
+footer * {
+  /* use the green circular cursor inside the footer so it remains consistent */
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Ensure any link or svg inside the footer also shows the default cursor */
+footer a,
+footer a *,
+footer svg a,
+footer svg a * {
+  cursor: default !important;
+}
+
+/* Allow a clickable-style cursor for two footer columns
+   User asked for a "circle" cursor in System Usage and Forecast columns.
+   There's no standard `circle` cursor, so assume they meant the
+   clickable/interactive cursor (hand). We set `cursor: pointer` here.
+   This rule comes after the footer-wide default and uses !important so
+   it will win by source order.
+*/
+footer .system-usage,
+footer .system-usage *,
+footer .forecast,
+footer .forecast * {
+  cursor: pointer !important;
+}
+
+/* Ensure links/icons inside those columns also use pointer */
+footer .system-usage a,
+footer .system-usage a *,
+footer .forecast a,
+footer .forecast a *,
+footer .system-usage svg a,
+footer .forecast svg a {
+  cursor: pointer !important;
+}
+
+/* Final, highest-priority footer cursor enforcement
+   Place at the very end to override any earlier `cursor` declarations
+   (including `footer a { cursor: default !important; }` or per-row rules).
+   This keeps your custom green circular cursor everywhere in the footer
+   (including links and SVG links) while still preserving native cursors
+   for form controls outside the footer.
+*/
+body.cursor-moving footer,
+body.cursor-moving footer *,
+body:not(.cursor-moving) footer,
+body:not(.cursor-moving) footer *,
+body.backlight-mode.cursor-moving footer,
+body.backlight-mode.cursor-moving footer *,
+body.backlight-mode:not(.cursor-moving) footer,
+body.backlight-mode:not(.cursor-moving) footer *,
+footer a,
+footer a *,
+footer svg a,
+footer svg a * {
+  /* Prefer the external asset (better browser compatibility), then fallback to data-URI */
+  cursor: url('/assets/green-cursor.svg') 8 8, url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, default !important;
+}
+
+/* Final global override: force custom green circular cursor everywhere on the page.
+   This will replace all native/default cursors including form controls.
+   Note: overriding native cursors for form controls may reduce usability.
+*/
+html, body, * , *::before, *::after {
+  cursor: url('/assets/green-cursor.svg') 8 8, url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, default !important;
+}
+
+/* Idle (not moving) in non-backlight mode: when the pointer is stationary,
+   the footer should display the offline (darker) green cursor. This
+   rule is appended at EOF so it overrides earlier cursor rules by source order. */
+body:not(.backlight-mode):not(.cursor-moving) footer,
+body:not(.backlight-mode):not(.cursor-moving) footer *,
+body:not(.backlight-mode):not(.cursor-moving) footer *::before,
+body:not(.backlight-mode):not(.cursor-moving) footer *::after,
+body:not(.backlight-mode):not(.cursor-moving) footer svg,
+body:not(.backlight-mode):not(.cursor-moving) footer svg * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23007600" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Backlight-mode: footer must use a black cursor. Appended at EOF so it wins by source order. */
+body.backlight-mode footer,
+body.backlight-mode footer *,
+body.backlight-mode footer *::before,
+body.backlight-mode footer *::after,
+body.backlight-mode footer svg,
+body.backlight-mode footer svg * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23252525" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Ultra-specific EOF override: triple-class to out-specify existing `cursor: default !important` rules
+   This forces the green custom cursor for all System Usage permutations (hover classes, JS fallbacks, body states). */
+body.cursor-moving footer .system-usage.system-usage.system-usage,
+body.cursor-moving footer .system-usage.system-usage.system-usage *,
+body:not(.cursor-moving) footer .system-usage.system-usage.system-usage,
+body:not(.cursor-moving) footer .system-usage.system-usage.system-usage *,
+body.backlight-mode footer .system-usage.system-usage.system-usage,
+body.backlight-mode footer .system-usage.system-usage.system-usage *,
+footer .system-usage.system-usage.system-usage,
+footer .system-usage.system-usage.system-usage * {
+  cursor: url('/assets/green-cursor.svg') 8 8, url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+
+/* Absolute EOF override for System Usage: force custom green cursor */
+body footer .system-usage,
+body footer .system-usage *,
+body.cursor-moving footer .system-usage,
+body.cursor-moving footer .system-usage *,
+body:not(.cursor-moving) footer .system-usage,
+body:not(.cursor-moving) footer .system-usage *,
+body.backlight-mode footer .system-usage,
+body.backlight-mode footer .system-usage *,
+body.backlight-mode.cursor-moving footer .system-usage,
+body.backlight-mode.cursor-moving footer .system-usage *,
+body.backlight-mode:not(.cursor-moving) footer .system-usage,
+body.backlight-mode:not(.cursor-moving) footer .system-usage * {
+  cursor: url('/assets/green-cursor.svg') 8 8, url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* EOF: ensure System Usage in green mode always shows the OFFLINE green cursor
+   and never becomes the bright/moving green or the pointer/hand. This rule
+   deliberately comes at EOF and is specific so it overrides earlier rules. */
+body:not(.backlight-mode) footer .system-usage,
+body:not(.backlight-mode) footer .system-usage *,
+body.cursor-moving:not(.backlight-mode) footer .system-usage,
+body.cursor-moving:not(.backlight-mode) footer .system-usage * {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%23007600" stroke-width="2"/></svg>') 8 8, auto !important;
+}
+
+/* Specific: ensure the CPU stat shows the custom muse/green cursor */
+body:not(.backlight-mode) footer .system-usage #system-cpu,
+body:not(.backlight-mode) footer .system-usage #system-cpu:hover,
+body:not(.backlight-mode) footer .system-usage #system-cpu:focus {
+  cursor: url('/assets/green-cursor.svg') 8 8, default !important;
+}
+
+/* Removed final default-forcing rule to allow per-item cursor control.
+  We rely on specific rules and inline styles to set the desired cursor for
+  #system-cpu and keep other system-usage items offline-green. */
+

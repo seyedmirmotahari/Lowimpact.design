@@ -1,0 +1,16 @@
+[Unit]
+Description=lowImpact.design static server
+After=network.target
+
+[Service]
+WorkingDirectory=/home/mirmotahari/lowImpact.design
+Environment=SERVE_HOST=0.0.0.0
+Environment=SERVE_PORT=8000
+ExecStart=/usr/bin/python3 serve_with_info.py
+Restart=always
+User=mirmotahari
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,212 @@
+127.0.0.1 - - [18/Nov/2025 18:22:04] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [18/Nov/2025 18:22:04] "GET /style.css HTTP/1.1" 304 -
+127.0.0.1 - - [18/Nov/2025 18:22:04] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:04] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:04] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:04] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:06] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:06] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:06] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:06] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:08] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:08] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:08] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:08] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:10] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:10] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:10] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:10] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:12] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:12] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:12] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:12] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:14] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:14] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:14] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:14] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:16] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:16] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:16] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:16] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:18] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:18] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:18] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:18] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:20] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:20] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:20] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:20] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:22] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:22] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:22] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:22] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:22] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:24] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:24] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:24] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:24] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:26] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:26] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:26] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:26] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:28] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:28] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:28] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:28] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:30] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:30] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:30] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:30] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:32] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:32] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:32] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:32] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:34] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:34] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:34] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:34] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:36] "GET /style.css HTTP/1.1" 304 -
+127.0.0.1 - - [18/Nov/2025 18:22:36] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:36] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:36] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:36] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:38] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:38] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:38] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:38] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:40] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:40] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:40] "GET /assets/html2canvas.min.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:40] "GET /script.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:40] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:40] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:40] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:40] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:40] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:40] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:42] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:42] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:42] "GET /script.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:42] "GET /assets/html2canvas.min.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:42] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:42] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:42] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:42] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:42] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:42] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:44] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:44] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:44] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:44] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:46] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:46] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:46] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:46] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:48] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:48] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:48] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:48] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:50] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:50] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:50] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:50] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:52] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:52] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:52] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:52] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:54] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:54] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:54] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:54] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:56] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:56] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:56] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:56] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:56] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:56] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:56] "GET /assets/html2canvas.min.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:56] "GET /script.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:56] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:56] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:56] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:56] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:56] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:56] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:58] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:58] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:58] "GET /script.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:58] "GET /assets/html2canvas.min.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:58] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:58] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:58] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:22:58] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:22:58] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:22:58] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:23:00] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:00] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:00] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:00] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:02] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:02] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:02] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:02] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:04] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:04] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:04] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:04] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:06] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:06] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:06] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:06] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:08] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:08] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:08] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:08] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:08] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:23:08] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:23:08] "GET /script.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:23:08] "GET /assets/html2canvas.min.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:23:08] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:08] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:08] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:23:08] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:08] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:08] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:23:10] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:10] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:10] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:10] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:13] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:13] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:13] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:13] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:15] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:15] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:15] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:15] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:17] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:17] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:17] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:17] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:19] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:19] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:19] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:19] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:21] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:21] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:21] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:21] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:21] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:23:21] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:23:21] "GET /assets/html2canvas.min.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:23:21] "GET /script.js HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:23:21] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:21] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:21] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:23:21] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:21] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:21] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2025 18:23:23] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:23] "GET /sysinfo HTTP/1.1" 404 -
+127.0.0.1 - - [18/Nov/2025 18:23:23] code 404, message File not found
+127.0.0.1 - - [18/Nov/2025 18:23:23] "GET /sysinfo HTTP/1.1" 404 -
