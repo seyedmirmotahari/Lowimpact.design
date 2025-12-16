@@ -1648,18 +1648,6 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
   </footer>
   <!-- Modal for Solar Power mockup -->
-  <div id="modal-solar" class="modal" aria-hidden="true">
-  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-solar-title" tabindex="-1">
-  <button class="modal-close" aria-label="Close modal">&times;</button>
-  <h2 id="modal-solar-title">Solar Powered System</h2>
-      <p>This is a simple mockup page about solar power. It demonstrates a lightweight modal popup with a short intro and an example image placeholder.</p>
-      <p><strong>Overview</strong></p>
-      <p>Solar power converts sunlight into electricity using photovoltaic (PV) cells. Small, low-power installations like the Raspberry Pi project showcased here can be powered by a modest PV array and battery.</p>
-  <div class="mock-figure" aria-hidden="true"></div>
-      <p>For more details, expand this mockup into a real article with images, links, and references.</p>
-    </div>
-  </div>
-
   <!-- Modal: Co-founder / Creator -->
   <div id="modal-cofounder" class="modal" aria-hidden="true">
     <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-cofounder-title" tabindex="-1">
@@ -1971,6 +1959,53 @@ document.addEventListener('DOMContentLoaded', function() {
           <h3 style="margin:0 0 0.4em 0;">Reference</h3>
           <ol>
             <li tabindex="0">Design Group Italia. (2022). Sustainable Digital Design: Small Actions to Design in a Conscious Way. <a href="https://www.figma.com/proto/1ifbAAqhIHOVuBwwflG2kH/Sustainability-Kit-for-digital-designers-(Community)?type=design&node-id=11-3573&scaling=contain&page-id=11%3A3508&starting-point-node-id=11%3A3573" target="_blank" rel="noopener">Figma prototype</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="modal-solar" class="modal" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-solar-title" tabindex="-1">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-body">
+        <h2 id="modal-solar-title">Solar Powered System</h2>
+        <p>Solar power converts sunlight into electricity using photovoltaic (PV) cells. Small, low-power installations like the Raspberry Pi project showcased here can be powered by a modest PV array and battery. Reducing reliance on grid electricity lowers overall energy consumption and carbon footprint [1].</p>
+        <div class="cross-box" aria-hidden="true">
+          <img id="solar-image" src="" alt="Image style preview" style="width:100%;height:auto;display:none;max-width:800px;border:none;box-shadow:none;outline:none;">
+          <span id="solar-size" style="position:absolute;right:10px;top:10px;background:rgba(255,255,255,0.85);color:#444;padding:2px 8px;border-radius:6px;font-size:0.98em;display:none;z-index:2;"></span>
+          <svg width="700" height="206" viewBox="0 0 700 206" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;" id="solar-svg">
+            <line x1="0" y1="0" x2="700" y2="206" stroke="var(--line-color)" stroke-width="1" class="solar-line" />
+            <line x1="700" y1="0" x2="0" y2="206" stroke="var(--line-color)" stroke-width="1" class="solar-line" />
+          </svg>
+          <style>
+            body:not(.backlight-mode) .cross-box:hover .solar-line {
+              stroke: var(--green-active) !important;
+            }
+            body.backlight-mode .solar-line {
+              stroke: #000 !important;
+            }
+          </style>
+          </div>
+        <div class="crossbox-explanation" style="font-size:0.98em; color:#444;white-space:nowrap;display:flex;align-items:center;gap:8px;margin:8px 0 4px 0;">
+          <span style="color:var(--green-active);font-weight:600;line-height:1;">Compare image styles:</span>
+          <nav class="crossbox-menu" style="display:flex;align-items:center;gap:0px;line-height:1;position:relative;top:-2px;">
+            <span class="crossbox-menu-item active" id="solar-noimage">No Image</span>
+            <span class="crossbox-sep" style="vertical-align:middle;">|</span>
+            <span class="crossbox-menu-item" id="solar-dithered">Dithered</span>
+            <span class="crossbox-sep" style="vertical-align:middle;">|</span>
+            <span class="crossbox-menu-item" id="solar-bw">B&amp;W</span>
+            <span class="crossbox-sep" style="vertical-align:middle;">|</span>
+            <span class="crossbox-menu-item" id="solar-color">Color</span>
+          </nav>
+        </div>
+        <script>
+          /* Crossbox menu behavior is handled in `script.js`.
+             Legacy inline handlers removed to avoid races and missing-asset errors. */
+        </script>
+        <div class="modal-references" style="margin-top:0.8em;">
+          <h3 style="margin:0 0 0.4em 0;">Reference</h3>
+          <ol>
+            <li tabindex="0">International Energy Agency. (2022). Solar PV Global Supply Chains. <a href="https://www.iea.org/reports/solar-pv-global-supply-chains" target="_blank" rel="noopener">IEA Report</a></li>
           </ol>
         </div>
       </div>

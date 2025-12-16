@@ -1455,6 +1455,325 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!currentActiveKey) setActiveMenuItem('noimage');
     } catch (e) {}
 
+    // Preload base image and generate variants early to reduce first-click delay
+    try {
+      ensureBaseImage()
+        .then(() => {
+          generateBWAndCache().catch(() => {});
+          generateDitheredAndCache().catch(() => {});
+        })
+        .catch(() => {});
+    } catch (e) {}
+
+    // Solar Powered System modal: full image manager mirroring Minimize Heavy Media
+    try {
+      const solarImage = document.getElementById('solar-image');
+      const solarSVG = document.getElementById('solar-svg');
+      const solarSize = document.getElementById('solar-size');
+      if (solarImage && solarSVG && solarSize) {
+        const SOLAR_BASE_URL = 'assets/test.jpg';
+
+        const sNo = document.getElementById('solar-noimage');
+        const sDith = document.getElementById('solar-dithered');
+        const sBW = document.getElementById('solar-bw');
+        const sColor = document.getElementById('solar-color');
+        const solarBox = solarImage.closest('.cross-box');
+        let solarActiveKey = 'noimage';
+
+        const solarCache = {}; // { color:{url,size,blob}, bw:{...}, dithered:{...}, dithered-backlight:{...} }
+        const solarUrlToSize = {};
+        let solarBaseImg = null;
+
+        function clearSolarInline(el) { try { if (el) el.onclick = null; } catch (e) {} }
+
+        function solarSetMenuActive(key) {
+          solarActiveKey = key;
+          [sNo, sDith, sBW, sColor].forEach(btn => {
+            if (!btn) return;
+            if ((key === 'noimage' && btn === sNo) || (key === 'dithered' && btn === sDith) || (key === 'bw' && btn === sBW) || (key === 'color' && btn === sColor)) {
+              btn.classList.add('active');
+              btn.classList.remove('inactive');
+            } else {
+              btn.classList.remove('active');
+              btn.classList.add('inactive');
+            }
+          });
+        }
+
+        function solarShowNoImage(showZero = true) {
+          try { solarImage.style.display = 'none'; } catch (e) {}
+          try { solarSVG.style.display = 'block'; } catch (e) {}
+          try { solarImage.style.filter = 'none'; } catch (e) {}
+          try {
+            if (solarSize) {
+              solarSize.textContent = showZero ? '0 KB' : '';
+              solarSize.style.display = showZero ? 'inline-block' : 'none';
+            }
+          } catch (e) {}
+          try {
+            if (solarBox) solarBox.classList.remove('dithered-active', 'bw-active', 'color-active');
+          } catch (e) {}
+          solarSetMenuActive('noimage');
+        }
+
+        function solarBlobToUrl(key, blob) {
+          if (!blob) return null;
+          const url = URL.createObjectURL(blob);
+          solarCache[key] = { url, size: blob.size, blob };
+          try { solarUrlToSize[url] = blob.size; } catch (e) {}
+          return solarCache[key];
+        }
+
+        function ensureSolarBase() {
+          return new Promise((resolve, reject) => {
+            if (solarCache.color && solarCache.color.url && solarBaseImg) return resolve(solarBaseImg);
+            solarBaseImg = new Image();
+            solarBaseImg.crossOrigin = 'anonymous';
+            solarBaseImg.onload = () => {
+              try {
+                const canvas = document.createElement('canvas');
+                canvas.width = solarBaseImg.naturalWidth || solarBaseImg.width;
+                canvas.height = solarBaseImg.naturalHeight || solarBaseImg.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(solarBaseImg, 0, 0);
+                canvas.toBlob((blob) => {
+                  if (blob) solarBlobToUrl('color', blob);
+                  resolve(solarBaseImg);
+                }, 'image/jpeg', 0.92);
+              } catch (err) { resolve(solarBaseImg); }
+            };
+            solarBaseImg.onerror = reject;
+            solarBaseImg.src = SOLAR_BASE_URL;
+          });
+        }
+
+        function solarSetImage(url, sizeKB, activeClass, cacheKey) {
+          try {
+            if (solarBox) {
+              solarBox.classList.remove('dithered-active', 'bw-active', 'color-active');
+              if (activeClass) solarBox.classList.add(activeClass);
+            }
+          } catch (e) {}
+          try {
+            solarImage.src = url;
+            solarImage.style.display = 'block';
+            solarImage.style.filter = 'none';
+          } catch (e) {}
+          try { solarSVG.style.display = 'none'; } catch (e) {}
+          if (solarSize) {
+            let finalKB = null;
+            try {
+              if (cacheKey && solarCache[cacheKey] && solarCache[cacheKey].size) {
+                finalKB = Math.round(solarCache[cacheKey].size / 1024);
+              } else if (solarUrlToSize[url]) {
+                finalKB = Math.round(solarUrlToSize[url] / 1024);
+              } else {
+                for (const k in solarCache) {
+                  const e = solarCache[k];
+                  if (e && e.url === url && e.size) { finalKB = Math.round(e.size/1024); break; }
+                }
+              }
+            } catch (err) {}
+            if (finalKB == null) finalKB = sizeKB || null;
+            solarSize.textContent = finalKB ? Math.round(finalKB) + ' KB' : '';
+            solarSize.style.display = finalKB ? 'inline-block' : 'none';
+          }
+        }
+
+        function solarGenerateBW() {
+          return new Promise(async (resolve, reject) => {
+            if (solarCache.bw) return resolve(solarCache.bw);
+            try {
+              await ensureSolarBase();
+              const w = solarBaseImg.naturalWidth || solarBaseImg.width;
+              const h = solarBaseImg.naturalHeight || solarBaseImg.height;
+              const canvas = document.createElement('canvas');
+              canvas.width = w; canvas.height = h;
+              const ctx = canvas.getContext('2d');
+              ctx.drawImage(solarBaseImg, 0, 0);
+              const imgData = ctx.getImageData(0, 0, w, h);
+              const data = imgData.data;
+              for (let i = 0; i < data.length; i += 4) {
+                const r = data[i], g = data[i+1], b = data[i+2];
+                const lum = Math.round(0.2126*r + 0.7152*g + 0.0722*b);
+                data[i] = data[i+1] = data[i+2] = lum;
+              }
+              ctx.putImageData(imgData, 0, 0);
+              canvas.toBlob((blob) => {
+                const entry = solarBlobToUrl('bw', blob);
+                resolve(entry);
+              }, 'image/png');
+            } catch (err) { reject(err); }
+          });
+        }
+
+        function solarParseCssColor(cssColor) {
+          if (!cssColor) return [0, 210, 0];
+          cssColor = cssColor.trim();
+          const hex = cssColor.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+          if (hex) {
+            let v = hex[1];
+            if (v.length === 3) v = v.split('').map(ch => ch+ch).join('');
+            const r = parseInt(v.slice(0,2), 16);
+            const g = parseInt(v.slice(2,4), 16);
+            const b = parseInt(v.slice(4,6), 16);
+            return [r,g,b];
+          }
+          const rgb = cssColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+          if (rgb) return [parseInt(rgb[1]), parseInt(rgb[2]), parseInt(rgb[3])];
+          return [0,210,0];
+        }
+
+        function solarGenerateDithered() {
+          return new Promise(async (resolve, reject) => {
+            try {
+              await ensureSolarBase();
+              const isBacklight = !!(document.body && document.body.classList && document.body.classList.contains('backlight-mode'));
+              const cacheKey = isBacklight ? 'dithered-backlight' : 'dithered';
+              if (solarCache[cacheKey]) return resolve({ entry: solarCache[cacheKey], key: cacheKey });
+              const w = solarBaseImg.naturalWidth || solarBaseImg.width;
+              const h = solarBaseImg.naturalHeight || solarBaseImg.height;
+              const canvas = document.createElement('canvas');
+              canvas.width = w; canvas.height = h;
+              const ctx = canvas.getContext('2d');
+              ctx.drawImage(solarBaseImg, 0, 0);
+              const imgData = ctx.getImageData(0, 0, w, h);
+              const data = imgData.data;
+              const lum = new Uint8ClampedArray(w * h);
+              for (let y = 0; y < h; y++) {
+                for (let x = 0; x < w; x++) {
+                  const idx = (y * w + x) * 4;
+                  const r = data[idx], g = data[idx+1], b = data[idx+2];
+                  lum[y*w + x] = Math.round(0.2126*r + 0.7152*g + 0.0722*b);
+                }
+              }
+              const bayer8 = [
+                [0,48,12,60,3,51,15,63],
+                [32,16,44,28,35,19,47,31],
+                [8,56,4,52,11,59,7,55],
+                [40,24,36,20,43,27,39,23],
+                [2,50,14,62,1,49,13,61],
+                [34,18,46,30,33,17,45,29],
+                [10,58,6,54,9,57,5,53],
+                [42,26,38,22,41,25,37,21]
+              ];
+              for (let y = 0; y < h; y++) {
+                for (let x = 0; x < w; x++) {
+                  const idx = y * w + x;
+                  const mapVal = bayer8[y & 7][x & 7];
+                  const threshold = ((mapVal + 0.5) / 64) * 255;
+                  lum[idx] = (lum[idx] > threshold) ? 255 : 0;
+                }
+              }
+              const cssGreen = getComputedStyle(document.documentElement).getPropertyValue('--green-active') || '#00d200';
+              const greenRgb = solarParseCssColor(cssGreen);
+              for (let y = 0; y < h; y++) {
+                for (let x = 0; x < w; x++) {
+                  const li = lum[y*w + x];
+                  const idx = (y * w + x) * 4;
+                  if (isBacklight) {
+                    if (li === 255) {
+                      data[idx] = data[idx+1] = data[idx+2] = 255;
+                      data[idx+3] = 255;
+                    } else {
+                      data[idx] = data[idx+1] = data[idx+2] = 0;
+                      data[idx+3] = 255;
+                    }
+                  } else {
+                    if (li === 255) {
+                      data[idx] = data[idx+1] = data[idx+2] = 0;
+                      data[idx+3] = 255;
+                    } else {
+                      data[idx] = greenRgb[0];
+                      data[idx+1] = greenRgb[1];
+                      data[idx+2] = greenRgb[2];
+                      data[idx+3] = 255;
+                    }
+                  }
+                }
+              }
+              ctx.putImageData(imgData, 0, 0);
+              canvas.toBlob((blob) => {
+                const entry = solarBlobToUrl(cacheKey, blob);
+                resolve({ entry, key: cacheKey });
+              }, 'image/png');
+            } catch (err) { reject(err); }
+          });
+        }
+
+        try {
+          [sNo, sDith, sBW, sColor].forEach(clearSolarInline);
+          if (sNo) sNo.addEventListener('click', () => { solarShowNoImage(true); solarSetMenuActive('noimage'); });
+          if (sColor) sColor.addEventListener('click', async () => {
+            await ensureSolarBase();
+            let sizeArg = null; let cacheKey = null;
+            if (solarCache.bw && solarCache.bw.size) { sizeArg = Math.round(solarCache.bw.size/1024); cacheKey = 'bw'; }
+            else if (solarCache.color && solarCache.color.size) { sizeArg = Math.round(solarCache.color.size/1024); cacheKey = 'color'; }
+            if (solarCache.color && solarCache.color.url) solarSetImage(solarCache.color.url, sizeArg, 'color-active', cacheKey);
+            else solarSetImage(SOLAR_BASE_URL, null, 'color-active');
+            solarSetMenuActive('color');
+          });
+          if (sBW) sBW.addEventListener('click', async () => {
+            const entry = await solarGenerateBW();
+            if (entry && entry.url) {
+              let sizeArg = null; let cacheKey = null;
+              if (solarCache.color && solarCache.color.size) { sizeArg = Math.round(solarCache.color.size/1024); cacheKey = 'color'; }
+              else { sizeArg = Math.round(entry.size/1024); cacheKey = 'bw'; }
+              solarSetImage(entry.url, sizeArg, 'bw-active', cacheKey);
+            }
+            solarSetMenuActive('bw');
+          });
+          if (sDith) sDith.addEventListener('click', async () => {
+            const res = await solarGenerateDithered();
+            if (res && res.entry && res.entry.url) solarSetImage(res.entry.url, Math.round(res.entry.size/1024), 'dithered-active', res.key);
+            solarSetMenuActive('dithered');
+          });
+        } catch (err) { console.warn('Solar menu wiring failed', err); }
+
+        try { solarSetMenuActive('noimage'); } catch (e) {}
+        solarShowNoImage(false);
+
+        try {
+          ensureSolarBase()
+            .then(() => {
+              solarGenerateBW().catch(() => {});
+              solarGenerateDithered().catch(() => {});
+            })
+            .catch(() => {});
+        } catch (e) {}
+
+        try {
+          const solarBodyObs = new MutationObserver(() => {
+            try {
+              if (solarBox && solarBox.classList.contains('dithered-active')) {
+                solarGenerateDithered().then(res => {
+                  if (res && res.entry && res.entry.url) solarSetImage(res.entry.url, Math.round(res.entry.size/1024), 'dithered-active', res.key);
+                }).catch(() => {});
+              }
+            } catch (e) {}
+          });
+          if (document.body) solarBodyObs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+        } catch (e) {}
+
+        try {
+          const modalSolar = document.getElementById('modal-solar');
+          if (modalSolar) {
+            const solarObserver = new MutationObserver(() => {
+              if (modalSolar.classList.contains('open')) {
+                setTimeout(() => {
+                  if (sColor) sColor.click();
+                  else solarSetImage(SOLAR_BASE_URL, null, 'color-active');
+                }, 0);
+              }
+            });
+            solarObserver.observe(modalSolar, { attributes: true, attributeFilter: ['class'] });
+          }
+        } catch (e) {}
+      }
+    } catch (err) {
+      console.warn('Solar image manager failed', err);
+    }
+
     // Attach hover listeners to the Tip and Why-minimize paragraphs so hovering them
     // automatically switches the preview to No Image (as requested).
     try {
