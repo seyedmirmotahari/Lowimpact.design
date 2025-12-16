@@ -747,12 +747,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const current = weather.find(w => new Date(w.timestamp).getHours() === hour) || weather[0] || null;
 
       if (current) {
-        // Battery & power are now handled by the Battery Status API above.
-        // If you'd like to display temperature instead for 'Power used',
-        // you can uncomment the lines below:
-        // if (current.temperature !== undefined) {
-        //   document.getElementById('server-power').textContent = `${Math.round(current.temperature)}°C`;
-        // }
+        // Battery values now come from the RS485 /sysinfo endpoint.
+        // Keep weather fetch focused on forecast only.
       }
     } catch (err) {
       console.error('Failed to update server stats', err);
@@ -821,36 +817,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   updateLisbonTime();
   setInterval(updateLisbonTime, 60 * 1000);
-
-  // Populate battery status and power used using Battery Status API when available
-  function setupBatteryInfo() {
-    const batteryEl = document.getElementById('server-battery');
-    const powerEl = document.getElementById('server-power');
-    if (!batteryEl && !powerEl) return;
-
-    if (navigator.getBattery) {
-      navigator.getBattery().then(battery => {
-        const updateBatteryDisplay = () => {
-          if (batteryEl) batteryEl.textContent = battery.charging ? 'Charging' : 'No Signal';
-          if (powerEl) {
-            const usedPercent = Math.round((1 - battery.level) * 100);
-            powerEl.textContent = `-${usedPercent}%`;
-          }
-        };
-        updateBatteryDisplay();
-        battery.addEventListener('chargingchange', updateBatteryDisplay);
-        battery.addEventListener('levelchange', updateBatteryDisplay);
-      }).catch(() => {
-  if (batteryEl) batteryEl.textContent = 'No Signal';
-        if (powerEl) powerEl.textContent = '-%';
-      });
-    } else {
-      // Battery API not available — keep default placeholders
-  if (batteryEl) batteryEl.textContent = 'No Signal';
-      if (powerEl) powerEl.textContent = '-%';
-    }
-  }
-  setupBatteryInfo();
 
   // Make title and description highlight together when hovered or focused
   (function() {

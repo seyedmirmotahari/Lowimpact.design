@@ -1559,20 +1559,28 @@ document.addEventListener('DOMContentLoaded', function() {
         <h3>System Status</h3>
         <dl>
           <div>
-            <dt>Location/Time</dt>
-            <dd><span id="server-location">Lisbon</span> / <span id="server-time">00:00</span></dd>
+            <dt>Location</dt>
+            <dd id="server-location">Lisbon</dd>
+          </div>
+          <div>
+            <dt>Time</dt>
+            <dd id="server-time">00:00</dd>
           </div>
           <div>
             <dt>Panel Output</dt>
             <dd id="server-panel-output">-</dd>
           </div>
           <div>
-            <dt>Battery Status</dt>
-            <dd id="server-battery">No Signal</dd>
+            <dt>Battery Level</dt>
+            <dd id="server-battery-level">-%</dd>
           </div>
           <div>
-            <dt>Battery Level</dt>
-            <dd id="server-power">-%</dd>
+            <dt>Battery Status</dt>
+            <dd id="server-battery-status">No Signal</dd>
+          </div>
+          <div>
+            <dt>Battery Temperature</dt>
+            <dd id="server-battery-temp">-</dd>
           </div>
           
           <div>
@@ -2987,6 +2995,14 @@ document.addEventListener('DOMContentLoaded', function() {
           const res = await fetch('/sysinfo', {cache: 'no-store'});
           if (!res.ok) throw new Error('Network response was not ok');
           const data = await res.json();
+          const toNum = (v) => {
+            const n = Number(v);
+            return Number.isFinite(n) ? n : null;
+          };
+          const fmt = (v, digits = 2) => {
+            const n = toNum(v);
+            return n === null ? null : Number(n.toFixed(digits));
+          };
           const systemEl = document.getElementById('system-cpu');
           if (systemEl && typeof data.cpu_percent !== 'undefined') {
             systemEl.textContent = data.cpu_percent + '%';
@@ -3011,19 +3027,62 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (typeof data.mem_percent !== 'undefined' && data.mem_percent !== null) {
               ramEl.textContent = String(data.mem_percent) + '%';
             } else if (typeof data.memory_percent !== 'undefined' && data.memory_percent !== null) {
-              ramEl.textContent = String(data.memory_percent) + '%';
-            } else if (typeof data.memory_used !== 'undefined' && typeof data.memory_total !== 'undefined' && data.memory_used !== null && data.memory_total !== null) {
-              // show used / total in GB with one decimal
-              try {
-                const used = Number(data.memory_used);
-                const total = Number(data.memory_total);
-                if (!Number.isNaN(used) && !Number.isNaN(total) && total > 0) {
-                  const usedGB = (used / 1024 / 1024 / 1024).toFixed(1);
-                    const totalGB = (total / 1024 / 1024 / 1024).toFixed(1);
-                    // Use a non-breaking space before the unit so the number and 'GB' stay together
+                  const v = (data.panel_output ?? data.panel_voltage ?? data.panel_v ?? data.panel_voltage_v ?? null);
+                  const a = (data.panel_current ?? data.panel_a ?? data.panel_amp ?? null);
+                  const w = (data.panel_w ?? data.panel_watts ?? data.panel_power ?? data.power_watts_panel ?? null);
+                  const vStr = fmt(v, 2);
+                  const aStr = fmt(a, 2);
+                  const wStr = fmt(w, 1);
+                  if (vStr !== null || aStr !== null || wStr !== null) {
+                    const parts = [];
+                    parts.push((vStr !== null ? vStr + ' V' : '-'));
+                    parts.push((aStr !== null ? aStr + ' A' : '-'));
+                    parts.push((wStr !== null ? wStr + ' W' : '-'));
+                    panelEl.textContent = parts.join(' | ');
+                  } else {
+                    if (panelEl.textContent === '-' || !panelEl.textContent) panelEl.textContent = '-';
                     ramEl.textContent = usedGB + ' / ' + totalGB + '\u00A0GB';
                 } else {
                   if (ramEl.textContent === '-' || !ramEl.textContent) ramEl.textContent = '-';
+            // Battery level (SoC) and status text
+            try {
+              const levelEl = document.getElementById('server-battery-level');
+              const statusEl = document.getElementById('server-battery-status');
+              const soc = fmt(data.battery_soc ?? data.battery_level ?? data.battery_percent ?? null, 0);
+              const statusText = (data.battery_status_text || data.battery_status || data.battery_state || null);
+              if (levelEl) {
+                if (soc !== null) {
+                  levelEl.textContent = statusText ? `${soc}% (${statusText})` : `${soc}%`;
+                } else if (levelEl.textContent === '-' || !levelEl.textContent) {
+                  levelEl.textContent = '-%';
+                }
+              }
+              if (statusEl) {
+                const bv = fmt(data.battery_v ?? data.battery_voltage ?? null, 1);
+                const ba = fmt(data.battery_a ?? data.battery_current ?? data.battery_amp ?? null, 1);
+                const bw = fmt(data.battery_w ?? data.battery_watts ?? data.battery_power ?? null, 1);
+                const parts = [];
+                if (bv !== null || ba !== null || bw !== null) {
+                  parts.push(bv !== null ? `${bv} V` : '-');
+                  parts.push(ba !== null ? `${ba} A` : '-');
+                  parts.push(bw !== null ? `${bw} W` : '-');
+                  statusEl.textContent = parts.join(' | ');
+                } else if (statusText) {
+                  statusEl.textContent = statusText;
+                } else if (statusEl.textContent === '-' || !statusEl.textContent) {
+                  statusEl.textContent = 'No Signal';
+                }
+              }
+            } catch (e) { /* ignore */ }
+            // Battery temperature
+            try {
+              const tempEl = document.getElementById('server-battery-temp');
+              if (tempEl) {
+                const temp = fmt(data.battery_temp ?? data.battery_temp_c ?? data.battery_temperature_c ?? null, 1);
+                if (temp !== null) tempEl.textContent = `${temp}°C`;
+                else if (tempEl.textContent === '-' || !tempEl.textContent) tempEl.textContent = '-';
+              }
+            } catch (e) { /* ignore */ }
                 }
               } catch (e) {
                 if (ramEl.textContent === '-' || !ramEl.textContent) ramEl.textContent = '-';
@@ -3036,6 +3095,18 @@ document.addEventListener('DOMContentLoaded', function() {
           const memEl = document.getElementById('system-mem');
           if (memEl) {
             if (typeof data.disk_used !== 'undefined' && typeof data.disk_total !== 'undefined' && data.disk_used !== null && data.disk_total !== null) {
+            // Uptime (if provided by backend in seconds)
+            try {
+              const upEl = document.getElementById('server-uptime');
+              if (upEl && typeof data.uptime_seconds !== 'undefined' && data.uptime_seconds !== null) {
+                const secs = Number(data.uptime_seconds);
+                if (!Number.isNaN(secs) && secs >= 0) {
+                  const hrs = Math.floor(secs / 3600);
+                  const mins = Math.floor((secs % 3600) / 60);
+                  upEl.textContent = `${hrs}h ${mins}m`;
+                }
+              }
+            } catch (e) { /* ignore */ }
               try {
                 const used = Number(data.disk_used);
                 const total = Number(data.disk_total);
