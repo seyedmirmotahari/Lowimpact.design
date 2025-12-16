@@ -30,6 +30,11 @@ try:
 except Exception:
     psutil = None
 
+try:
+    from pymodbus.client.sync import ModbusSerialClient as ModbusClient
+except Exception:
+    ModbusClient = None
+
 # By default bind to localhost for development. Override via environment
 # variables when running on a networked device (e.g. Raspberry Pi):
 #   SERVE_HOST=0.0.0.0 SERVE_PORT=8000 python3 serve_with_info.py
@@ -38,6 +43,135 @@ try:
     PORT = int(os.environ.get('SERVE_PORT', '8000'))
 except Exception:
     PORT = 8000
+
+# --------- RS485 / Modbus Configuration ---------
+# When running on Raspberry Pi with RS485 hardware, set these environment variables:
+#   SERIAL_PORT=/dev/ttyUSB0 REGISTER_ADDR=0 SCALE=100 python3 serve_with_info.py
+SERIAL_PORT = os.environ.get('SERIAL_PORT')  # e.g. /dev/ttyUSB0 (None = disabled)
+BAUDRATE = int(os.environ.get('BAUDRATE', '9600'))
+MODBUS_UNIT = int(os.environ.get('MODBUS_UNIT', '1'))
+REGISTER_ADDR = int(os.environ.get('REGISTER_ADDR', '0'))
+REGISTER_COUNT = int(os.environ.get('REGISTER_COUNT', '1'))
+SCALE = float(os.environ.get('SCALE', '100.0'))
+
+# Optional additional Modbus addresses for panel and battery
+def _env_int(name, default=None):
+    try:
+        return int(os.environ.get(name)) if os.environ.get(name) is not None else default
+    except Exception:
+        return default
+
+def _env_float(name, default=None):
+    try:
+        return float(os.environ.get(name)) if os.environ.get(name) is not None else default
+    except Exception:
+        return default
+
+PANEL_V_ADDR = _env_int('PANEL_V_ADDR', REGISTER_ADDR)
+PANEL_V_SCALE = _env_float('PANEL_V_SCALE', SCALE)
+PANEL_A_ADDR = _env_int('PANEL_A_ADDR', None)
+PANEL_A_SCALE = _env_float('PANEL_A_SCALE', 100.0)
+PANEL_W_ADDR = _env_int('PANEL_W_ADDR', None)
+PANEL_W_SCALE = _env_float('PANEL_W_SCALE', 100.0)
+
+BATTERY_SOC_ADDR = _env_int('BATTERY_SOC_ADDR', None)
+BATTERY_SOC_SCALE = _env_float('BATTERY_SOC_SCALE', 10.0)
+BATTERY_V_ADDR = _env_int('BATTERY_V_ADDR', None)
+BATTERY_V_SCALE = _env_float('BATTERY_V_SCALE', 10.0)
+BATTERY_A_ADDR = _env_int('BATTERY_A_ADDR', None)
+BATTERY_A_SCALE = _env_float('BATTERY_A_SCALE', 100.0)
+BATTERY_W_ADDR = _env_int('BATTERY_W_ADDR', None)
+BATTERY_W_SCALE = _env_float('BATTERY_W_SCALE', 10.0)
+BATTERY_TEMP_ADDR = _env_int('BATTERY_TEMP_ADDR', None)
+BATTERY_TEMP_SCALE = _env_float('BATTERY_TEMP_SCALE', 10.0)
+
+# Runtime state for Modbus
+_modbus_client = None
+_last_modbus_values = {}
+_modbus_lock = threading.Lock()
+
+# --------- Modbus Helper Functions ---------
+def _connect_modbus():
+    """Establish Modbus RTU connection if configured."""
+    global _modbus_client
+    if not SERIAL_PORT or ModbusClient is None:
+        return None
+    try:
+        client = ModbusClient(method='rtu', port=SERIAL_PORT, baudrate=BAUDRATE, timeout=1)
+        if client.connect():
+            return client
+    except Exception:
+        pass
+    return None
+
+def _read_register_scaled(addr, scale):
+    """Read a single Modbus register and apply scaling."""
+    global _modbus_client
+    if addr is None:
+        return None
+    try:
+        if _modbus_client is None:
+            _modbus_client = _connect_modbus()
+        if _modbus_client is None:
+            return None
+        # Try input registers first, then holding registers
+        rr = _modbus_client.read_input_registers(address=addr, count=1, unit=MODBUS_UNIT)
+        if getattr(rr, 'isError', lambda: True)():
+            rr = _modbus_client.read_holding_registers(address=addr, count=1, unit=MODBUS_UNIT)
+            if getattr(rr, 'isError', lambda: True)():
+                return None
+        if not hasattr(rr, 'registers') or not rr.registers:
+            return None
+        raw = rr.registers[0]
+        # Handle signed integers (two's complement for 16-bit)
+        if raw >= 0x8000:
+            raw = raw - 0x10000
+        val = float(raw)
+        if scale not in (None, 0):
+            val = val / float(scale)
+        return val
+    except Exception:
+        try:
+            if _modbus_client:
+                _modbus_client.close()
+        except Exception:
+            pass
+        _modbus_client = None
+        return None
+
+def _poll_modbus_once():
+    """Poll all configured Modbus registers once."""
+    global _last_modbus_values
+    if not SERIAL_PORT or ModbusClient is None:
+        return
+    try:
+        with _modbus_lock:
+            panel_v = _read_register_scaled(PANEL_V_ADDR, PANEL_V_SCALE)
+            if panel_v is not None:
+                _last_modbus_values['panel_v'] = round(panel_v, 2)
+            panel_a = _read_register_scaled(PANEL_A_ADDR, PANEL_A_SCALE)
+            if panel_a is not None:
+                _last_modbus_values['panel_a'] = round(panel_a, 2)
+            panel_w = _read_register_scaled(PANEL_W_ADDR, PANEL_W_SCALE)
+            if panel_w is not None:
+                _last_modbus_values['panel_w'] = round(panel_w, 2)
+            battery_soc = _read_register_scaled(BATTERY_SOC_ADDR, BATTERY_SOC_SCALE)
+            if battery_soc is not None:
+                _last_modbus_values['battery_soc'] = round(battery_soc, 1)
+            battery_v = _read_register_scaled(BATTERY_V_ADDR, BATTERY_V_SCALE)
+            if battery_v is not None:
+                _last_modbus_values['battery_v'] = round(battery_v, 2)
+            battery_a = _read_register_scaled(BATTERY_A_ADDR, BATTERY_A_SCALE)
+            if battery_a is not None:
+                _last_modbus_values['battery_a'] = round(battery_a, 2)
+            battery_w = _read_register_scaled(BATTERY_W_ADDR, BATTERY_W_SCALE)
+            if battery_w is not None:
+                _last_modbus_values['battery_w'] = round(battery_w, 2)
+            battery_temp = _read_register_scaled(BATTERY_TEMP_ADDR, BATTERY_TEMP_SCALE)
+            if battery_temp is not None:
+                _last_modbus_values['battery_temp'] = round(battery_temp, 1)
+    except Exception:
+        pass
 
 class Handler(SimpleHTTPRequestHandler):
     def log_message(self, format, *args):
@@ -393,6 +527,38 @@ class Handler(SimpleHTTPRequestHandler):
                     info['power_watts'] = None
                 except Exception:
                     pass
+
+            # Add RS485 / Modbus data if available
+            try:
+                _poll_modbus_once()
+                with _modbus_lock:
+                    if 'panel_v' in _last_modbus_values:
+                        info['panel_output'] = _last_modbus_values['panel_v']
+                        info['panel_voltage'] = _last_modbus_values['panel_v']
+                        info['panel_v'] = _last_modbus_values['panel_v']
+                    if 'panel_a' in _last_modbus_values:
+                        info['panel_a'] = _last_modbus_values['panel_a']
+                    if 'panel_w' in _last_modbus_values:
+                        info['panel_w'] = _last_modbus_values['panel_w']
+                    if 'battery_soc' in _last_modbus_values:
+                        info['battery_soc'] = _last_modbus_values['battery_soc']
+                        info['battery_level'] = _last_modbus_values['battery_soc']
+                        info['battery_percent'] = _last_modbus_values['battery_soc']
+                    if 'battery_v' in _last_modbus_values:
+                        info['battery_v'] = _last_modbus_values['battery_v']
+                        info['battery_voltage'] = _last_modbus_values['battery_v']
+                    if 'battery_a' in _last_modbus_values:
+                        info['battery_a'] = _last_modbus_values['battery_a']
+                        info['battery_current'] = _last_modbus_values['battery_a']
+                    if 'battery_w' in _last_modbus_values:
+                        info['battery_w'] = _last_modbus_values['battery_w']
+                        info['battery_power'] = _last_modbus_values['battery_w']
+                    if 'battery_temp' in _last_modbus_values:
+                        info['battery_temp'] = _last_modbus_values['battery_temp']
+                        info['battery_temp_c'] = _last_modbus_values['battery_temp']
+            except Exception:
+                # If Modbus fails, just skip it and return system info only
+                pass
 
             return info
         except Exception:
