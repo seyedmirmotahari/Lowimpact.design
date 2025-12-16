@@ -101,6 +101,11 @@ body.backlight-mode #modal-minimize-media #crossbox-size {
   background: #fff !important; /* pure white background in backlight mode */
   color: #444 !important;
 }
+/* Solar Powered System: force green text on black background for the size badge */
+body:not(.backlight-mode) #modal-solar #solar-size {
+  background: #000 !important;
+  color: var(--green-active, #00C853) !important;
+}
 body.backlight-mode #modal-minimize-media .cross-box.dithered-active {
   border: none !important;
   border-color: transparent !important;
@@ -504,6 +509,11 @@ body.backlight-mode #mode-toggle:focus {
   font-size: 1.08em;
   font-weight: 400;
   transition: color 0.2s, font-weight 0.2s;
+}
+/* Remove borders from Color and B&W in Solar popup */
+#solar-color,
+#solar-bw {
+  border: none !important;
 }
 .crossbox-menu-item.active {
   color: var(--green-active);

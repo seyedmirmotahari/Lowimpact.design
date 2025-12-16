@@ -1486,6 +1486,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function clearSolarInline(el) { try { if (el) el.onclick = null; } catch (e) {} }
 
+        // Label and state color helpers
+        const solarLabel = document.querySelector('#modal-solar .crossbox-explanation span');
+        function solarSetOfflineColors() {
+          try { if (solarLabel) solarLabel.style.color = 'var(--green-offline)'; } catch (e) {}
+          try { if (sNo) sNo.style.color = 'var(--green-offline)'; } catch (e) {}
+        }
+        function solarClearInlineColors() {
+          try { if (solarLabel) solarLabel.style.color = ''; } catch (e) {}
+          try { if (sNo) sNo.style.color = ''; } catch (e) {}
+        }
+        function solarSetActiveLabel() {
+          try { if (solarLabel) solarLabel.style.color = 'var(--green-active)'; } catch (e) {}
+        }
+
         function solarSetMenuActive(key) {
           solarActiveKey = key;
           [sNo, sDith, sBW, sColor].forEach(btn => {
@@ -1760,13 +1774,57 @@ document.addEventListener('DOMContentLoaded', function() {
           if (modalSolar) {
             const solarObserver = new MutationObserver(() => {
               if (modalSolar.classList.contains('open')) {
+                // Match Minimize Heavy Media: default to No Image when the modal opens
                 setTimeout(() => {
-                  if (sColor) sColor.click();
-                  else solarSetImage(SOLAR_BASE_URL, null, 'color-active');
+                  solarShowNoImage(false);
+                  solarSetMenuActive('noimage');
                 }, 0);
               }
             });
             solarObserver.observe(modalSolar, { attributes: true, attributeFilter: ['class'] });
+
+            // When hovering the close (X) button, switch to No Image preview and set offline green
+            try {
+              const closeBtn = modalSolar.querySelector('.modal-close');
+              if (closeBtn) {
+                const onEnterClose = () => { try { solarShowNoImage(false); solarSetMenuActive('noimage'); solarSetOfflineColors(); } catch(e){} };
+                closeBtn.addEventListener('mouseenter', onEnterClose);
+                closeBtn.addEventListener('pointerenter', onEnterClose);
+                // Also support keyboard focus on the X
+                closeBtn.addEventListener('focus', onEnterClose);
+
+                // When leaving the X into the dialog, restore active-green label inside
+                const onLeaveClose = (ev) => { try {
+                  const solarDialog = modalSolar.querySelector('.modal-dialog');
+                  const rel = ev && ev.relatedTarget;
+                  if (solarDialog && rel && solarDialog.contains(rel)) { solarClearInlineColors(); solarSetActiveLabel(); }
+                } catch(e){} };
+                closeBtn.addEventListener('mouseleave', onLeaveClose);
+                closeBtn.addEventListener('pointerleave', onLeaveClose);
+                closeBtn.addEventListener('blur', onLeaveClose);
+              }
+            } catch (e) {}
+
+            // Reset to No Image when cursor leaves the popup box (the dialog, not the full-screen overlay)
+            const resetToNoImage = () => { try { solarShowNoImage(false); solarSetMenuActive('noimage'); solarSetOfflineColors(); } catch (e) {} };
+            try {
+              const solarDialog = modalSolar.querySelector('.modal-dialog');
+              if (solarDialog) {
+                solarDialog.addEventListener('mouseleave', resetToNoImage);
+                solarDialog.addEventListener('pointerleave', resetToNoImage);
+                // Extra guard: when pointer exits the dialog to anywhere not inside it, reset
+                solarDialog.addEventListener('pointerout', function(ev){
+                  try {
+                    const rel = ev.relatedTarget;
+                    if (!rel || !(solarDialog.contains(rel))) resetToNoImage();
+                  } catch (_) { /* ignore */ }
+                }, { passive: true });
+                // Optional: when entering dialog, clear forced offline and set active-green label
+                const onEnterDialog = () => { try { solarClearInlineColors(); solarSetActiveLabel(); } catch(e){} };
+                solarDialog.addEventListener('mouseenter', onEnterDialog, { passive: true });
+                solarDialog.addEventListener('pointerenter', onEnterDialog, { passive: true });
+              }
+            } catch (e) {}
           }
         } catch (e) {}
       }
