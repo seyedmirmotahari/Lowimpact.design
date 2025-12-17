@@ -1787,7 +1787,7 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
               const closeBtn = modalSolar.querySelector('.modal-close');
               if (closeBtn) {
-                const onEnterClose = () => { try { solarShowNoImage(false); solarSetMenuActive('noimage'); solarSetOfflineColors(); } catch(e){} };
+                const onEnterClose = () => { try { solarShowNoImage(false); /* keep current selection active */ solarSetOfflineColors(); } catch(e){} };
                 closeBtn.addEventListener('mouseenter', onEnterClose);
                 closeBtn.addEventListener('pointerenter', onEnterClose);
                 // Also support keyboard focus on the X
@@ -1806,7 +1806,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } catch (e) {}
 
             // Reset to No Image when cursor leaves the popup box (the dialog, not the full-screen overlay)
-            const resetToNoImage = () => { try { solarShowNoImage(false); solarSetMenuActive('noimage'); solarSetOfflineColors(); } catch (e) {} };
+            const resetToNoImage = () => { try { solarShowNoImage(false); /* preview only; do not change active menu */ solarSetOfflineColors(); } catch (e) {} };
             try {
               const solarDialog = modalSolar.querySelector('.modal-dialog');
               if (solarDialog) {
