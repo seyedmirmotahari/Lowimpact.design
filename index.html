@@ -1568,10 +1568,6 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
           <div>
             <dt>Panel Output</dt>
-            <dd id="server-panel-output">-</dd>
-          </div>
-          <div>
-            <dt>Panel Status</dt>
             <dd id="server-panel-status">-</dd>
           </div>
           <div>
@@ -3041,6 +3037,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const n = toNum(v);
             return n === null ? null : Number(n.toFixed(digits));
           };
+          // Format with small-value clamp: values within `epsilon` of zero become 0
+          const fmtZeroSmall = (v, digits = 2, epsilon = 0.1) => {
+            const n = toNum(v);
+            if (n === null) return null;
+            const clamped = Math.abs(n) < epsilon ? 0 : n;
+            return Number(clamped.toFixed(digits));
+          };
           const systemEl = document.getElementById('system-cpu');
           if (systemEl && typeof data.cpu_percent !== 'undefined') {
             systemEl.textContent = data.cpu_percent + '%';
@@ -3159,47 +3162,54 @@ document.addEventListener('DOMContentLoaded', function() {
             if (upEl && typeof data.uptime_seconds !== 'undefined' && data.uptime_seconds !== null) {
               const secs = Number(data.uptime_seconds);
               if (!Number.isNaN(secs) && secs >= 0) {
-                const hrs = Math.floor(secs / 3600);
+                const days = Math.floor(secs / 86400);
+                const hrs = Math.floor((secs % 86400) / 3600);
                 const mins = Math.floor((secs % 3600) / 60);
-                upEl.textContent = `${hrs}h ${mins}m`;
+                if (days > 0) {
+                  upEl.textContent = `${days} Day${days !== 1 ? 's' : ''} and ${hrs} Hour${hrs !== 1 ? 's' : ''}`;
+                } else if (hrs > 0) {
+                  upEl.textContent = `${hrs} Hour${hrs !== 1 ? 's' : ''} and ${mins} Minute${mins !== 1 ? 's' : ''}`;
+                } else {
+                  upEl.textContent = `${mins} Minute${mins !== 1 ? 's' : ''}`;
+                }
               }
             }
           } catch (e) { /* ignore */ }
-          // Panel output (voltage) reported by server -> populate #server-panel-output
-          try {
-            const panelEl = document.getElementById('server-panel-output');
-            if (panelEl) {
-              // Accept several common field names that a Pi backend might return
-              const v = (typeof data.panel_output !== 'undefined' && data.panel_output !== null) ? data.panel_output
-                      : (typeof data.panel_voltage !== 'undefined' && data.panel_voltage !== null) ? data.panel_voltage
-                      : (typeof data.panel_v !== 'undefined' && data.panel_v !== null) ? data.panel_v
-                      : (typeof data.panel_voltage_v !== 'undefined' && data.panel_voltage_v !== null) ? data.panel_voltage_v
-                      : null;
-              if (v !== null) {
-                // Ensure numeric formatting and append unit
-                const num = Number(v);
-                if (!Number.isNaN(num)) panelEl.textContent = String(Number(num.toFixed(2))) + ' V';
-                else panelEl.textContent = String(v) + ' V';
-              } else {
-                if (panelEl.textContent === '-' || !panelEl.textContent) panelEl.textContent = '-';
-              }
-            }
-          } catch (e) { /* ignore */ }
-          // Panel status (V | A | W) similar to Battery Status
+          // Panel output (V | A | W) - displayed as "Panel Output:"
           try {
             const statusEl = document.getElementById('server-panel-status');
             if (statusEl) {
-              const pv = fmt(data.panel_v ?? data.panel_voltage ?? null, 1);
-              const pa = fmt(data.panel_a ?? data.panel_current ?? null, 2);
-              const pw = fmt(data.panel_w ?? data.panel_watts ?? data.panel_power ?? null, 1);
+              // Clamp tiny readings (nighttime noise) to zero
+              const pv = fmtZeroSmall(data.panel_v ?? data.panel_voltage ?? null, 1, 0.5);
+              const pa = fmtZeroSmall(data.panel_a ?? data.panel_current ?? null, 2, 0.3);
+              const pw = fmtZeroSmall(data.panel_w ?? data.panel_watts ?? data.panel_power ?? null, 1, 0.5);
               const parts = [];
               if (pv !== null || pa !== null || pw !== null) {
-                parts.push(pv !== null ? `${pv} V` : '-');
-                parts.push(pa !== null ? `${pa} A` : '-');
-                parts.push(pw !== null ? `${pw} W` : '-');
+                parts.push(pv !== null ? `${pv === 0 ? 0 : pv} V` : '-');
+                parts.push(pa !== null ? `${pa === 0 ? 0 : pa} A` : '-');
+                parts.push(pw !== null ? `${pw === 0 ? 0 : pw} W` : '-');
                 statusEl.textContent = parts.join(' | ');
               } else if (statusEl.textContent === '-' || !statusEl.textContent) {
                 statusEl.textContent = '-';
+              }
+            }
+          } catch (e) { /* ignore */ }
+          // Battery status (V | A | W)
+          try {
+            const statusEl = document.getElementById('server-battery-status');
+            if (statusEl) {
+              const bv = fmt(data.battery_v ?? data.battery_voltage ?? null, 1);
+              // Clamp tiny current/power to zero; voltage remains un-clamped
+              const ba = fmtZeroSmall(data.battery_a ?? data.battery_current ?? data.battery_amp ?? null, 2, 0.2);
+              const bw = fmtZeroSmall(data.battery_w ?? data.battery_watts ?? data.battery_power ?? null, 1, 0.5);
+              const parts = [];
+              if (bv !== null || ba !== null || bw !== null) {
+                parts.push(bv !== null ? `${bv} V` : '-');
+                parts.push(ba !== null ? `${ba === 0 ? 0 : ba} A` : '-');
+                parts.push(bw !== null ? `${bw === 0 ? 0 : bw} W` : '-');
+                statusEl.textContent = parts.join(' | ');
+              } else if (statusEl.textContent === '-' || !statusEl.textContent) {
+                statusEl.textContent = 'No Signal';
               }
             }
           } catch (e) { /* ignore */ }

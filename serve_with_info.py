@@ -250,6 +250,15 @@ class Handler(SimpleHTTPRequestHandler):
                 # on any psutil error, skip memory fields
                 pass
 
+            # Add uptime if available
+            try:
+                if psutil:
+                    boot_time = psutil.boot_time()
+                    uptime_seconds = time.time() - boot_time
+                    info['uptime_seconds'] = int(uptime_seconds)
+            except Exception:
+                pass
+
             # Add disk/storage usage for root (/) so clients can show SSD/HDD usage
             try:
                 disk_total = None
