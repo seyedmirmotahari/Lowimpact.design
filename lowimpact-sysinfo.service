@@ -1,0 +1,29 @@
+[Unit]
+Description=LowImpact.design System Info Server
+After=network.target
+
+[Service]
+Type=simple
+User=lowimpactdesign
+WorkingDirectory=/home/lowimpactdesign/lowImpact.design
+ExecStart=/usr/bin/python3 /home/lowimpactdesign/lowImpact.design/serve_with_info.py
+Environment="SERVE_HOST=127.0.0.1"
+Environment="SERVE_PORT=8001"
+Environment="SERIAL_PORT=/dev/ttyACM0"
+Environment="BAUDRATE=115200"
+Environment="MODBUS_UNIT=1"
+Environment="PANEL_V_ADDR=12546"
+Environment="PANEL_V_SCALE=100"
+Environment="PANEL_A_ADDR=12553"
+Environment="PANEL_A_SCALE=100"
+Environment="BATTERY_V_ADDR=12544"
+Environment="BATTERY_V_SCALE=100"
+Environment="BATTERY_SOC_ADDR=12550"
+Environment="BATTERY_SOC_SCALE=10"
+Environment="BATTERY_A_ADDR=12549"
+Environment="BATTERY_A_SCALE=100"
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

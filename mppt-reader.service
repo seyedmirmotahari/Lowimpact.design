@@ -1,0 +1,14 @@
+[Unit]
+Description=MPPT Data Reader
+After=network.target
+
+[Service]
+Type=simple
+User=lowimpactdesign
+WorkingDirectory=/home/lowimpactdesign/lowImpact.design
+ExecStart=/usr/bin/python3 /home/lowimpactdesign/lowImpact.design/mppt_reader.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

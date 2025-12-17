@@ -528,32 +528,66 @@ class Handler(SimpleHTTPRequestHandler):
                 except Exception:
                     pass
 
-            # Add RS485 / Modbus data if available
+            # Add MPPT data from /tmp/mppt_data.json if available (from mppt_reader.py)
+            try:
+                if os.path.exists('/tmp/mppt_data.json'):
+                    with open('/tmp/mppt_data.json', 'r') as f:
+                        mppt_data = json.load(f)
+                    if isinstance(mppt_data, dict):
+                        if 'panel_voltage' in mppt_data:
+                            info['panel_voltage'] = mppt_data['panel_voltage']
+                            info['panel_v'] = mppt_data['panel_voltage']
+                        if 'panel_current' in mppt_data:
+                            info['panel_current'] = mppt_data['panel_current']
+                            info['panel_a'] = mppt_data['panel_current']
+                        if 'panel_power' in mppt_data:
+                            info['panel_power'] = mppt_data['panel_power']
+                            info['panel_w'] = mppt_data['panel_power']
+                        if 'battery_voltage' in mppt_data:
+                            info['battery_voltage'] = mppt_data['battery_voltage']
+                            info['battery_v'] = mppt_data['battery_voltage']
+                        if 'battery_soc' in mppt_data:
+                            info['battery_soc'] = mppt_data['battery_soc']
+                            info['battery_level'] = mppt_data['battery_soc']
+                            info['battery_percent'] = mppt_data['battery_soc']
+                        if 'battery_temperature' in mppt_data:
+                            info['battery_temp'] = mppt_data['battery_temperature']
+                            info['battery_temp_c'] = mppt_data['battery_temperature']
+                            info['battery_temperature'] = mppt_data['battery_temperature']
+                        if 'load_voltage' in mppt_data:
+                            info['load_voltage'] = mppt_data['load_voltage']
+                        if 'load_current' in mppt_data:
+                            info['load_current'] = mppt_data['load_current']
+            except Exception:
+                # If MPPT JSON read fails, continue without it
+                pass
+
+            # Add RS485 / Modbus data if available (fallback if /tmp/mppt_data.json not available)
             try:
                 _poll_modbus_once()
                 with _modbus_lock:
-                    if 'panel_v' in _last_modbus_values:
+                    if 'panel_v' in _last_modbus_values and 'panel_voltage' not in info:
                         info['panel_output'] = _last_modbus_values['panel_v']
                         info['panel_voltage'] = _last_modbus_values['panel_v']
                         info['panel_v'] = _last_modbus_values['panel_v']
-                    if 'panel_a' in _last_modbus_values:
+                    if 'panel_a' in _last_modbus_values and 'panel_current' not in info:
                         info['panel_a'] = _last_modbus_values['panel_a']
-                    if 'panel_w' in _last_modbus_values:
+                    if 'panel_w' in _last_modbus_values and 'panel_power' not in info:
                         info['panel_w'] = _last_modbus_values['panel_w']
-                    if 'battery_soc' in _last_modbus_values:
+                    if 'battery_soc' in _last_modbus_values and 'battery_soc' not in info:
                         info['battery_soc'] = _last_modbus_values['battery_soc']
                         info['battery_level'] = _last_modbus_values['battery_soc']
                         info['battery_percent'] = _last_modbus_values['battery_soc']
-                    if 'battery_v' in _last_modbus_values:
+                    if 'battery_v' in _last_modbus_values and 'battery_voltage' not in info:
                         info['battery_v'] = _last_modbus_values['battery_v']
                         info['battery_voltage'] = _last_modbus_values['battery_v']
-                    if 'battery_a' in _last_modbus_values:
+                    if 'battery_a' in _last_modbus_values and 'battery_current' not in info:
                         info['battery_a'] = _last_modbus_values['battery_a']
                         info['battery_current'] = _last_modbus_values['battery_a']
-                    if 'battery_w' in _last_modbus_values:
+                    if 'battery_w' in _last_modbus_values and 'battery_power' not in info:
                         info['battery_w'] = _last_modbus_values['battery_w']
                         info['battery_power'] = _last_modbus_values['battery_w']
-                    if 'battery_temp' in _last_modbus_values:
+                    if 'battery_temp' in _last_modbus_values and 'battery_temp' not in info:
                         info['battery_temp'] = _last_modbus_values['battery_temp']
                         info['battery_temp_c'] = _last_modbus_values['battery_temp']
             except Exception:
