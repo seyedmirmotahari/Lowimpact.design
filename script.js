@@ -1112,17 +1112,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hover previews call this with makeActive=false so the persistent selection isn't changed.
     function showNoImageState(showZero, makeActive) {
       try { if (crossboxEl) crossboxEl.classList.remove('dithered-active', 'bw-active', 'color-active'); } catch (e) {}
-      // Visual effect: mark No Image as visually active for preview (hover) or persistent selection
+      // Only alter menu active state when explicitly requested
       try {
-        // Toggle visual classes on the menu items without altering the persistent selection
-        [btnNoImage, btnDithered, btnBW, btnColor].forEach(b => { if (!b) return; b.classList.remove('active'); b.classList.add('inactive'); });
-        if (btnNoImage) {
-          btnNoImage.classList.add('active');
-          btnNoImage.classList.remove('inactive');
-        }
-        // Only update the persistent selection key when explicitly requested
         if (makeActive) {
-          currentActiveKey = 'noimage';
+          setActiveMenuItem('noimage');
         }
       } catch (e) {}
 
@@ -1514,7 +1507,16 @@ document.addEventListener('DOMContentLoaded', function() {
           });
         }
 
-        function solarShowNoImage(showZero = true) {
+        function solarSetAllInactive() {
+          solarActiveKey = 'noimage';
+          [sNo, sDith, sBW, sColor].forEach(btn => {
+            if (!btn) return;
+            btn.classList.remove('active');
+            btn.classList.add('inactive');
+          });
+        }
+
+        function solarShowNoImage(showZero = true, makeActive = false, forceOfflineMenu = false) {
           try { solarImage.style.display = 'none'; } catch (e) {}
           try { solarSVG.style.display = 'block'; } catch (e) {}
           try { solarImage.style.filter = 'none'; } catch (e) {}
@@ -1527,7 +1529,12 @@ document.addEventListener('DOMContentLoaded', function() {
           try {
             if (solarBox) solarBox.classList.remove('dithered-active', 'bw-active', 'color-active');
           } catch (e) {}
-          solarSetMenuActive('noimage');
+          // When we hide images, optionally force all menu items to offline green
+          if (forceOfflineMenu) {
+            solarSetAllInactive();
+          } else if (makeActive) {
+            solarSetMenuActive('noimage');
+          }
         }
 
         function solarBlobToUrl(key, blob) {
@@ -1745,7 +1752,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (err) { console.warn('Solar menu wiring failed', err); }
 
         try { solarSetMenuActive('noimage'); } catch (e) {}
-        solarShowNoImage(false);
+        solarShowNoImage(false, false, true);
 
         try {
           ensureSolarBase()
@@ -1787,7 +1794,7 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
               const closeBtn = modalSolar.querySelector('.modal-close');
               if (closeBtn) {
-                const onEnterClose = () => { try { solarShowNoImage(false); /* keep current selection active */ solarSetOfflineColors(); } catch(e){} };
+                const onEnterClose = () => { try { solarShowNoImage(false, false, true); solarSetOfflineColors(); } catch(e){} };
                 closeBtn.addEventListener('mouseenter', onEnterClose);
                 closeBtn.addEventListener('pointerenter', onEnterClose);
                 // Also support keyboard focus on the X
@@ -1806,7 +1813,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } catch (e) {}
 
             // Reset to No Image when cursor leaves the popup box (the dialog, not the full-screen overlay)
-            const resetToNoImage = () => { try { solarShowNoImage(false); /* preview only; do not change active menu */ solarSetOfflineColors(); } catch (e) {} };
+            const resetToNoImage = () => { try { solarShowNoImage(false, false, true); solarSetOfflineColors(); } catch (e) {} };
             try {
               const solarDialog = modalSolar.querySelector('.modal-dialog');
               if (solarDialog) {
@@ -1865,8 +1872,8 @@ document.addEventListener('DOMContentLoaded', function() {
           // common enter: set colors and show No Image; ensure the other pair stays offline
           const onEnter = (e) => {
             setPairActive(true);
-            // hover/focus preview should not show 0 KB
-            showNoImageState(false);
+            // hover/focus preview should not show 0 KB; do not change persistent selection
+            showNoImageState(false, false);
             try {
               // Identify both pairs: Tip pair (modal-vision) and Why pair
               const tipHeading = document.querySelector('#modal-minimize-media .modal-body p.modal-vision');
@@ -1979,6 +1986,22 @@ document.addEventListener('DOMContentLoaded', function() {
             // also attach to the following paragraph if present
             if (paras[i+1]) attachHoverToPair(paras[i+1], null);
             break;
+          }
+        }
+      } catch (e) { /* ignore */ }
+
+      // When the mouse pointer re-enters the Minimize Heavy Media popup dialog,
+      // preview No Image without changing the persistent active selection.
+      try {
+        const modalMin = document.getElementById('modal-minimize-media');
+        if (modalMin) {
+          const dialog = modalMin.querySelector('.modal-dialog');
+          if (dialog) {
+            const onEnterDialog = () => {
+              try { showNoImageState(false, false); } catch (e) {}
+            };
+            dialog.addEventListener('mouseenter', onEnterDialog, { passive: true });
+            dialog.addEventListener('pointerenter', onEnterDialog, { passive: true });
           }
         }
       } catch (e) { /* ignore */ }
