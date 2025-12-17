@@ -58,6 +58,20 @@ def read_register(register, number_of_decimals=2):
 while True:
     try:
         # Read all MPPT values
+        # DEBUG: Try reading temperature from multiple possible registers
+        battery_temp = read_register(BATTERY_TEMP_REG, 1)
+        if battery_temp is None or battery_temp == 0.0:
+            # Try alternative temperature registers (common on Epever/Victron MPPT)
+            for alt_reg in [0x100, 0x101, 289, 290, 291, 292]:
+                try:
+                    alt_temp = instrument.read_register(alt_reg, number_of_decimals=1, functioncode=4)
+                    if alt_temp is not None and alt_temp != 0:
+                        battery_temp = float(alt_temp)
+                        print(f"Found temp at register {alt_reg}: {alt_temp}")
+                        break
+                except:
+                    pass
+        
         data = {
             'timestamp': time.time(),
             'panel_voltage': read_register(PANEL_V_REG, 2),
@@ -65,7 +79,7 @@ while True:
             'panel_power': None,
             'battery_voltage': read_register(BATTERY_V_REG, 2),
             'battery_soc': read_register(BATTERY_SOC_REG, 1),
-            'battery_temperature': read_register(BATTERY_TEMP_REG, 1),
+            'battery_temperature': battery_temp,
             'load_voltage': read_register(LOAD_V_REG, 2),
             'load_current': read_register(LOAD_A_REG, 2),
         }
