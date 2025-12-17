@@ -1571,6 +1571,10 @@ document.addEventListener('DOMContentLoaded', function() {
             <dd id="server-panel-output">-</dd>
           </div>
           <div>
+            <dt>Panel Status</dt>
+            <dd id="server-panel-status">-</dd>
+          </div>
+          <div>
             <dt>Battery Level</dt>
             <dd id="server-battery-level">-%</dd>
           </div>
@@ -3178,6 +3182,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 else panelEl.textContent = String(v) + ' V';
               } else {
                 if (panelEl.textContent === '-' || !panelEl.textContent) panelEl.textContent = '-';
+              }
+            }
+          } catch (e) { /* ignore */ }
+          // Panel status (V | A | W) similar to Battery Status
+          try {
+            const statusEl = document.getElementById('server-panel-status');
+            if (statusEl) {
+              const pv = fmt(data.panel_v ?? data.panel_voltage ?? null, 1);
+              const pa = fmt(data.panel_a ?? data.panel_current ?? null, 2);
+              const pw = fmt(data.panel_w ?? data.panel_watts ?? data.panel_power ?? null, 1);
+              const parts = [];
+              if (pv !== null || pa !== null || pw !== null) {
+                parts.push(pv !== null ? `${pv} V` : '-');
+                parts.push(pa !== null ? `${pa} A` : '-');
+                parts.push(pw !== null ? `${pw} W` : '-');
+                statusEl.textContent = parts.join(' | ');
+              } else if (statusEl.textContent === '-' || !statusEl.textContent) {
+                statusEl.textContent = '-';
               }
             }
           } catch (e) { /* ignore */ }
