@@ -485,6 +485,19 @@ body.backlight-mode #mode-toggle:focus {
   justify-content: center;
   transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
 }
+/* Solar modal cross box dimensions */
+#modal-solar .cross-box {
+  height: 455px;
+}
+/* Solar modal dialog: add 60px height */
+#modal-solar .modal-dialog {
+  max-height: calc(70vh);
+}
+/* Remove borders from Solar B&W and Color images */
+#modal-solar .cross-box.bw-active,
+#modal-solar .cross-box.color-active {
+  border: none !important;
+}
 .cross-box:hover,
 .cross-box:focus {
   border-color: var(--green-active) !important;
