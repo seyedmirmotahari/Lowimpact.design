@@ -27,7 +27,7 @@ PANEL_V_REG = 12546      # Panel voltage (scale 100)
 PANEL_A_REG = 12553      # Panel current (scale 100)
 BATTERY_V_REG = 12544    # Battery voltage (scale 100)
 BATTERY_SOC_REG = 12550  # Battery SOC % (scale 10)
-BATTERY_TEMP_REG = 12547 # Battery temperature (scale 1 or 10?)
+BATTERY_TEMP_REG = 12556 # Battery temperature (scale 100)
 LOAD_V_REG = 12548       # Load voltage (scale 100)
 LOAD_A_REG = 12549       # Load current (scale 100)
 
@@ -45,32 +45,29 @@ except Exception as e:
     print(f"Error: Could not open {PORT}: {e}")
     sys.exit(1)
 
-def read_register(register, number_of_decimals=2):
-    """Read a register from MPPT with error handling."""
-    try:
-        value = instrument.read_register(register, number_of_decimals=number_of_decimals, functioncode=4)
-        return float(value)
-    except Exception as e:
-        print(f"Error reading register {register}: {e}")
-        return None
+def read_register(register, number_of_decimals=2, retries=2):
+    """Read a register from MPPT with error handling and retries."""
+    for attempt in range(retries):
+        try:
+            value = instrument.read_register(register, number_of_decimals=number_of_decimals, functioncode=4)
+            return float(value)
+        except Exception as e:
+            if attempt == retries - 1:
+                print(f"Error reading register {register} after {retries} attempts: {e}")
+                return None
+            time.sleep(0.1)  # Brief pause before retry
+    return None
 
 # Main loop
 while True:
     try:
         # Read all MPPT values
-        # DEBUG: Try reading temperature from multiple possible registers
-        battery_temp = read_register(BATTERY_TEMP_REG, 1)
-        if battery_temp is None or battery_temp == 0.0:
-            # Try alternative temperature registers (common on Epever/Victron MPPT)
-            for alt_reg in [0x100, 0x101, 289, 290, 291, 292]:
-                try:
-                    alt_temp = instrument.read_register(alt_reg, number_of_decimals=1, functioncode=4)
-                    if alt_temp is not None and alt_temp != 0:
-                        battery_temp = float(alt_temp)
-                        print(f"Found temp at register {alt_reg}: {alt_temp}")
-                        break
-                except:
-                    pass
+        # Read battery temperature from main register
+        battery_temp = read_register(BATTERY_TEMP_REG, 2)
+        
+        # If temperature is None (read error), set to 0 for JSON
+        if battery_temp is None:
+            battery_temp = 0.0
         
         data = {
             'timestamp': time.time(),
