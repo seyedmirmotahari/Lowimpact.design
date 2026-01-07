@@ -82,11 +82,16 @@ while True:
             'battery_temperature': battery_temp,
             'load_voltage': read_register(LOAD_V_REG, 2),
             'load_current': read_register(LOAD_A_REG, 2),
+            'load_power': None,
         }
         
         # Calculate panel power if we have V and A
         if data['panel_voltage'] is not None and data['panel_current'] is not None:
             data['panel_power'] = round(data['panel_voltage'] * data['panel_current'], 2)
+        
+        # Calculate load power if we have V and A
+        if data['load_voltage'] is not None and data['load_current'] is not None:
+            data['load_power'] = round(data['load_voltage'] * data['load_current'], 2)
         
         # Write to JSON file
         with open(OUTPUT_FILE, 'w') as f:

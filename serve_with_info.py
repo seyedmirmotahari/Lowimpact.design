@@ -567,6 +567,9 @@ class Handler(SimpleHTTPRequestHandler):
                             info['load_voltage'] = mppt_data['load_voltage']
                         if 'load_current' in mppt_data:
                             info['load_current'] = mppt_data['load_current']
+                        if 'load_power' in mppt_data:
+                            info['load_power'] = mppt_data['load_power']
+                            info['power_watts'] = mppt_data['load_power']  # Use RS485 load power for Power Load display
             except Exception:
                 # If MPPT JSON read fails, continue without it
                 pass
