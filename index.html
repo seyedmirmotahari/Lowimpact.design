@@ -3159,19 +3159,40 @@ document.addEventListener('DOMContentLoaded', function() {
           // Uptime (if provided by backend in seconds)
           try {
             const upEl = document.getElementById('server-uptime');
-            if (upEl && typeof data.uptime_seconds !== 'undefined' && data.uptime_seconds !== null) {
-              const secs = Number(data.uptime_seconds);
+            if (upEl) {
+              // Prefer calculated runtime (battery-based) if available; fallback to system uptime
+              const runtimeSecs = data.runtime_seconds;
+              const uptimeSecs = data.uptime_seconds;
+              const useRuntime = runtimeSecs !== null && runtimeSecs !== undefined;
+              const secs = Number(useRuntime ? runtimeSecs : uptimeSecs);
+              
               if (!Number.isNaN(secs) && secs >= 0) {
                 const days = Math.floor(secs / 86400);
                 const hrs = Math.floor((secs % 86400) / 3600);
-                const mins = Math.floor((secs % 3600) / 60);
-                if (days > 0) {
-                  upEl.textContent = `${days} Day${days !== 1 ? 's' : ''} and ${hrs} Hour${hrs !== 1 ? 's' : ''}`;
-                } else if (hrs > 0) {
-                  upEl.textContent = `${hrs} Hour${hrs !== 1 ? 's' : ''} and ${mins} Minute${mins !== 1 ? 's' : ''}`;
+                let timeStr = '';
+                if (useRuntime) {
+                  // Compact format for runtime: "1d, 16hr"
+                  if (days > 0) {
+                    timeStr = `${days}d, ${hrs}hr`;
+                  } else if (hrs > 0) {
+                    const mins = Math.floor((secs % 3600) / 60);
+                    timeStr = `${hrs}hr, ${mins}min`;
+                  } else {
+                    const mins = Math.floor((secs % 3600) / 60);
+                    timeStr = `${mins}min`;
+                  }
                 } else {
-                  upEl.textContent = `${mins} Minute${mins !== 1 ? 's' : ''}`;
+                  // Longer format for system uptime: "X Days and Y Hours"
+                  const mins = Math.floor((secs % 3600) / 60);
+                  if (days > 0) {
+                    timeStr = `${days} Day${days !== 1 ? 's' : ''} and ${hrs} Hour${hrs !== 1 ? 's' : ''}`;
+                  } else if (hrs > 0) {
+                    timeStr = `${hrs} Hour${hrs !== 1 ? 's' : ''} and ${mins} Minute${mins !== 1 ? 's' : ''}`;
+                  } else {
+                    timeStr = `${mins} Minute${mins !== 1 ? 's' : ''}`;
+                  }
                 }
+                upEl.textContent = timeStr;
               }
             }
           } catch (e) { /* ignore */ }

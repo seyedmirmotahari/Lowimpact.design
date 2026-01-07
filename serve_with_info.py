@@ -606,6 +606,35 @@ class Handler(SimpleHTTPRequestHandler):
                 # If Modbus fails, just skip it and return system info only
                 pass
 
+            # Calculate remaining runtime based on battery capacity, SOC, load, and panel power
+            # Battery: 12V × 25Ah = 300 Wh
+            # Runtime = (capacity_Wh × soc%) / (load_power - panel_power)
+            try:
+                BATTERY_CAPACITY_WH = 300  # 12V × 25Ah
+                battery_soc = info.get('battery_soc') or info.get('battery_level') or info.get('battery_percent')
+                load_power = info.get('load_power') or info.get('power_watts') or 0
+                panel_power = info.get('panel_power') or info.get('panel_w') or 0
+                
+                if battery_soc is not None and load_power is not None:
+                    battery_soc = float(battery_soc)
+                    load_power = float(load_power)
+                    panel_power = float(panel_power)
+                    available_energy_wh = BATTERY_CAPACITY_WH * (battery_soc / 100.0)
+                    net_load = load_power - panel_power
+                    
+                    if net_load > 0.1:  # Only calculate if there's actual net drain
+                        runtime_hours = available_energy_wh / net_load
+                        runtime_seconds = runtime_hours * 3600
+                        info['runtime_seconds'] = int(runtime_seconds)
+                        info['runtime_hours'] = round(runtime_hours, 2)
+                    else:
+                        # System is charging or neutral; runtime is infinite
+                        info['runtime_seconds'] = None
+                        info['runtime_hours'] = None
+            except Exception:
+                info['runtime_seconds'] = None
+                info['runtime_hours'] = None
+
             return info
         except Exception:
             # Last-resort fallback: compute a quick percent or derive from load
