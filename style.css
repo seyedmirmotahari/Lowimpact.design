@@ -2962,6 +2962,45 @@ footer .system-usage.mem-hover dl > div:has(dd#server-power-used) dt {
   transition: color var(--transition-speed) ease !important;
 }
 
+/* Likewise, explicitly keep the Uptime row muted when Storage is active */
+footer .system-usage:has(#system-mem:hover) dl > div:has(dd#server-uptime) dt,
+footer .system-usage.mem-hover dl > div:has(dd#server-uptime) dt,
+footer .system-usage:has(#system-mem:hover) #server-uptime,
+footer .system-usage.mem-hover #server-uptime {
+  color: var(--green-offline) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+/* When Uptime itself is hovered/focused (or `.uptime-hover` is toggled via JS),
+   highlight the Uptime row and System Usage heading while dimming other rows. */
+footer .system-usage:has(#server-uptime:hover) dl > div:last-child dt,
+footer .system-usage:has(#server-uptime:hover) dl > div:last-child dd#server-uptime,
+footer .system-usage.uptime-hover dl > div:last-child dt,
+footer .system-usage.uptime-hover dl > div:last-child dd#server-uptime,
+footer .system-usage #server-uptime:hover,
+footer .system-usage #server-uptime:focus,
+footer .system-usage.uptime-hover #server-uptime {
+  color: var(--green-active) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+footer .system-usage:has(#server-uptime:hover) dl > div:not(:last-child) dt,
+footer .system-usage:has(#server-uptime:hover) dl > div:not(:last-child) dd,
+footer .system-usage.uptime-hover dl > div:not(:last-child) dt,
+footer .system-usage.uptime-hover dl > div:not(:last-child) dd {
+  color: var(--green-offline) !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+footer .system-usage:has(#server-uptime:hover) h3,
+footer .system-usage.uptime-hover h3 {
+  color: var(--green-active) !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
 /* Backlight-mode variants for the same safety rule */
 body.backlight-mode footer .system-usage:has(#system-mem:hover) #server-power-used,
 body.backlight-mode footer .system-usage.mem-hover #server-power-used,
@@ -2969,6 +3008,42 @@ body.backlight-mode footer .system-usage:has(#system-mem:hover) dl > div:has(dd#
 body.backlight-mode footer .system-usage.mem-hover dl > div:has(dd#server-power-used) dt {
   color: #252525 !important;
   cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+body.backlight-mode footer .system-usage:has(#system-mem:hover) dl > div:has(dd#server-uptime) dt,
+body.backlight-mode footer .system-usage.mem-hover dl > div:has(dd#server-uptime) dt,
+body.backlight-mode footer .system-usage:has(#system-mem:hover) #server-uptime,
+body.backlight-mode footer .system-usage.mem-hover #server-uptime {
+  color: #252525 !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+body.backlight-mode footer .system-usage:has(#server-uptime:hover) dl > div:last-child dt,
+body.backlight-mode footer .system-usage:has(#server-uptime:hover) dl > div:last-child dd#server-uptime,
+body.backlight-mode footer .system-usage.uptime-hover dl > div:last-child dt,
+body.backlight-mode footer .system-usage.uptime-hover dl > div:last-child dd#server-uptime,
+body.backlight-mode footer .system-usage #server-uptime:hover,
+body.backlight-mode footer .system-usage #server-uptime:focus,
+body.backlight-mode footer .system-usage.uptime-hover #server-uptime {
+  color: #252525 !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+body.backlight-mode footer .system-usage:has(#server-uptime:hover) dl > div:not(:last-child) dt,
+body.backlight-mode footer .system-usage:has(#server-uptime:hover) dl > div:not(:last-child) dd,
+body.backlight-mode footer .system-usage.uptime-hover dl > div:not(:last-child) dt,
+body.backlight-mode footer .system-usage.uptime-hover dl > div:not(:last-child) dd {
+  color: #252525 !important;
+  cursor: default !important;
+  transition: color var(--transition-speed) ease !important;
+}
+
+body.backlight-mode footer .system-usage:has(#server-uptime:hover) h3,
+body.backlight-mode footer .system-usage.uptime-hover h3 {
+  color: #252525 !important;
   transition: color var(--transition-speed) ease !important;
 }
 
@@ -3050,39 +3125,8 @@ body.backlight-mode footer .system-usage.ram-hover dl > div:not(:nth-child(3)) d
   transition: color var(--transition-speed) ease !important;
 }
 
-/* Strong final override for Storage hover/fallback:
-   - When Storage (#system-mem) is hovered (or .mem-hover is present),
-     make the entire System Usage column show the active-green color
-     (so the section reads as "online").
-   - This explicitly makes heading, labels and values active-green and
-     is placed near the end to ensure it wins over other rules. */
-footer .system-usage:has(#system-mem:hover) h3,
-footer .system-usage.mem-hover h3,
-footer .system-usage:has(#system-mem:hover) dl dt,
-footer .system-usage.mem-hover dl dt,
-footer .system-usage:has(#system-mem:hover) dl dd,
-footer .system-usage.mem-hover dl dd,
-footer .system-usage #system-mem:hover,
-footer .system-usage #system-mem:focus,
-footer .system-usage.mem-hover #system-mem {
-  color: var(--green-active) !important;
-  cursor: url('/assets/green-cursor.svg') 8 8, url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="6" fill="none" stroke="%2300d200" stroke-width="2"/></svg>') 8 8, default !important;
-  transition: color var(--transition-speed) ease !important;
-}
-
-/* Backlight-mode variant for Storage hover -> active section */
-body.backlight-mode footer .system-usage:has(#system-mem:hover) h3,
-body.backlight-mode footer .system-usage.mem-hover h3,
-body.backlight-mode footer .system-usage:has(#system-mem:hover) dl dt,
-body.backlight-mode footer .system-usage.mem-hover dl dt,
-body.backlight-mode footer .system-usage:has(#system-mem:hover) dl dd,
-body.backlight-mode footer .system-usage.mem-hover dl dd,
-body.backlight-mode footer .system-usage #system-mem:hover,
-body.backlight-mode footer .system-usage #system-mem:focus,
-body.backlight-mode footer .system-usage.mem-hover #system-mem {
-  color: #252525 !important;
-  cursor: url('/assets/green-cursor.svg') 8 8, default !important;
-}
+/* Intentional: let the earlier Storage hover rules keep other stats dimmed
+   so only the Storage row highlights. No extra override here so Uptime stays muted. */
 
 /* Ensure the System Usage heading becomes active-green when CPU is hovered
    (or when JS toggles `.cpu-hover`). Placed late so it overrides the
