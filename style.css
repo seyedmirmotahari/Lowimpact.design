@@ -231,6 +231,17 @@ body.backlight-mode footer * {
   overflow: hidden; /* keep header/footer visible, scroll inside .modal-body */
   background: inherit; /* keep existing background rules */
 }
+.modal-dialog::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: inherit;
+  pointer-events: none;
+  z-index: 2;
+}
 .modal-dialog {
   display: flex;
   flex-direction: column;
@@ -240,10 +251,14 @@ body.backlight-mode footer * {
   -webkit-overflow-scrolling: touch;
   flex: 1 1 auto;
   min-height: 0; /* allow proper flexbox overflow on WebKit/Blink */
-  padding: 0.5rem 0 0.5rem 0;
+  padding: 0 0 0.5rem 0;
   /* Hide visible scrollbars but keep scrolling functional */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
+}
+.modal-dialog .modal-body > h2:first-child,
+.modal-dialog > h2:first-of-type {
+  margin-top: 24px;
 }
 
 .modal-dialog .modal-body::-webkit-scrollbar {
@@ -446,30 +461,6 @@ body.backlight-mode #mode-toggle:focus {
   /* nudge the popup 2px higher when visible */
   transform: translateY(2px);
 }
-#modal-minimize-media .modal-dialog {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  height: 400px;
-  max-height: 80vh;
-  padding-top: 0;
-  padding-bottom: 1.25rem;
-  position: relative;
-}
-#modal-minimize-media .modal-body {
-  overflow-y: auto;
-  min-height: 0;
-  flex: 1 1 auto;
-  max-height: 100%;
-  -webkit-overflow-scrolling: touch;
-  padding-top: 0;
-  position: relative;
-}
-#modal-minimize-media .modal-body h2 {
-  margin-top: 24px;
-}
-#modal-minimize-media .modal-body { scrollbar-width: none; }
-#modal-minimize-media .modal-body::-webkit-scrollbar { width: 0; height: 0; }
 /* Cross box in Minimize Heavy Image/Video Content popup */
 .cross-box {
   width: 700px;
@@ -1027,7 +1018,7 @@ nav > ul.menu > li > a {
   max-width: 720px;
   width: 100%;
   border-radius: 8px;
-  padding: 1.25rem 1.5rem;
+  padding: 0 1.5rem 1.25rem;
   box-shadow: 0 8px 36px rgba(0,0,0,0.75);
   outline: none;
   position: relative; /* contain the close button */
@@ -1066,22 +1057,6 @@ body.backlight-mode #modal-mission .modal-dialog {
   background: #fff !important;
   color: #2b2b2b !important;
 }
-body.backlight-mode #modal-mission .modal-dialog::before {
-  background: #fff !important;
-}
-
-/* Masking strip to hide top 24px of scrolling content without adding visible margin */
-#modal-mission .modal-dialog::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 24px; /* hidden "safe" zone height */
-  background: #000; /* same as modal background */
-  pointer-events: none;
-  z-index: 2; /* above content, below title */
-}
 #modal-mission .modal-body {
   overflow-y: auto; /* scroll inside only */
   min-height: 0;    /* allow flex child to shrink and scroll */
@@ -1116,32 +1091,11 @@ body.backlight-mode #modal-mission .modal-dialog::before {
 /* Hide scrollbars visually to match other modal styles (keeps layout tidy) */
 #modal-open-access .modal-body { scrollbar-width: none; }
 #modal-open-access .modal-body::-webkit-scrollbar { width: 0; height: 0; }
-/* Keep the same top mask and title spacing as Mission & Vision so
-   the Open Access popup's top margin matches other popups. */
-#modal-open-access .modal-dialog::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 24px; /* hidden safe zone height */
-  background: #000; /* same as modal background */
-  pointer-events: none;
-  z-index: 2; /* above content, below title */
-}
-#modal-open-access .modal-body h2 {
-  margin-top: 24px; /* push title below hidden strip to match other modals */
-}
-
 /* Slight left offset for reference list items inside modals */
 .modal-references ol li {
   margin-left: 6px;
 }
 
-/* Title will sit just below the 24px mask */
-#modal-mission .modal-body h2 {
-  margin-top: 24px; /* push title below hidden strip */
-}
 /* Hide scrollbar but keep scroll functionality */
 #modal-mission .modal-body { scrollbar-width: none; }
 #modal-mission .modal-body::-webkit-scrollbar { width: 0; height: 0; }

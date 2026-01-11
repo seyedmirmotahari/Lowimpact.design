@@ -674,6 +674,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  // Ensure modal titles scroll with body content by moving them inside .modal-body.
+  document.querySelectorAll('.modal-dialog').forEach(dialog => {
+    const body = dialog.querySelector('.modal-body');
+    if (!body) return;
+    const title = dialog.querySelector(':scope > h1, :scope > h2, :scope > h3');
+    if (title && !body.contains(title)) {
+      body.insertBefore(title, body.firstChild);
+    }
+  });
+
   function getModalTitle(modalId) {
     const modalEl = document.getElementById(modalId);
     if (!modalEl) return '';
