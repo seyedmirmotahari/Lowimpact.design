@@ -566,7 +566,72 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const modalGroups = new Map();
   const modalToGroups = new Map();
+  const groupMeta = new Map();
+  const modalDisplayNames = new Map();
+  const modalAddresses = new Map();
   let modalGroupCounter = 0;
+
+  function extractLinkLabel(el) {
+    if (!el) return '';
+    const labelChild = el.querySelector('.link-label');
+    if (labelChild) return labelChild.textContent.trim();
+    return (el.textContent || '').trim();
+  }
+
+  function slugifyLabel(label) {
+    if (!label) return '';
+    let slug = label;
+    if (typeof slug.normalize === 'function') {
+      slug = slug.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+    slug = slug.toLowerCase().replace(/&/g, 'and');
+    return slug.replace(/[^a-z0-9]+/g, '');
+  }
+
+  function computeModalAddress(trigger, dropdownAncestor) {
+    const segments = [];
+    if (dropdownAncestor) {
+      const topLabel = getDropdownLabel(dropdownAncestor);
+      const topSlug = slugifyLabel(topLabel);
+      if (topSlug) segments.push(topSlug);
+    }
+    if (dropdownAncestor) {
+      const subSegments = [];
+      let parent = trigger.closest('li.has-submenu');
+      while (parent && dropdownAncestor.contains(parent)) {
+        const toggle = parent.firstElementChild;
+        const label = extractLinkLabel(toggle);
+        const slug = slugifyLabel(label);
+        if (slug) subSegments.unshift(slug);
+        parent = parent.parentElement ? parent.parentElement.closest('li.has-submenu') : null;
+      }
+      if (subSegments.length) segments.push(...subSegments);
+    }
+    return segments.join('/');
+  }
+
+  function getDropdownLabel(dropdownEl) {
+    if (!dropdownEl) return '';
+    const firstChild = dropdownEl.firstElementChild;
+    if (firstChild && firstChild.tagName && firstChild.tagName.toLowerCase() === 'a') {
+      return extractLinkLabel(firstChild);
+    }
+    return extractLinkLabel(dropdownEl);
+  }
+
+  function resolveGroupId(modalId, preferredGroupId) {
+    let groupId = preferredGroupId && modalGroups.has(preferredGroupId) ? preferredGroupId : preferredGroupId || '';
+    if (!groupId || !modalGroups.has(groupId)) {
+      const groups = modalToGroups.get(modalId);
+      if (groups && groups.size) {
+        const groupList = Array.from(groups);
+        groupId = groupList.find(g => (modalGroups.get(g) || []).length > 1) || groupList[0];
+      } else {
+        groupId = null;
+      }
+    }
+    return groupId && modalGroups.has(groupId) ? groupId : null;
+  }
 
   document.querySelectorAll('[data-modal]').forEach(trigger => {
     const modalId = trigger.getAttribute('data-modal');
@@ -581,12 +646,32 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
+    if (!groupMeta.has(groupId)) {
+      const label = dropdownAncestor ? getDropdownLabel(dropdownAncestor) : '';
+      groupMeta.set(groupId, { label });
+    }
+
     if (!modalGroups.has(groupId)) modalGroups.set(groupId, []);
     const seq = modalGroups.get(groupId);
     if (!seq.includes(modalId)) seq.push(modalId);
 
     if (!modalToGroups.has(modalId)) modalToGroups.set(modalId, new Set());
     modalToGroups.get(modalId).add(groupId);
+
+    if (!modalDisplayNames.has(modalId)) {
+      modalDisplayNames.set(modalId, extractLinkLabel(trigger));
+    }
+
+    const address = computeModalAddress(trigger, dropdownAncestor);
+    if (address) {
+      if (!modalAddresses.has(modalId)) {
+        modalAddresses.set(modalId, new Map());
+      }
+      const addrMap = modalAddresses.get(modalId);
+      if (addrMap && !addrMap.has(groupId)) {
+        addrMap.set(groupId, address);
+      }
+    }
   });
 
   function getModalTitle(modalId) {
@@ -596,21 +681,40 @@ document.addEventListener('DOMContentLoaded', function() {
     return titleEl ? titleEl.textContent.trim() : '';
   }
 
-  function updateModalNavState(modalEl) {
-    if (!modalEl || !modalEl.dataset) return;
-    let groupId = modalEl.dataset.activeGroup;
-    if (!groupId || !modalGroups.has(groupId)) {
-      const groups = modalToGroups.get(modalEl.id);
-      if (groups && groups.size) {
-        groupId = Array.from(groups).find(g => (modalGroups.get(g) || []).length > 1) || Array.from(groups)[0];
+  function updateModalBreadcrumb(modalEl, explicitGroupId) {
+    const labelEl = modalEl.querySelector('.modal-nav-label');
+    if (!labelEl) return;
+    const resolvedGroupId = explicitGroupId || resolveGroupId(modalEl.id, modalEl.dataset.activeGroup);
+    let groupLabel = '';
+    if (resolvedGroupId && groupMeta.has(resolvedGroupId)) {
+      groupLabel = groupMeta.get(resolvedGroupId).label || '';
+    }
+    let addressText = '';
+    const perModalAddress = modalAddresses.get(modalEl.id);
+    if (perModalAddress) {
+      if (resolvedGroupId && perModalAddress.has(resolvedGroupId)) {
+        addressText = perModalAddress.get(resolvedGroupId) || '';
       } else {
-        groupId = null;
+        const firstEntry = perModalAddress.values().next();
+        if (firstEntry && !firstEntry.done) {
+          addressText = firstEntry.value || '';
+        }
       }
     }
+    // Fallback to the modal title when a group label is unavailable so every popup shows some context text.
+    const text = addressText || groupLabel || getModalTitle(modalEl.id) || '';
+    labelEl.textContent = text;
+    labelEl.style.display = text ? '' : 'none';
+  }
+
+  function updateModalNavState(modalEl) {
+    if (!modalEl || !modalEl.dataset) return;
+    let groupId = resolveGroupId(modalEl.id, modalEl.dataset.activeGroup);
     if (!groupId) return;
     modalEl.dataset.activeGroup = groupId;
 
     const seq = modalGroups.get(groupId);
+    updateModalBreadcrumb(modalEl, groupId);
     if (!seq || seq.length <= 1) return;
     const idx = seq.indexOf(modalEl.id);
     if (idx === -1) return;
@@ -665,15 +769,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function navigateModal(fromModal, delta) {
     if (!fromModal || !fromModal.dataset) return;
-    let groupId = fromModal.dataset.activeGroup;
-    if (!groupId || !modalGroups.has(groupId)) {
-      const groups = modalToGroups.get(fromModal.id);
-      if (groups && groups.size) {
-        groupId = Array.from(groups).find(g => (modalGroups.get(g) || []).length > 1) || Array.from(groups)[0];
-      } else {
-        groupId = null;
-      }
-    }
+    let groupId = resolveGroupId(fromModal.id, fromModal.dataset.activeGroup);
     if (!groupId) return;
     const seq = modalGroups.get(groupId);
     if (!seq || seq.length <= 1) return;
@@ -714,6 +810,13 @@ document.addEventListener('DOMContentLoaded', function() {
     closeBtn.insertAdjacentElement('beforebegin', nextBtn);
     nextBtn.insertAdjacentElement('beforebegin', prevBtn);
 
+    let labelEl = modalEl.querySelector('.modal-nav-label');
+    if (!labelEl) {
+      labelEl = document.createElement('div');
+      labelEl.className = 'modal-nav-label';
+      dialog.appendChild(labelEl);
+    }
+
     prevBtn.addEventListener('click', (evt) => {
       evt.preventDefault();
       evt.stopPropagation();
@@ -745,15 +848,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.classList.add('modal-open');
 
     const { focusClose = true, groupId: overrideGroup } = options;
-    let activeGroup = overrideGroup;
-    if (!activeGroup || !modalGroups.has(activeGroup)) {
-      const groups = modalToGroups.get(modalId);
-      if (groups && groups.size) {
-        activeGroup = Array.from(groups).find(g => (modalGroups.get(g) || []).length > 1) || Array.from(groups)[0];
-      } else {
-        activeGroup = null;
-      }
-    }
+    let activeGroup = resolveGroupId(modalId, overrideGroup);
     if (activeGroup) modal.dataset.activeGroup = activeGroup;
     else delete modal.dataset.activeGroup;
 
@@ -768,6 +863,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     attachModalNavigation(modal);
     updateModalNavState(modal);
+    if (!activeGroup) {
+      const resolved = resolveGroupId(modalId);
+      if (resolved) {
+        modal.dataset.activeGroup = resolved;
+        updateModalBreadcrumb(modal, resolved);
+      } else {
+        updateModalBreadcrumb(modal, null);
+      }
+    }
 
     setupModalScrollProxy(modal);
     return modal;
@@ -790,15 +894,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const modalId = modalTrigger.getAttribute('data-modal');
       const modalEl = document.getElementById(modalId);
       const dropdownAncestor = modalTrigger.closest('.dropdown');
-      let groupId = dropdownAncestor ? dropdownAncestor.dataset.modalGroupId : '';
-      if (!groupId) {
-        const groups = modalToGroups.get(modalId);
-        if (groups && groups.size) {
-          groupId = Array.from(groups).find(g => (modalGroups.get(g) || []).length > 1) || Array.from(groups)[0];
-        } else {
-          groupId = null;
-        }
-      }
+      const groupId = resolveGroupId(modalId, dropdownAncestor ? dropdownAncestor.dataset.modalGroupId : '');
       openModalById(modalId, { groupId });
     }
 
