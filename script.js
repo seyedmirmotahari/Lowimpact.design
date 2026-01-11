@@ -503,11 +503,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   // Generic modal handler for all menu/submenu items with data-modal
+  document.querySelectorAll('.modal').forEach(modal => {
+    if (!modal.dataset.hadAriaHidden) {
+      modal.dataset.hadAriaHidden = modal.hasAttribute('aria-hidden') ? '1' : '0';
+    }
+  });
+
   function closeAllModals() {
+    let closedAny = false;
     document.querySelectorAll('.modal.open').forEach(m => {
-      m.setAttribute('aria-hidden', 'true');
+      if (m.dataset.hadAriaHidden === '1') {
+        m.setAttribute('aria-hidden', 'true');
+      } else {
+        m.removeAttribute('aria-hidden');
+      }
       m.classList.remove('open');
+      closedAny = true;
     });
+    if (closedAny) {
+      document.body.classList.remove('modal-open');
+    }
+  }
+
+  function bindDialogHoverState(dialog, button) {
+    if (!dialog || !button || button.dataset.hoverMonitor === '1') return;
+    const setState = (on) => dialog.classList.toggle('close-hover', !!on);
+    ['mouseenter', 'pointerenter', 'focus'].forEach(evt => {
+      button.addEventListener(evt, () => setState(true));
+    });
+    ['mouseleave', 'pointerleave', 'blur'].forEach(evt => {
+      button.addEventListener(evt, () => setState(false));
+    });
+    button.dataset.hoverMonitor = '1';
   }
 
   function closeAllDropdowns() {
@@ -537,48 +564,248 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  const modalGroups = new Map();
+  const modalToGroups = new Map();
+  let modalGroupCounter = 0;
+
+  document.querySelectorAll('[data-modal]').forEach(trigger => {
+    const modalId = trigger.getAttribute('data-modal');
+    if (!modalId) return;
+
+    const dropdownAncestor = trigger.closest('.dropdown');
+    let groupId = dropdownAncestor ? dropdownAncestor.dataset.modalGroupId : '';
+    if (!groupId) {
+      groupId = dropdownAncestor ? `group-${modalGroupCounter++}` : 'group-ungrouped';
+      if (dropdownAncestor) {
+        dropdownAncestor.dataset.modalGroupId = groupId;
+      }
+    }
+
+    if (!modalGroups.has(groupId)) modalGroups.set(groupId, []);
+    const seq = modalGroups.get(groupId);
+    if (!seq.includes(modalId)) seq.push(modalId);
+
+    if (!modalToGroups.has(modalId)) modalToGroups.set(modalId, new Set());
+    modalToGroups.get(modalId).add(groupId);
+  });
+
+  function getModalTitle(modalId) {
+    const modalEl = document.getElementById(modalId);
+    if (!modalEl) return '';
+    const titleEl = modalEl.querySelector('.modal-dialog h2, .modal-dialog h3');
+    return titleEl ? titleEl.textContent.trim() : '';
+  }
+
+  function updateModalNavState(modalEl) {
+    if (!modalEl || !modalEl.dataset) return;
+    let groupId = modalEl.dataset.activeGroup;
+    if (!groupId || !modalGroups.has(groupId)) {
+      const groups = modalToGroups.get(modalEl.id);
+      if (groups && groups.size) {
+        groupId = Array.from(groups).find(g => (modalGroups.get(g) || []).length > 1) || Array.from(groups)[0];
+      } else {
+        groupId = null;
+      }
+    }
+    if (!groupId) return;
+    modalEl.dataset.activeGroup = groupId;
+
+    const seq = modalGroups.get(groupId);
+    if (!seq || seq.length <= 1) return;
+    const idx = seq.indexOf(modalEl.id);
+    if (idx === -1) return;
+    const total = seq.length;
+    const prevIdx = idx - 1;
+    const nextIdx = idx + 1;
+    const prevTarget = prevIdx >= 0 ? seq[prevIdx] : null;
+    const nextTarget = nextIdx < total ? seq[nextIdx] : null;
+    const prevBtn = modalEl.querySelector('.modal-nav.modal-prev');
+    const nextBtn = modalEl.querySelector('.modal-nav.modal-next');
+    if (prevBtn) {
+      const hasPrev = !!prevTarget;
+      if (hasPrev) {
+        prevBtn.dataset.targetModal = prevTarget;
+        const prevTitle = getModalTitle(prevTarget);
+        if (prevTitle) {
+          prevBtn.setAttribute('aria-label', `Show previous: ${prevTitle}`);
+          prevBtn.setAttribute('title', prevTitle);
+        } else {
+          prevBtn.setAttribute('aria-label', 'Show previous item');
+          prevBtn.removeAttribute('title');
+        }
+      } else {
+        delete prevBtn.dataset.targetModal;
+        prevBtn.setAttribute('aria-label', 'No previous item');
+        prevBtn.removeAttribute('title');
+      }
+      prevBtn.disabled = !hasPrev;
+      prevBtn.setAttribute('aria-disabled', hasPrev ? 'false' : 'true');
+    }
+    if (nextBtn) {
+      const hasNext = !!nextTarget;
+      if (hasNext) {
+        nextBtn.dataset.targetModal = nextTarget;
+        const nextTitle = getModalTitle(nextTarget);
+        if (nextTitle) {
+          nextBtn.setAttribute('aria-label', `Show next: ${nextTitle}`);
+          nextBtn.setAttribute('title', nextTitle);
+        } else {
+          nextBtn.setAttribute('aria-label', 'Show next item');
+          nextBtn.removeAttribute('title');
+        }
+      } else {
+        delete nextBtn.dataset.targetModal;
+        nextBtn.setAttribute('aria-label', 'No next item');
+        nextBtn.removeAttribute('title');
+      }
+      nextBtn.disabled = !hasNext;
+      nextBtn.setAttribute('aria-disabled', hasNext ? 'false' : 'true');
+    }
+  }
+
+  function navigateModal(fromModal, delta) {
+    if (!fromModal || !fromModal.dataset) return;
+    let groupId = fromModal.dataset.activeGroup;
+    if (!groupId || !modalGroups.has(groupId)) {
+      const groups = modalToGroups.get(fromModal.id);
+      if (groups && groups.size) {
+        groupId = Array.from(groups).find(g => (modalGroups.get(g) || []).length > 1) || Array.from(groups)[0];
+      } else {
+        groupId = null;
+      }
+    }
+    if (!groupId) return;
+    const seq = modalGroups.get(groupId);
+    if (!seq || seq.length <= 1) return;
+    const currentIdx = seq.indexOf(fromModal.id);
+    if (currentIdx === -1) return;
+    const total = seq.length;
+    const targetIdx = currentIdx + delta;
+    if (targetIdx < 0 || targetIdx >= total) return;
+    const targetId = seq[targetIdx];
+    if (!targetId) return;
+    const opened = openModalById(targetId, { groupId });
+    if (opened) updateModalNavState(opened);
+  }
+
+  function attachModalNavigation(modalEl) {
+    if (!modalEl || modalEl.dataset.navAttached === '1') return;
+    const dialog = modalEl.querySelector('.modal-dialog');
+    const closeBtn = dialog ? dialog.querySelector('.modal-close') : null;
+    if (!dialog || !closeBtn) return;
+
+    const groups = modalToGroups.get(modalEl.id);
+    const hasMultiGroup = groups ? Array.from(groups).some(g => {
+      const seq = modalGroups.get(g);
+      return seq && seq.length > 1;
+    }) : false;
+    if (!hasMultiGroup) return;
+
+    const prevBtn = document.createElement('button');
+    prevBtn.type = 'button';
+    prevBtn.className = 'modal-nav modal-prev';
+    prevBtn.textContent = '<';
+
+    const nextBtn = document.createElement('button');
+    nextBtn.type = 'button';
+    nextBtn.className = 'modal-nav modal-next';
+    nextBtn.textContent = '>';
+
+    closeBtn.insertAdjacentElement('beforebegin', nextBtn);
+    nextBtn.insertAdjacentElement('beforebegin', prevBtn);
+
+    prevBtn.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      evt.stopPropagation();
+      navigateModal(modalEl, -1);
+    });
+    nextBtn.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      evt.stopPropagation();
+      navigateModal(modalEl, 1);
+    });
+
+    bindDialogHoverState(dialog, prevBtn);
+    bindDialogHoverState(dialog, nextBtn);
+
+    modalEl.dataset.navAttached = '1';
+  }
+
+  function openModalById(modalId, options = {}) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return null;
+    closeAllDropdowns();
+    closeAllModals();
+    if (modal.dataset.hadAriaHidden === '1') {
+      modal.setAttribute('aria-hidden', 'false');
+    } else {
+      modal.removeAttribute('aria-hidden');
+    }
+    modal.classList.add('open');
+    document.body.classList.add('modal-open');
+
+    const { focusClose = true, groupId: overrideGroup } = options;
+    let activeGroup = overrideGroup;
+    if (!activeGroup || !modalGroups.has(activeGroup)) {
+      const groups = modalToGroups.get(modalId);
+      if (groups && groups.size) {
+        activeGroup = Array.from(groups).find(g => (modalGroups.get(g) || []).length > 1) || Array.from(groups)[0];
+      } else {
+        activeGroup = null;
+      }
+    }
+    if (activeGroup) modal.dataset.activeGroup = activeGroup;
+    else delete modal.dataset.activeGroup;
+
+    const dialog = modal.querySelector('.modal-dialog');
+    const closeBtn = dialog ? dialog.querySelector('.modal-close') : null;
+    if (closeBtn) {
+      if (focusClose !== false) {
+        closeBtn.focus();
+      }
+      bindDialogHoverState(dialog, closeBtn);
+    }
+
+    attachModalNavigation(modal);
+    updateModalNavState(modal);
+
+    setupModalScrollProxy(modal);
+    return modal;
+  }
+
+  modalGroups.forEach((seq) => {
+    seq.forEach(id => {
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      attachModalNavigation(modal);
+      updateModalNavState(modal);
+    });
+  });
+
   document.body.addEventListener('click', function(e) {
-    // Open modal if data-modal attribute is present
     const modalTrigger = e.target.closest('[data-modal]');
     if (modalTrigger) {
       e.preventDefault();
-      e.stopPropagation(); // Prevent event bubbling
-      
-      // Close all dropdowns FIRST before opening modal
-      closeAllDropdowns();
-      
+      e.stopPropagation();
       const modalId = modalTrigger.getAttribute('data-modal');
-      const modal = document.getElementById(modalId);
-      if (modal) {
-        closeAllModals();
-        modal.setAttribute('aria-hidden', 'false');
-        modal.classList.add('open');
-        const closeBtn = modal.querySelector('.modal-close');
-        if (closeBtn) closeBtn.focus();
-        
-        // Add close-hover behavior for all modals
-        const dialog = modal.querySelector('.modal-dialog');
-        if (closeBtn && dialog) {
-          const setCloseHover = (v) => dialog.classList.toggle('close-hover', !!v);
-          const onEnter = () => setCloseHover(true);
-          const onLeave = () => setCloseHover(false);
-          closeBtn.addEventListener('mouseenter', onEnter);
-          closeBtn.addEventListener('mouseleave', onLeave);
-          closeBtn.addEventListener('pointerenter', onEnter);
-          closeBtn.addEventListener('pointerleave', onLeave);
+      const modalEl = document.getElementById(modalId);
+      const dropdownAncestor = modalTrigger.closest('.dropdown');
+      let groupId = dropdownAncestor ? dropdownAncestor.dataset.modalGroupId : '';
+      if (!groupId) {
+        const groups = modalToGroups.get(modalId);
+        if (groups && groups.size) {
+          groupId = Array.from(groups).find(g => (modalGroups.get(g) || []).length > 1) || Array.from(groups)[0];
+        } else {
+          groupId = null;
         }
-
-        // Ensure scrolling works anywhere inside the dialog by routing wheel/touch to .modal-body
-        setupModalScrollProxy(modal);
       }
+      openModalById(modalId, { groupId });
     }
-    // Close modal if close button is clicked
+
     if (e.target.classList.contains('modal-close')) {
-      const modal = e.target.closest('.modal');
-      if (modal) {
-        modal.setAttribute('aria-hidden', 'true');
-        modal.classList.remove('open');
-      }
+      e.preventDefault();
+      e.stopPropagation();
+      closeAllModals();
     }
   });
 
@@ -595,13 +822,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeBtn = modalMission.querySelector('.modal-close');
 
     function openMissionModal() {
-      modalMission.setAttribute('aria-hidden', 'false');
-      modalMission.classList.add('open');
-      // ensure the close button has focus so keyboard users can close the dialog
-      closeBtn.focus();
-      // enable robust scrolling inside Mission modal
-      setupModalScrollProxy(modalMission);
-      
+      const opened = openModalById('modal-mission');
+      if (!opened) return;
+
       // Add force-hide to the About menu item to turn it dark green
       const aboutMenuItem = openMission.closest('li');
       if (aboutMenuItem) {
@@ -616,8 +839,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function closeMissionModal() {
-      modalMission.setAttribute('aria-hidden', 'true');
-      modalMission.classList.remove('open');
+      closeAllModals();
       // Do not return focus to the About link to avoid keeping it highlighted (green-active)
       if (openMission && typeof openMission.blur === 'function') {
         openMission.blur();

@@ -1180,6 +1180,46 @@ body.backlight-mode #modal-mission .modal-dialog::before {
   background: var(--green-offline);
 }
 
+.modal-nav {
+  position: absolute;
+  top: 0px;
+  background: transparent;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  padding: 0px;
+  margin: 0;
+  color: var(--green-offline);
+  border-radius: 4px;
+  transition: color var(--transition-speed) ease;
+}
+.modal-nav.modal-next {
+  right: 36px;
+}
+.modal-nav.modal-prev {
+  right: 57px;
+}
+.modal-nav:hover {
+  color: var(--green-active);
+}
+.modal-nav:focus {
+  outline: 2px solid rgba(0,0,0,0.25);
+  background: rgba(0,0,0,0.06);
+}
+.modal-nav[disabled] {
+  opacity: 0.45;
+  cursor: default;
+  background: transparent;
+}
+.modal-nav[disabled]:hover,
+.modal-nav[disabled]:focus {
+  color: var(--green-offline);
+  outline: none;
+  background: transparent;
+}
+
 .modal-close {
   position: absolute;
   top: 0px; /* was 2px, now 2px closer to top */
@@ -1201,6 +1241,24 @@ body.backlight-mode #modal-mission .modal-dialog::before {
 }
 .modal-close:focus {
   outline: 2px solid rgba(0,0,0,0.25);
+  background: rgba(0,0,0,0.06);
+}
+body.backlight-mode .modal-nav {
+  border: none !important;
+  box-shadow: none !important;
+  color: #444 !important;
+}
+body.backlight-mode .modal-nav[disabled] {
+  color: #737373 !important;
+}
+body.backlight-mode .modal-nav[disabled]:hover,
+body.backlight-mode .modal-nav[disabled]:focus {
+  color: #737373 !important;
+  background: transparent !important;
+}
+body.backlight-mode .modal-nav:hover,
+body.backlight-mode .modal-nav:focus {
+  color: #252525 !important;
   background: rgba(0,0,0,0.06);
 }
 .modal:not(#modal-green-tip):not(#modal-backlight-caution) .modal-dialog p {
