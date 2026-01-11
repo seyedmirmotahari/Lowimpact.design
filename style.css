@@ -1196,10 +1196,10 @@ body.backlight-mode #modal-mission .modal-dialog::before {
   transition: color var(--transition-speed) ease;
 }
 .modal-nav.modal-next {
-  right: 36px;
+  right: 31px;
 }
 .modal-nav.modal-prev {
-  right: 57px;
+  right: 52px;
 }
 .modal-nav:hover {
   color: var(--green-active);
