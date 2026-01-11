@@ -193,6 +193,23 @@ body.backlight-mode footer * {
   color: var(--green-active) !important;
   border-color: var(--green-active) !important;
 }
+
+@keyframes mode-toggle-blink {
+  0%, 20%, 100% {
+    background: #000;
+    color: var(--green-offline);
+    border-color: var(--green-offline);
+  }
+  40%, 80% {
+    background: #000;
+    color: var(--green-active);
+    border-color: var(--green-active);
+  }
+}
+
+#mode-toggle.mode-toggle-blink {
+  animation: mode-toggle-blink 0.55s ease-in-out 3;
+}
 /* Center all modal-dialog popups on the page */
 .modal[aria-hidden="true"] {
   display: none;
@@ -271,6 +288,27 @@ body.backlight-mode footer * {
   max-width: calc(100vw - 800px);
   padding-left: 24px;
   padding-right: 24px;
+}
+
+/* Match Energy Tip spacing with Display Mode Tip */
+#modal-backlight-caution .energy-tip-body,
+#modal-green-tip .modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#modal-backlight-caution .energy-tip-body p,
+#modal-green-tip .modal-body p {
+  margin: 0 0 0.75rem;
+}
+
+#modal-backlight-caution .energy-tip-actions,
+#modal-green-tip .modal-body > div {
+  margin-top: 0.125rem;
+  display: flex;
+  justify-content: center;
 }
 
 /* Energy tip (backlight caution) Done button styling

@@ -170,12 +170,14 @@
 </head>
 <body>
   <div id="modal-backlight-caution" class="modal">
-  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-backlight-caution-title" tabindex="-1" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-backlight-caution-title" tabindex="-1">
       <button class="modal-close" aria-label="Close modal">&times;</button>
-      <h2 id="modal-backlight-caution-title">Energy Tip</h2>
-      <div style="display:flex;flex-direction:column;align-items:center;">
-        <p style="margin-bottom:0.7em;">Reduce your screen brightness for better energy efficiency.</p>
-        <button id="modal-backlight-caution-done" class="modal-done" style="background:#000;color:#fff;padding:0.5em 1.2em;font-size:1em;border:none;border-radius:6px;cursor:pointer;margin:0;">Done</button>
+      <div class="modal-body energy-tip-body">
+        <h2 id="modal-backlight-caution-title">Energy Tip</h2>
+        <p>Reduce your screen brightness for better energy efficiency.</p>
+        <div class="energy-tip-actions">
+          <button id="modal-backlight-caution-done" class="modal-done">Done</button>
+        </div>
       </div>
     </div>
   </div>
@@ -2790,6 +2792,19 @@ document.addEventListener('DOMContentLoaded', function() {
   const closeButtons = modal.querySelectorAll('.modal-close');
   const modalDialog = modal.querySelector('.modal-dialog');
   const submitBtn = document.getElementById('modal-green-tip-submit');
+  const modeToggle = document.getElementById('mode-toggle');
+
+  function triggerModeToggleBlink() {
+    if (!modeToggle) return;
+    modeToggle.classList.remove('mode-toggle-blink');
+    void modeToggle.offsetWidth; // restart animation
+    modeToggle.classList.add('mode-toggle-blink');
+    modeToggle.addEventListener('animationend', function handleBlink(e) {
+      if (e.animationName === 'mode-toggle-blink') {
+        modeToggle.classList.remove('mode-toggle-blink');
+      }
+    }, { once: true });
+  }
       function showGreenModal() {
         modal.classList.add('open');
         document.body.classList.add('modal-open');
@@ -2807,6 +2822,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (_t) _t.style.color = '';
         // remove any submit-hover state when hiding
         if (modalDialog) modalDialog.classList.remove('submit-hover');
+        if (!document.body.classList.contains('backlight-mode')) {
+          triggerModeToggleBlink();
+        }
       }
       closeButtons.forEach(b => b.addEventListener('click', hideGreenModal));
       // when hovering or focusing the X, mark dialog so we can style title + X
@@ -2865,7 +2883,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
       // React to manual toggles as well (keeps existing toggle handler intact)
-      const modeToggle = document.getElementById('mode-toggle');
       if (modeToggle) {
         modeToggle.addEventListener('click', function() {
           // After the other toggle handler runs, check body class
