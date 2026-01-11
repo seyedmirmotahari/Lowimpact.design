@@ -1018,7 +1018,7 @@ nav > ul.menu > li > a {
   max-width: 720px;
   width: 100%;
   border-radius: 8px;
-  padding: 0 1.5rem 1.25rem;
+  padding: 0 1.5rem 0.625rem;
   box-shadow: 0 8px 36px rgba(0,0,0,0.75);
   outline: none;
   position: relative; /* contain the close button */
@@ -1050,7 +1050,7 @@ nav > ul.menu > li > a {
   height: auto;
   max-height: 80vh; /* keep it responsive up to the viewport height */
   padding-top: 0; /* no visible top margin */
-  padding-bottom: 1.25rem;
+  padding-bottom: 0.625rem;
   position: relative; /* anchor masking strip */
 }
 body.backlight-mode #modal-mission .modal-dialog {
@@ -1076,7 +1076,7 @@ body.backlight-mode #modal-mission .modal-dialog {
   height: auto;
   max-height: 80vh; /* keep responsive to viewport */
   padding-top: 0;
-  padding-bottom: 1.25rem;
+  padding-bottom: 0.625rem;
   position: relative; /* anchor fixed elements like the close button */
 }
 #modal-open-access .modal-body {
