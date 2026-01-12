@@ -1925,6 +1925,18 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="modal-body">
         <h2 id="modal-minimize-media-title">Minimize Heavy Media</h2>
         <p>This action suggests using techniques like dithering to reduce the size of media. Reducing heavy media content lowers data consumption and transfer requirements. This directly saves energy and resources associated with digital transmission and storage [1].</p>
+        <div class="crossbox-explanation" style="font-size:0.98em; color:#444;white-space:nowrap;display:flex;align-items:center;gap:8px;margin:8px 0 4px 0;">
+          <span style="color:var(--green-active);font-weight:600;line-height:1;">Compare image styles:</span>
+          <nav class="crossbox-menu" style="display:flex;align-items:center;gap:0px;line-height:1;position:relative;top:-2px;">
+            <span class="crossbox-menu-item active" id="crossbox-noimage">No Image</span>
+            <span class="crossbox-sep" style="vertical-align:middle;">|</span>
+            <span class="crossbox-menu-item" id="crossbox-dithered">Dithered</span>
+            <span class="crossbox-sep" style="vertical-align:middle;">|</span>
+            <span class="crossbox-menu-item" id="crossbox-bw">B&amp;W</span>
+            <span class="crossbox-sep" style="vertical-align:middle;">|</span>
+            <span class="crossbox-menu-item" id="crossbox-color">Color</span>
+          </nav>
+        </div>
         <div class="cross-box" aria-hidden="true">
           <img id="crossbox-image" src="" alt="Image style preview" style="width:100%;height:auto;display:none;max-width:800px;border:none;box-shadow:none;outline:none;">
           <span id="crossbox-size" style="position:absolute;right:10px;top:10px;background:rgba(255,255,255,0.85);color:#444;padding:2px 8px;border-radius:6px;font-size:0.98em;display:none;z-index:2;"></span>
@@ -1941,18 +1953,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           </style>
           </div>
-        <div class="crossbox-explanation" style="font-size:0.98em; color:#444;white-space:nowrap;display:flex;align-items:center;gap:8px;margin:8px 0 4px 0;">
-          <span style="color:var(--green-active);font-weight:600;line-height:1;">Compare image styles:</span>
-          <nav class="crossbox-menu" style="display:flex;align-items:center;gap:0px;line-height:1;position:relative;top:-2px;">
-            <span class="crossbox-menu-item active" id="crossbox-noimage">No Image</span>
-            <span class="crossbox-sep" style="vertical-align:middle;">|</span>
-            <span class="crossbox-menu-item" id="crossbox-dithered">Dithered</span>
-            <span class="crossbox-sep" style="vertical-align:middle;">|</span>
-            <span class="crossbox-menu-item" id="crossbox-bw">B&amp;W</span>
-            <span class="crossbox-sep" style="vertical-align:middle;">|</span>
-            <span class="crossbox-menu-item" id="crossbox-color">Color</span>
-          </nav>
-        </div>
         <script>
           /* Crossbox menu behavior is handled in `script.js`.
              Legacy inline handlers removed to avoid races and missing-asset errors. */
@@ -1972,6 +1972,18 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="modal-body">
         <h2 id="modal-solar-title">Solar Powered System</h2>
         <p>Global energy use is increasing, and digital designers have a responsibility to consider the environmental impact of their work. Sustainability should be considered at every step of the design process. Inspired by Low-tech Magazine, this website runs entirely on solar energy and is self-hosted.</p>
+        <div class="crossbox-explanation" style="font-size:0.98em; color:#444;white-space:nowrap;display:flex;align-items:center;gap:8px;margin:8px 0 4px 0;">
+          <span style="color:var(--green-active);font-weight:600;line-height:1;">Compare image styles:</span>
+          <nav class="crossbox-menu" style="display:flex;align-items:center;gap:0px;line-height:1;position:relative;top:-2px;">
+            <span class="crossbox-menu-item active" id="solar-noimage">No Image</span>
+            <span class="crossbox-sep" style="vertical-align:middle;">|</span>
+            <span class="crossbox-menu-item" id="solar-dithered">Dithered</span>
+            <span class="crossbox-sep" style="vertical-align:middle;">|</span>
+            <span class="crossbox-menu-item" id="solar-bw">B&amp;W</span>
+            <span class="crossbox-sep" style="vertical-align:middle;">|</span>
+            <span class="crossbox-menu-item" id="solar-color">Color</span>
+          </nav>
+        </div>
         <div class="cross-box" aria-hidden="true">
           <img id="solar-image" src="" alt="Image style preview" style="width:100%;height:auto;display:none;max-width:700px;border:none;box-shadow:none;outline:none;">
           <span id="solar-size" style="position:absolute;right:10px;top:10px;background:rgba(255,255,255,0.85);color:#444;padding:2px 8px;border-radius:6px;font-size:0.98em;display:none;z-index:2;"></span>
@@ -1988,18 +2000,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           </style>
           </div>
-        <div class="crossbox-explanation" style="font-size:0.98em; color:#444;white-space:nowrap;display:flex;align-items:center;gap:8px;margin:8px 0 4px 0;">
-          <span style="color:var(--green-active);font-weight:600;line-height:1;">Compare image styles:</span>
-          <nav class="crossbox-menu" style="display:flex;align-items:center;gap:0px;line-height:1;position:relative;top:-2px;">
-            <span class="crossbox-menu-item active" id="solar-noimage">No Image</span>
-            <span class="crossbox-sep" style="vertical-align:middle;">|</span>
-            <span class="crossbox-menu-item" id="solar-dithered">Dithered</span>
-            <span class="crossbox-sep" style="vertical-align:middle;">|</span>
-            <span class="crossbox-menu-item" id="solar-bw">B&amp;W</span>
-            <span class="crossbox-sep" style="vertical-align:middle;">|</span>
-            <span class="crossbox-menu-item" id="solar-color">Color</span>
-          </nav>
-        </div>
         <script>
           /* Crossbox menu behavior is handled in `script.js`.
              Legacy inline handlers removed to avoid races and missing-asset errors. */
