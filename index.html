@@ -2067,21 +2067,34 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                   });
                 }
+                function toggleSectionLists(on) {
+                  content.forEach(function(el){
+                    if (el.tagName === 'OL' || el.tagName === 'UL') {
+                      el.querySelectorAll('li').forEach(function(item){
+                        highlightElement(item, on);
+                      });
+                    }
+                  });
+                }
                 heading.addEventListener('mouseenter', function(){
                   highlightHeading(heading, true);
                   toggleSectionParagraphs(true);
+                  toggleSectionLists(true);
                 });
                 heading.addEventListener('mouseleave', function(){
                   highlightHeading(heading, false);
                   toggleSectionParagraphs(false);
+                  toggleSectionLists(false);
                 });
                 heading.addEventListener('focus', function(){
                   highlightHeading(heading, true);
                   toggleSectionParagraphs(true);
+                  toggleSectionLists(true);
                 });
                 heading.addEventListener('blur', function(){
                   highlightHeading(heading, false);
                   toggleSectionParagraphs(false);
+                  toggleSectionLists(false);
                 });
                 content.forEach(function(el){
                   if (el.tagName === 'P') {
