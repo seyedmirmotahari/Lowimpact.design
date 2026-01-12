@@ -1292,41 +1292,41 @@ body.backlight-mode .modal-nav-label {
   margin-top: 0.62rem !important;
 }
 
-/* When hovering the modal dialog, dim all paragraphs by default */
-.modal-dialog:hover p {
+/* When hovering the Mission & Vision modal, dim all paragraphs by default */
+#modal-mission .modal-dialog:hover p {
   color: var(--green-offline);
 }
 
 /* When hovering Mission label, highlight both Mission label and its description */
-.modal-dialog p:has(strong):not(.modal-vision):hover,
-.modal-dialog p:has(strong):not(.modal-vision):hover + p:not(.modal-vision) {
+#modal-mission .modal-dialog p:has(strong):not(.modal-vision):hover,
+#modal-mission .modal-dialog p:has(strong):not(.modal-vision):hover + p:not(.modal-vision) {
   color: var(--green-active) !important;
   cursor: pointer;
 }
 
 /* When hovering Mission description, highlight both Mission label and description */
-.modal-dialog p:not(:has(strong)):not(.modal-vision):hover,
-.modal-dialog p:has(+ p:not(.modal-vision):hover):not(.modal-vision) {
+#modal-mission .modal-dialog p:not(:has(strong)):not(.modal-vision):hover,
+#modal-mission .modal-dialog p:has(+ p:not(.modal-vision):hover):not(.modal-vision) {
   color: var(--green-active) !important;
   cursor: pointer;
 }
 
 /* When hovering Vision label, highlight both Vision label and its description */
-.modal-dialog p.modal-vision:hover,
-.modal-dialog p.modal-vision:hover + p {
+#modal-mission .modal-dialog p.modal-vision:hover,
+#modal-mission .modal-dialog p.modal-vision:hover + p {
   color: var(--green-active) !important;
   cursor: pointer;
 }
 
 /* When hovering Vision description, highlight both Vision label and description */
-.modal-dialog p.modal-vision + p:hover,
-.modal-dialog p.modal-vision:has(+ p:hover) {
+#modal-mission .modal-dialog p.modal-vision + p:hover,
+#modal-mission .modal-dialog p.modal-vision:has(+ p:hover) {
   color: var(--green-active) !important;
   cursor: pointer;
 }
 
 /* Reduce spacing between Mission/Vision labels and their text */
-.modal-dialog p strong:only-child {
+#modal-mission .modal-dialog p strong:only-child {
   display: block;
   margin-bottom: -0.37rem;
 }
@@ -1341,6 +1341,46 @@ body.backlight-mode .modal-nav-label {
 .modal-dialog:hover {
   border-color: var(--green-active);
   color: var(--green-active);
+}
+
+#modal-solar .modal-dialog h3 {
+  color: var(--green-offline);
+  transition: color var(--transition-speed) ease;
+}
+#modal-solar .modal-dialog p,
+#modal-solar .modal-dialog li {
+  transition: color var(--transition-speed) ease;
+}
+#modal-solar .modal-dialog p strong {
+  transition: color var(--transition-speed) ease;
+}
+#modal-solar .modal-dialog ol li {
+  color: var(--green-offline);
+}
+#modal-solar .modal-dialog:hover p,
+#modal-solar .modal-dialog:hover li,
+#modal-solar .modal-dialog:hover h3 {
+  color: var(--green-offline);
+}
+#modal-solar .modal-dialog:hover p strong {
+  color: var(--green-offline);
+}
+#modal-solar .modal-dialog p:hover,
+#modal-solar .modal-dialog li:hover,
+#modal-solar .modal-dialog h3:hover {
+  color: var(--green-active) !important;
+  cursor: pointer;
+}
+#modal-solar .modal-dialog p:hover strong {
+  color: var(--green-active) !important;
+}
+#modal-solar .modal-dialog .solar-section-highlight {
+  color: var(--green-active) !important;
+}
+#modal-solar .modal-dialog p:focus,
+#modal-solar .modal-dialog li:focus,
+#modal-solar .modal-dialog h3:focus {
+  color: var(--green-active) !important;
 }
 
 /* Removed overlay-hover rules to ensure the box reacts strictly to its own hover state */

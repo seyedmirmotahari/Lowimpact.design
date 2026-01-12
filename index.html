@@ -1971,7 +1971,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <button class="modal-close" aria-label="Close modal">&times;</button>
       <div class="modal-body">
         <h2 id="modal-solar-title">Solar Powered System</h2>
-        <p>Solar power converts sunlight into electricity using photovoltaic (PV) cells. Small, low-power installations like the Raspberry Pi project showcased here can be powered by a modest PV array and battery. Reducing reliance on grid electricity lowers overall energy consumption and carbon footprint [1].</p>
+        <p>Global energy use is increasing, and digital designers have a responsibility to consider the environmental impact of their work. Sustainability should be considered at every step of the design process. Inspired by Low-tech Magazine, this website runs entirely on solar energy and is self-hosted.</p>
         <div class="cross-box" aria-hidden="true">
           <img id="solar-image" src="" alt="Image style preview" style="width:100%;height:auto;display:none;max-width:700px;border:none;box-shadow:none;outline:none;">
           <span id="solar-size" style="position:absolute;right:10px;top:10px;background:rgba(255,255,255,0.85);color:#444;padding:2px 8px;border-radius:6px;font-size:0.98em;display:none;z-index:2;"></span>
@@ -2004,12 +2004,110 @@ document.addEventListener('DOMContentLoaded', function() {
           /* Crossbox menu behavior is handled in `script.js`.
              Legacy inline handlers removed to avoid races and missing-asset errors. */
         </script>
-        <div class="modal-references" style="margin-top:0.8em;">
-          <h3 style="margin:0 0 0.4em 0;">Reference</h3>
+        <p>This website aims not only to present sustainable digital design practices that designers can incorporate into their workflow to reduce energy consumption and carbon footprint, but also to apply these practices in its own operation.</p>
+        <p>The website is hosted on a Raspberry Pi Zero 2 W, thereby avoiding the energy-intensive use of cloud servers. Internet access is provided via a SIM card, giving the system independence. The website automatically goes offline if the battery is depleted and resumes operation once the solar-powered battery recharges.</p>
+        <p>The system utilizes a 100W, 12V solar panel to charge a 12V, 25Ah LiFePO₄ battery, which powers both the server and the internet router. A MPPT solar charge controller optimizes battery charging and protects the system, enabling fully sustainable and independent operation.</p>
+        <div class="modal-hardware" style="margin-top:0.8em;">
+          <h3 style="margin:0 0 0.4em 0;">Hardware</h3>
           <ol>
-            <li tabindex="0">International Energy Agency. (2022). Solar PV Global Supply Chains. <a href="https://www.iea.org/reports/solar-pv-global-supply-chains" target="_blank" rel="noopener">IEA Report</a></li>
+            <li>Raspberry Pi Zero 2 W: 1 GHz quad-core 64-bit CPU, 512 MB RAM, Bluetooth BLE, and WiFi.</li>
+            <li>Raspberry Pi expansion board: adds Ethernet, USB, and 4G capabilities.</li>
+            <li>2.13-inch e-paper display (250x122, SPI interface): low-energy display ideal for text-based content.</li>
+            <li>SanDisk Ultra microSD 32 GB: stores system and website data.</li>
+            <li>Aluminum heat sink with thermal pad: keeps the Raspberry Pi cool and efficient.</li>
+            <li>USB to RS485/RS232 serial converter: industrial-grade communication module.</li>
+            <li>DC-DC buck power supply: converts 6.5-40 V to 5 V for stable operation.</li>
+            <li>Moseworth 12 V 25 Ah LiFePO₄ battery: stores solar energy for continuous operation.</li>
+            <li>WERCHTAY 12 V 100 W solar panel: powers the system sustainably.</li>
+            <li>EPEVER Tracer1210AN MPPT solar charge controller (12 V, 10 A): optimizes battery charging.</li>
           </ol>
+          <h3 style="margin:0.8em 0 0.4em 0;">Two Display Modes</h3>
+          <p>The website offers two viewing modes to reduce energy use on visitors’ devices.</p>
+          <p><strong>Green mode</strong> uses a two-color scheme (green and black) optimized for OLED screens. Only green pixels light up, while black areas remain off, minimizing energy consumption. Darker greens use less energy, while brighter greens use slightly more. By relying on these tones, this mode significantly reduces energy use compared to standard color displays.</p>
+          <p><strong>Standard backlight mode</strong> is designed for traditional screens with backlighting. Users can reduce their device brightness to save energy while browsing.</p>
+          <h3 style="margin:0.8em 0 0.4em 0;">Optimized Image Use</h3>
+          <p>Images consume bandwidth and energy. Each image on this site is downloaded once and offered in four styles—wireframe, detailed, black and white, and color—each optimized for size to minimize data transfer and energy use.</p>
+          <h3 style="margin:0.8em 0 0.4em 0;">System Fonts</h3>
+          <p>The website relies only on system fonts, so visitors’ devices do not need to download additional font files. This reduces both data transfer and carbon footprint.</p>
+          <h3 style="margin:0.8em 0 0.4em 0;">Lightweight Design</h3>
+          <p>Pages are kept lightweight and primarily text based, making the site faster to load and more energy efficient.</p>
         </div>
+        <script>
+          (function(){
+            try {
+              const modal = document.getElementById('modal-solar');
+              if (!modal) return;
+              const headings = modal.querySelectorAll('.modal-body h3');
+              const sections = Array.from(headings).map(function(heading){
+                const content = [];
+                let next = heading.nextElementSibling;
+                while (next && next.tagName !== 'H3') {
+                  if (next.tagName === 'P' || next.tagName === 'OL' || next.tagName === 'UL') {
+                    content.push(next);
+                  }
+                  next = next.nextElementSibling;
+                }
+                return { heading, content };
+              });
+              function highlightHeading(heading, on) {
+                heading.classList.toggle('solar-section-highlight', !!on);
+              }
+              function highlightElement(el, on) {
+                el.classList.toggle('solar-section-highlight', !!on);
+              }
+              sections.forEach(function(section){
+                const { heading, content } = section;
+                function toggleSectionParagraphs(on) {
+                  content.forEach(function(el){
+                    if (el.tagName === 'P') {
+                      highlightElement(el, on);
+                      el.querySelectorAll('strong').forEach(function(strong){
+                        highlightElement(strong, on);
+                      });
+                    }
+                  });
+                }
+                heading.addEventListener('mouseenter', function(){
+                  highlightHeading(heading, true);
+                  toggleSectionParagraphs(true);
+                });
+                heading.addEventListener('mouseleave', function(){
+                  highlightHeading(heading, false);
+                  toggleSectionParagraphs(false);
+                });
+                heading.addEventListener('focus', function(){
+                  highlightHeading(heading, true);
+                  toggleSectionParagraphs(true);
+                });
+                heading.addEventListener('blur', function(){
+                  highlightHeading(heading, false);
+                  toggleSectionParagraphs(false);
+                });
+                content.forEach(function(el){
+                  if (el.tagName === 'P') {
+                    const toggleStrong = function(on) {
+                      el.querySelectorAll('strong').forEach(function(strong){
+                        highlightElement(strong, on);
+                      });
+                    };
+                    el.addEventListener('mouseenter', function(){ highlightHeading(heading, true); highlightElement(el, true); toggleStrong(true); });
+                    el.addEventListener('mouseleave', function(){ highlightHeading(heading, false); highlightElement(el, false); toggleStrong(false); });
+                    el.addEventListener('focusin', function(){ highlightHeading(heading, true); highlightElement(el, true); toggleStrong(true); });
+                    el.addEventListener('focusout', function(){ highlightHeading(heading, false); highlightElement(el, false); toggleStrong(false); });
+                  } else if (el.tagName === 'OL' || el.tagName === 'UL') {
+                    const items = el.querySelectorAll('li');
+                    items.forEach(function(item){
+                      item.addEventListener('mouseenter', function(){ highlightHeading(heading, true); highlightElement(item, true); });
+                      item.addEventListener('mouseleave', function(){ highlightHeading(heading, false); highlightElement(item, false); });
+                      item.addEventListener('focus', function(){ highlightHeading(heading, true); highlightElement(item, true); });
+                      item.addEventListener('blur', function(){ highlightHeading(heading, false); highlightElement(item, false); });
+                    });
+                  }
+                });
+              });
+            } catch (err) { /* ignore */ }
+          })();
+        </script>
       </div>
     </div>
   </div>
