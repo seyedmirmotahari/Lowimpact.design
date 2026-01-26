@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Ensure scroll proxy is attached if other code toggles modals open later.
         (function ensureScrollProxyOnOpen() {
           try {
+            if (typeof MutationObserver === 'undefined') return; // Skip if not available
             const observer = new MutationObserver((mutations) => {
               for (const m of mutations) {
                 if (m.type !== 'attributes' || m.attributeName !== 'class') continue;
@@ -125,8 +126,20 @@ document.addEventListener('DOMContentLoaded', function() {
       const brightGreenEnergy = brightGreenCoveragePercent * 0.1976; // 19.76%
       const totalEnergyUsagePercent = (darkGreenEnergy + brightGreenEnergy).toFixed(2);
       
-      darkCountEl.textContent = totalDarkGreenPixels.toLocaleString();
-      brightCountEl.textContent = totalBrightGreenPixels.toLocaleString();
+      // Cross-browser number formatting fallback
+      const formatNumber = (num) => {
+        if (typeof num.toLocaleString === 'function') {
+          try {
+            return num.toLocaleString();
+          } catch (e) {
+            return String(num);
+          }
+        }
+        return String(num);
+      };
+      
+      darkCountEl.textContent = formatNumber(totalDarkGreenPixels);
+      brightCountEl.textContent = formatNumber(totalBrightGreenPixels);
       energyPercentEl.textContent = totalEnergyUsagePercent;
     } catch (err) {
       darkCountEl.textContent = '?';
@@ -155,19 +168,27 @@ document.addEventListener('DOMContentLoaded', function() {
   // Update on window resize
   window.addEventListener('resize', window.schedulePixelCount);
 
-  // Watch for ALL DOM changes very aggressively
-  const greenPixelObserver = new MutationObserver(window.schedulePixelCount);
-  greenPixelObserver.observe(document.body, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    characterData: true
-  });
+  // Watch for ALL DOM changes very aggressively (with browser compatibility check)
+  if (typeof MutationObserver !== 'undefined') {
+    const greenPixelObserver = new MutationObserver(window.schedulePixelCount);
+    greenPixelObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      characterData: true
+    });
+  }
 
   // --- PAGE WEIGHT CALCULATOR ---
   async function updatePageWeight() {
     const weightEl = document.getElementById('page-weight');
     if (!weightEl) return;
+    
+    // Check if fetch is available (browser compatibility)
+    if (typeof fetch === 'undefined') {
+      weightEl.textContent = '?';
+      return;
+    }
     
     try {
       // Get HTML size
@@ -211,13 +232,15 @@ document.addEventListener('DOMContentLoaded', function() {
   updatePageWeight();
   
   // Update when DOM changes (modals opening/closing, etc.)
-  const pageObserver = new MutationObserver(updatePageWeight);
-  pageObserver.observe(document.body, { 
-    childList: true, 
-    subtree: true, 
-    attributes: true,
-    attributeFilter: ['class', 'aria-hidden']
-  });
+  if (typeof MutationObserver !== 'undefined') {
+    const pageObserver = new MutationObserver(updatePageWeight);
+    pageObserver.observe(document.body, { 
+      childList: true, 
+      subtree: true, 
+      attributes: true,
+      attributeFilter: ['class', 'aria-hidden']
+    });
+  }
   
   // Default location for weather/forecast requests. Update here to change city.
   const LOCATION = { lat: 38.7167, lon: -9.1333, name: 'Lisbon' };
@@ -256,10 +279,15 @@ document.addEventListener('DOMContentLoaded', function() {
   // Get hour of a Date in a specified timezone (0-23)
   function getHourInTZ(date, tz) {
     try {
-      return Number(new Intl.DateTimeFormat('en-GB', { hour: '2-digit', hour12: false, timeZone: tz }).format(date));
+      if (typeof Intl !== 'undefined' && Intl.DateTimeFormat) {
+        const formatted = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', hour12: false, timeZone: tz }).format(date);
+        const num = Number(formatted);
+        return isNaN(num) ? date.getHours() : num;
+      }
     } catch (_) {
-      return date.getHours();
+      // Fallback for browsers without Intl support
     }
+    return date.getHours();
   }
   // Heuristics: determine if a condition string implies rain
   function isRainyCond(cond) {
