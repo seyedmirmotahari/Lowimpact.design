@@ -1558,7 +1558,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       <!-- New: Server Stats column restored as the second column -->
       <section class="server-stats" aria-label="Server status">
-        <h3>System Status</h3>
+        <h3>System Status (Pi)</h3>
         <dl>
           <div>
             <dt>Location</dt>
@@ -1587,7 +1587,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </dl>
       </section>
   <section class="system-usage" aria-label="System Usage">
-        <h3 tabindex="0">System Usage</h3>
+        <h3 tabindex="0">System Usage (Pi)</h3>
         <dl>
           <div>
             <dt>CPU:</dt>
@@ -2950,23 +2950,34 @@ document.addEventListener('DOMContentLoaded', function() {
         hideGreenModal();
       });
 
-  // When Done is hovered or focused, make the modal title become offline green
+  // When Done is hovered or focused, make the modal content become offline green
   // and add .submit-hover so the dialog border switches to offline green.
   // Also support keyboard focus for accessibility.
       const modalTitleEl = modal.querySelector('#modal-green-tip-title');
+      const modalBody = modal.querySelector('.modal-body');
       if (submitBtn && modalTitleEl) {
-        function _setTitleOffline() {
+        function _setContentOffline() {
           modalTitleEl.style.color = 'var(--green-offline)';
+          // Change all paragraph text to green offline
+          if (modalBody) {
+            const paragraphs = modalBody.querySelectorAll('p');
+            paragraphs.forEach(p => p.style.color = 'var(--green-offline)');
+          }
           if (modalDialog) modalDialog.classList.add('submit-hover');
         }
-        function _clearTitleColor() {
+        function _clearContentColor() {
           modalTitleEl.style.color = '';
+          // Reset all paragraph text color
+          if (modalBody) {
+            const paragraphs = modalBody.querySelectorAll('p');
+            paragraphs.forEach(p => p.style.color = '');
+          }
           if (modalDialog) modalDialog.classList.remove('submit-hover');
         }
-        submitBtn.addEventListener('mouseenter', _setTitleOffline);
-        submitBtn.addEventListener('mouseleave', _clearTitleColor);
-        submitBtn.addEventListener('focus', _setTitleOffline);
-        submitBtn.addEventListener('blur', _clearTitleColor);
+        submitBtn.addEventListener('mouseenter', _setContentOffline);
+        submitBtn.addEventListener('mouseleave', _clearContentColor);
+        submitBtn.addEventListener('focus', _setContentOffline);
+        submitBtn.addEventListener('blur', _clearContentColor);
       }
 
       // When the pointer leaves the dialog area entirely, the border should
