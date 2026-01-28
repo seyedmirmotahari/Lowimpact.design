@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       const totalSize = htmlSize + cssSize + jsSize;
-      const sizeKB = (totalSize / 1024).toFixed(2);
+      const sizeKB = (totalSize / 1024).toFixed(0);
       weightEl.textContent = sizeKB;
     } catch (error) {
       console.error('Error calculating page weight:', error);
@@ -229,18 +229,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
+  // Calculate page weight once on load and freeze it
   updatePageWeight();
   
-  // Update when DOM changes (modals opening/closing, etc.)
-  if (typeof MutationObserver !== 'undefined') {
-    const pageObserver = new MutationObserver(updatePageWeight);
-    pageObserver.observe(document.body, { 
-      childList: true, 
-      subtree: true, 
-      attributes: true,
-      attributeFilter: ['class', 'aria-hidden']
-    });
-  }
+  // Disabled: Do NOT update when DOM changes - keep the value frozen
+  // if (typeof MutationObserver !== 'undefined') {
+  //   const pageObserver = new MutationObserver(updatePageWeight);
+  //   pageObserver.observe(document.body, { 
+  //     childList: true, 
+  //     subtree: true, 
+  //     attributes: true,
+  //     attributeFilter: ['class', 'aria-hidden']
+  //   });
+  // }
   
   // Default location for weather/forecast requests. Update here to change city.
   const LOCATION = { lat: 38.7167, lon: -9.1333, name: 'Lisbon' };
